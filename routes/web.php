@@ -1,7 +1,10 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\ProgramController;
+use App\Http\Controllers\PerusahaanController;
+use App\Http\Controllers\PenelitiController;
+use App\Http\Controllers\ProgramPublikController;
+use App\Http\Controllers\ProgramPrivateController;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -17,4 +20,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/dashboard',[DashboardController::class,'index']);
-Route::get('/program',[ProgramController::class,'index']);
+Route::get('/perusahaan', [PerusahaanController::class, 'index']);
+Route::get('/peneliti', [PenelitiController::class, 'index']);
+Route::get('/program-publik', [ProgramPublikController::class, 'index']);
+Route::get('/program-private', [ProgramPrivateController::class, 'index']);
