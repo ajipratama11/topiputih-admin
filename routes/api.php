@@ -26,3 +26,4 @@ Route::post('login', [UserController::class, 'login']);
 
 Route::post('registercompany', 'App\Http\Controllers\API\CompanyController@register');
 Route::post('logincompany', 'App\Http\Controllers\API\CompanyController@login');
+Route::post('loginc', 'App\Http\Controllers\API\CompanyController@loginc');

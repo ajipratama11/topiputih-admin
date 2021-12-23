@@ -11,6 +11,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
+use Symfony\Component\HttpFoundation\Response;
 
 class CompanyController extends Controller
 {
@@ -48,10 +49,35 @@ class CompanyController extends Controller
                 'error' => $error
             ], 'Authentication Failed', 500);
         }
+
+            // return Company::create([
+            //     'name' => $request->input('name'),
+            //     'username' => $request->input('username'),
+            //     'company_name' => $request->input('company_name'),
+            //     'phone_number' => $request->input('phone_number'),
+            //     'email' => $request->input('email'),
+            //     'password' => Hash::make($request->input('password')),
+            // ]);
     }
 
     public function login(Request $request)
     {
+
+        // if (!Auth::attempt($request->only('email','password'))) {
+        //     return response([
+        //         'message' => 'Invalid'
+        //     ], Response::HTTP_UNAUTHORIZED);
+        // }
+
+        // $company = Auth::company();
+        // $token = $company->createToken('token')->plainTextToken;
+
+        // $cookie = cookie('jwt', $token, 60*24);
+
+        // return response([
+        //     'message' => 'Success'
+        // ])->withCookie($cookie);
+
         try {
             $request->validate([
                 'email' => 'email|required',
@@ -82,5 +108,10 @@ class CompanyController extends Controller
                 'error' => $error,
             ], 'Authentication Failed', 500);
         }
+    }
+
+    public function loginc()
+    {
+        return 'ANDA MASUK';
     }
 }
