@@ -17,7 +17,7 @@ class CreateProgramTable extends Migration
             $table->id();
             $table->string('program_name');
             $table->string('company_name');
-            $table->integer('max-price');
+            $table->integer('max_price');
             $table->date('date_start');
             $table->date('date_end');
             $table->string('email');

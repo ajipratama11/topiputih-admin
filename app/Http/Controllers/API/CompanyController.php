@@ -65,16 +65,16 @@ class CompanyController extends Controller
                 ], 'Authentication Failed', 500);
             }
 
-            $user = User::where('email', $request->email)->first();
-            if (!Hash::check($request->password, $user->password, [])) {
+            $company = Company::where('email', $request->email)->first();
+            if (!Hash::check($request->password, $company->password, [])) {
                 throw new \Exception('Invalid Credentials');
             }
 
-            $tokenResult = $user->createToken('authToken')->plainTextToken;
+            $tokenResult = $company->createToken('authToken')->plainTextToken;
             return ResponseFormatter::success([
                 'access_token' => $tokenResult,
                 'token_type' => 'Bearer',
-                'user' => $user
+                'user' => $company
             ], 'Authenticated');
         } catch (Exception $error) {
             return ResponseFormatter::error([

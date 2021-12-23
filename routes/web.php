@@ -20,7 +20,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/dashboard',[DashboardController::class,'index']);
-Route::get('/perusahaan', [PerusahaanController::class, 'index']);
-Route::get('/peneliti', [PenelitiController::class, 'index']);
-Route::get('/program-publik', [ProgramPublikController::class, 'index']);
-Route::get('/program-private', [ProgramPrivateController::class, 'index']);
+// Route::get('/perusahaan', [PerusahaanController::class, 'index']);
+// Route::get('/peneliti', [PenelitiController::class, 'index']);
+// Route::get('/program-publik', [ProgramPublikController::class, 'index']);
+// Route::get('/program-private', [ProgramPrivateController::class, 'index']);
