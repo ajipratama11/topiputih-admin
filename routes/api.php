@@ -15,12 +15,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::get('/user', function(Request $request) {
+        return auth()->user();
+    });
+
+    Route::resource('programs', App\Http\Controllers\API\ProgramController::class);
+
+    // API route for logout user
+    Route::post('/logout', [UserController::class, 'logout']);
 });
 
-Route::get('program', 'App\Http\Controllers\API\ProgramController@all');
-// Route::get('program', [ProgramController::class, 'all']);
+// Route::get('program', 'App\Http\Controllers\API\ProgramController@all');
+
+
 Route::post('register', [UserController::class, 'register']);
 Route::post('login', [UserController::class, 'login']);
 
