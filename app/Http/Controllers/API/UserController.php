@@ -52,33 +52,33 @@ class UserController extends Controller
         return response($response, 201);
     }
 
-    public function login(Request $request) {
-        $fields = $request->validate([
-            'email' => 'required|string',
-            'password' => 'required|string'
-        ]);
+    // public function login(Request $request) {
+    //     $fields = $request->validate([
+    //         'email' => 'required|string',
+    //         'password' => 'required|string'
+    //     ]);
 
-        // Check email
-        $user = User::where('email', $fields['email'])->first();
+    //     // Check email
+    //     $user = User::where('email', $fields['email'])->first();
 
-        // Check password
-        if(!$user || !Hash::check($fields['password'], $user->password)) {
-            return response([
-                'message' => 'Email atau Password salah'
-            ], 401);
-        }
+    //     // Check password
+    //     if(!$user || !Hash::check($fields['password'], $user->password)) {
+    //         return response([
+    //             'message' => 'Email atau Password salah'
+    //         ], 401);
+    //     }
 
-        $token = $user->createToken('token')->plainTextToken;
+    //     $token = $user->createToken('token')->plainTextToken;
 
-        $response = [
-            'message' => 'Success',
-            'token' => $token,
-            'token_type' => 'Bearer',
-            'user' => $user
-        ];
+    //     $response = [
+    //         'message' => 'Success',
+    //         'token' => $token,
+    //         'token_type' => 'Bearer',
+    //         'user' => $user
+    //     ];
 
-        return response($response, 201);
-    }
+    //     return response($response, 201);
+    // }
 
     public function logout(Request $request) {
         auth()->user()->tokens()->delete();
@@ -121,72 +121,72 @@ class UserController extends Controller
     //     }
     // }
 
-    // // public function login(Request $request)
-    // // {
-    // //     // try {
-    // //     //     $request->validate([
-    // //     //         'email' => 'email|required',
-    // //     //         'password' => 'required'
-    // //     //     ]);
+    public function login(Request $request)
+    {
+        // try {
+        //     $request->validate([
+        //         'email' => 'email|required',
+        //         'password' => 'required'
+        //     ]);
 
-    // //     //     $credentials = request(['email', 'password']);
-    // //     //     if (!Auth::attempt($credentials)) {
-    // //     //         return ResponseFormatter::error([
-    // //     //             'message' => 'Unauthorized'
-    // //     //         ], 'Authentication Failed', 500);
-    // //     //     }
+        //     $credentials = request(['email', 'password']);
+        //     if (!Auth::attempt($credentials)) {
+        //         return ResponseFormatter::error([
+        //             'message' => 'Unauthorized'
+        //         ], 'Authentication Failed', 500);
+        //     }
 
-    // //     //     $user = User::where('email', $request->email)->first();
-    // //     //     if (!Hash::check($request->password, $user->password, [])) {
-    // //     //         throw new \Exception('Invalid Credentials');
-    // //     //     }
+        //     $user = User::where('email', $request->email)->first();
+        //     if (!Hash::check($request->password, $user->password, [])) {
+        //         throw new \Exception('Invalid Credentials');
+        //     }
 
-    // //     //     $tokenResult = $user->createToken('authToken')->plainTextToken;
-    // //     //     return ResponseFormatter::success([
-    // //     //         'access_token' => $tokenResult,
-    // //     //         'token_type' => 'Bearer',
-    // //     //         'user' => $user
-    // //     //     ], 'Authenticated');
-    // //     // } catch (Exception $error) {
-    // //     //     return ResponseFormatter::error([
-    // //     //         'message' => 'Something went wrong',
-    // //     //         'error' => $error,
-    // //     //     ], 'Authentication Failed', 500);
-    // //     // }
+        //     $tokenResult = $user->createToken('authToken')->plainTextToken;
+        //     return ResponseFormatter::success([
+        //         'access_token' => $tokenResult,
+        //         'token_type' => 'Bearer',
+        //         'user' => $user
+        //     ], 'Authenticated');
+        // } catch (Exception $error) {
+        //     return ResponseFormatter::error([
+        //         'message' => 'Something went wrong',
+        //         'error' => $error,
+        //     ], 'Authentication Failed', 500);
+        // }
         
-    // //     // if (!Auth::attempt($request->only('email', 'password'))) {
-    // //     //     return response([
-    // //     //         'message' => 'Invalid'
-    // //     //     ], Response::HTTP_UNAUTHORIZED);
-    // //     // }
+        // if (!Auth::attempt($request->only('email', 'password'))) {
+        //     return response([
+        //         'message' => 'Invalid'
+        //     ], Response::HTTP_UNAUTHORIZED);
+        // }
 
-    // //     // $user = Auth::user();
-    // //     // $token = $user->createToken('token')->plainTextToken;
+        // $user = Auth::user();
+        // $token = $user->createToken('token')->plainTextToken;
 
-    // //     // $cookie = cookie('jwt', $token, 60 * 24);
+        // $cookie = cookie('jwt', $token, 60 * 24);
 
-    // //     // return response([
-    // //     //     'message' => 'Success',
-    // //     //     'token' => $token,
-    // //     //     'token_type' => 'Bearer',
-    // //     //     'user' => $user
-    // //     // ])->withCookie($cookie);
+        // return response([
+        //     'message' => 'Success',
+        //     'token' => $token,
+        //     'token_type' => 'Bearer',
+        //     'user' => $user
+        // ])->withCookie($cookie);
 
 
-    // //     if (!Auth::attempt($request->only('email', 'password')))
-    // //     {
-    // //         return response()
-    // //             ->json(['message' => 'Unauthorized'], 401);
-    // //     }
+        if (!Auth::attempt($request->only('email', 'password')))
+        {
+            return response()
+                ->json(['message' => 'Unauthorized'], 401);
+        }
 
-    // //     $user = User::where('email', $request['email'])->firstOrFail();
+        $user = User::where('email', $request['email'])->firstOrFail();
 
-    // //     $token = $user->createToken('auth_token')->plainTextToken;
+        $token = $user->createToken('auth_token')->plainTextToken;
 
-    // //     return response()
-    // //         ->json(['message' => 'Hi '.$user->name.', welcome to home','access_token' => $token, 'token_type' => 'Bearer','user' => $user ]);
+        return response()
+            ->json(['message' => 'Hi '.$user->name.', welcome to home','access_token' => $token, 'token_type' => 'Bearer','user' => $user ]);
     
-    // // }
+    }
 
     // public function logout()
     // {
