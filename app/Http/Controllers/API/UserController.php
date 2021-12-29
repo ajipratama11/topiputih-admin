@@ -160,31 +160,31 @@ class UserController extends Controller
         //     ], Response::HTTP_UNAUTHORIZED);
         // }
 
-        // $user = Auth::user();
-        // $token = $user->createToken('token')->plainTextToken;
+        $user = Auth::user();
+        $token = $user->createToken('token')->plainTextToken;
 
-        // $cookie = cookie('jwt', $token, 60 * 24);
+        $cookie = cookie('jwt', $token, 60 * 24);
 
-        // return response([
-        //     'message' => 'Success',
-        //     'token' => $token,
-        //     'token_type' => 'Bearer',
-        //     'user' => $user
-        // ])->withCookie($cookie);
+        return response([
+            'message' => 'Success',
+            'token' => $token,
+            'token_type' => 'Bearer',
+            'user' => $user
+        ])->withCookie($cookie);
 
 
-        if (!Auth::attempt($request->only('email', 'password')))
-        {
-            return response()
-                ->json(['message' => 'Unauthorized'], 401);
-        }
+        // if (!Auth::attempt($request->only('email', 'password')))
+        // {
+        //     return response()
+        //         ->json(['message' => 'Unauthorized'], 401);
+        // }
 
-        $user = User::where('email', $request['email'])->firstOrFail();
+        // $user = User::where('email', $request['email'])->firstOrFail();
 
-        $token = $user->createToken('auth_token')->plainTextToken;
+        // $token = $user->createToken('auth_token')->plainTextToken;
 
-        return response()
-            ->json(['message' => 'Hi '.$user->name.', welcome to home','access_token' => $token, 'token_type' => 'Bearer','user' => $user ]);
+        // return response()
+        //     ->json(['message' => 'Hi '.$user->name.', welcome to home','access_token' => $token, 'token_type' => 'Bearer','user' => $user ]);
     
     }
 
