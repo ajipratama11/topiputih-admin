@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::post('/register', [UserController::class, 'register']);
-Route::post('/login', [UserController::class, 'login']);
+Route::post('login', [UserController::class, 'login']);
 Route::get('/program', [ProgramController::class, 'index']);
 Route::get('/program/{id}', [ProgramController::class, 'show']);
 Route::get('/program/search/{name}', [ProgramController::class, 'search']);
@@ -37,14 +37,14 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::delete('/program/{id}', [ProgramController::class, 'delete']);
     Route::post('/logout', [UserController::class, 'logout']);
     Route::get('/user',  [UserController::class, 'user']);
-    
+
 });
 
 
 // Route::group(['middleware' => ['auth:sanctum']], function () {
 //     Route::get('/user', function(Request $request) {
 //         // return auth()->user();
-//         return  
+//         return
 //             $request->user();
 //     });
 
@@ -52,7 +52,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
 //     // API route for logout user
 //     Route::post('/logout', [UserController::class, 'logout']);
-    
+
 // });
 
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
