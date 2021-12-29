@@ -18,10 +18,10 @@ class UserController extends Controller
 {
     public function user(Request $request){
         // auth()->user()->tokens();
-
-        return [
-            'message' =>auth()->user(),
-        ];
+return Auth::user();
+        // return [
+        //     'message' =>auth()->user(),
+        // ];
     }
 
     // public function register(Request $request) {
