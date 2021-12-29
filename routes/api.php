@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::post('/register', [UserController::class, 'register']);
+Route::post('register', [UserController::class, 'register']);
 Route::post('login', [UserController::class, 'login']);
 Route::get('/program', [ProgramController::class, 'index']);
 Route::get('/program/{id}', [ProgramController::class, 'show']);

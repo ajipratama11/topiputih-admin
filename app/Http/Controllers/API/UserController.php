@@ -24,33 +24,33 @@ class UserController extends Controller
         ];
     }
 
-    public function register(Request $request) {
-        $fields = $request->validate([
-            'name' => 'required|string',
-            'email' => 'required|string|unique:users,email',
-            'username' => 'required|string',
-            'phone_number' => 'required|string',
-            'password' => 'required|string|confirmed'
-        ]);
+    // public function register(Request $request) {
+    //     $fields = $request->validate([
+    //         'name' => 'required|string',
+    //         'email' => 'required|string|unique:users,email',
+    //         'username' => 'required|string',
+    //         'phone_number' => 'required|string',
+    //         'password' => 'required|string|confirmed'
+    //     ]);
 
-        $user = User::create([
-            'name' => $fields['name'],
-            'email' => $fields['email'],
-            'username' => $fields['username'],
-            'phone_number' => $fields['phone_number'],
-            'password' => bcrypt($fields['password'])
-        ]);
+    //     $user = User::create([
+    //         'name' => $fields['name'],
+    //         'email' => $fields['email'],
+    //         'username' => $fields['username'],
+    //         'phone_number' => $fields['phone_number'],
+    //         'password' => bcrypt($fields['password'])
+    //     ]);
 
-        $token = $user->createToken('token')->plainTextToken;
+    //     $token = $user->createToken('token')->plainTextToken;
 
-        $response = [
-            'message' => 'Berhasil daftar',
-            'user' => $user,
-            'token' => $token
-        ];
+    //     $response = [
+    //         'message' => 'Berhasil daftar',
+    //         'user' => $user,
+    //         'token' => $token
+    //     ];
 
-        return response($response, 201);
-    }
+    //     return response($response, 201);
+    // }
 
     // public function login(Request $request) {
     //     $fields = $request->validate([
@@ -88,38 +88,38 @@ class UserController extends Controller
         ];
     }
    
-    // public function register(Request $request)
-    // {
-    //     try {
-    //         $request->validate([
-    //             'name' => ['required', 'string', 'max:255'],
-    //             // 'username' => ['required', 'string', 'max:255', 'unique:companies'],
-    //             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-    //             // 'phone_number' => ['required', 'string', 'max:255'],
-    //             'password' => ['required', 'string', 'max:255'],
-    //         ]);
-    //         User::create([
-    //             'name' => $request->name,
-    //             // 'username' => $request->username,
-    //             'email' => $request->email,
-    //             // 'phone_number' => $request->phone_number,
-    //             'password' => Hash::make($request->password),
-    //         ]);
+    public function register(Request $request)
+    {
+        try {
+            $request->validate([
+                'name' => ['required', 'string', 'max:255'],
+                'username' => ['required', 'string', 'max:255', 'unique:companies'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                'phone_number' => ['required', 'string', 'max:255'],
+                'password' => ['required', 'string', 'max:255'],
+            ]);
+            User::create([
+                'name' => $request->name,
+                'username' => $request->username,
+                'email' => $request->email,
+                'phone_number' => $request->phone_number,
+                'password' => Hash::make($request->password),
+            ]);
 
-    //         $user = User::where('email', $request->email)->first();
-    //         $tokenResult = $user->createToken('authToken')->plainTextToken;
-    //         return ResponseFormatter::success([
-    //             'access_token' => $tokenResult,
-    //             'token_type' => 'Bearer',
-    //             'user' => $user
-    //         ], 'User Registered');
-    //     } catch (Exception $error) {
-    //         return ResponseFormatter::error([
-    //             'message' => 'something wrong',
-    //             'error' => $error
-    //         ], 'Authentication Failed', 500);
-    //     }
-    // }
+            $user = User::where('email', $request->email)->first();
+            $tokenResult = $user->createToken('authToken')->plainTextToken;
+            return ResponseFormatter::success([
+                'access_token' => $tokenResult,
+                'token_type' => 'Bearer',
+                'user' => $user
+            ], 'User Registered');
+        } catch (Exception $error) {
+            return ResponseFormatter::error([
+                'message' => 'something wrong',
+                'error' => $error
+            ], 'Authentication Failed', 500);
+        }
+    }
 
     public function login(Request $request)
     {
