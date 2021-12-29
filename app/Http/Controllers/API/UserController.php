@@ -107,7 +107,7 @@ class UserController extends Controller
             ]);
 
             $user = User::where('email', $request->email)->first();
-            $tokenResult = $user->createToken('authToken')->plainTextToken;
+            $tokenResult = $user->createToken('token')->plainTextToken;
             return ResponseFormatter::success([
                 'access_token' => $tokenResult,
                 'token_type' => 'Bearer',
