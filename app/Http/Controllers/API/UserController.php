@@ -154,11 +154,11 @@ class UserController extends Controller
         //     ], 'Authentication Failed', 500);
         // }
         
-        // if (!Auth::attempt($request->only('email', 'password'))) {
-        //     return response([
-        //         'message' => 'Invalid'
-        //     ], Response::HTTP_UNAUTHORIZED);
-        // }
+        if (!Auth::attempt($request->only('email', 'password'))) {
+            return response([
+                'message' => 'Invalid' 
+            ], Response::HTTP_UNAUTHORIZED);
+        }
 
         $user = Auth::user();
         $token = $user->createToken('token')->plainTextToken;
