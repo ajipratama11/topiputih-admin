@@ -32,7 +32,7 @@ Route::get('/program/search/{name}', [ProgramController::class, 'search']);
 
 // Protected routes
 Route::group(['middleware' => ['auth:sanctum']], function () {
-    Route::post('/program', [ProgramController::class, 'creat']);
+    Route::post('/program', [ProgramController::class, 'create']);
     Route::put('/program/{id}', [ProgramController::class, 'update']);
     Route::delete('/program/{id}', [ProgramController::class, 'delete']);
     Route::post('/logout', [UserController::class, 'logout']);
