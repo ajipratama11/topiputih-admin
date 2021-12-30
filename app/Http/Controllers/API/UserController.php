@@ -10,6 +10,7 @@ use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Password;
 use Symfony\Component\HttpFoundation\Response;
 // use Illuminate\Validation\Rules\Password;
@@ -18,7 +19,7 @@ class UserController extends Controller
 {
     public function user(Request $request){
         // auth()->user()->tokens();
-return Auth::user();
+        return Auth::user();
         // return [
         //     'message' =>auth()->user(),
         // ];
@@ -93,7 +94,7 @@ return Auth::user();
         try {
             $request->validate([
                 'name' => ['required', 'string', 'max:255'],
-                'username' => ['required', 'string', 'max:255', 'unique:companies'],
+                'username' => ['required', 'string', 'max:255', 'unique:users'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
                 'phone_number' => ['required', 'string', 'max:255'],
                 'password' => ['required', 'string', 'max:255'],
@@ -115,7 +116,7 @@ return Auth::user();
             ], 'User Registered');
         } catch (Exception $error) {
             return ResponseFormatter::error([
-                'message' => 'something wrong',
+                'message' => 'Email atau username sudah digunakan',
                 'error' => $error
             ], 'Authentication Failed', 500);
         }
@@ -123,6 +124,8 @@ return Auth::user();
 
     public function login(Request $request)
     {
+        // dd(Hash::make($request->password));
+        
         // try {
         //     $request->validate([
         //         'email' => 'email|required',
@@ -153,10 +156,11 @@ return Auth::user();
         //         'error' => $error,
         //     ], 'Authentication Failed', 500);
         // }
-        
-        if (!Auth::attempt($request->only('email', 'password'))) {
+        $credentials = request(['email', 'password']);
+        if (!Auth::attempt($credentials)) {
             return response([
-                'message' => 'Invalid' 
+                'message' => 'Invalid' ,
+                
             ], Response::HTTP_UNAUTHORIZED);
         }
 
@@ -169,7 +173,8 @@ return Auth::user();
             'message' => 'Success',
             'token' => $token,
             'token_type' => 'Bearer',
-            'user' => $user
+            'user' => $user,
+            // 'enc' => $credentials,
         ])->withCookie($cookie);
 
 
