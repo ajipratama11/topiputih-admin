@@ -29,8 +29,6 @@ class ProgramController extends Controller
             'date_end' => 'required',
             'email' => 'required',
             'description' => 'required',
-            'created_at' => 'required',
-            'updated_at' => 'required'
         ]);
 
         return Program::create($request->all());
