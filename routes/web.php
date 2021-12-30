@@ -1,11 +1,10 @@
 <?php
 
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\PerusahaanController;
-use App\Http\Controllers\PenelitiController;
-use App\Http\Controllers\ProgramPublikController;
-use App\Http\Controllers\ProgramPrivateController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ResearcherController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,8 +18,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/dashboard',[DashboardController::class,'index']);
-// Route::get('/perusahaan', [PerusahaanController::class, 'index']);
-// Route::get('/peneliti', [PenelitiController::class, 'index']);
+Route::get('/dashboard',[DashboardController::class,'index'])->middleware('auth');
+Route::get('/company', [CompanyController::class, 'index'])->middleware('auth');;
+Route::get('/researcher', [ResearcherController::class, 'index'])->middleware('auth');;
+Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
+Route::post('/login', [LoginController::class, 'authenticate']);
+Route::post('/logout', [LoginController::class, 'logout']);
 // Route::get('/program-publik', [ProgramPublikController::class, 'index']);
 // Route::get('/program-private', [ProgramPrivateController::class, 'index']);
