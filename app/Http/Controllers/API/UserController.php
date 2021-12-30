@@ -98,6 +98,7 @@ class UserController extends Controller
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
                 'phone_number' => ['required', 'string', 'max:255'],
                 'password' => ['required', 'string', 'max:255'],
+                'roles' => ['required', 'string', 'max:255'],
             ]);
             User::create([
                 'name' => $request->name,
@@ -105,6 +106,7 @@ class UserController extends Controller
                 'email' => $request->email,
                 'phone_number' => $request->phone_number,
                 'password' => Hash::make($request->password),
+                'roles' => $request->roles,
             ]);
 
             $user = User::where('email', $request->email)->first();
