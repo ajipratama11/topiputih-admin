@@ -37,8 +37,8 @@
            </a>
            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                <div class="bg-white py-2 collapse-inner rounded">
-                   <a class="collapse-item" href="/researcher">Peneliti Keamanan</a>
-                   <a class="collapse-item" href="/company">Perusahaan</a>
+                   <a class="collapse-item" href=" dashb/researcher">Peneliti Keamanan</a>
+                   <a class="collapse-item" href="{{url('/company')}}">Perusahaan</a>
                </div>
            </div>
        </li>

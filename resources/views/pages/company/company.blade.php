@@ -6,7 +6,7 @@
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Perusahaan</h1>
-        <a href="#" class="btn btn-primary"><i class="fas fa-download fa-sm text-white-50"></i> Tambah Perusahaan</a>
+        <a href="{{ route('company.create') }}" class="btn btn-primary"><i class="fas fa-download fa-sm text-white-50"></i> Tambah Perusahaan</a>
     </div>
 
     <!-- DataTales Example -->
@@ -35,7 +35,7 @@
                             <td>{{$company->email}}</td>
                             <td>{{$company->phone_number}}</td>
                             <td>{{$company->roles}}</td>
-                            <td>
+                            <td colspan="5">
                                 {{-- <a href="/company/edit/{{$company->id}}"><i class="fas fa-trash-alt"></i> Hapus</a>&nbsp;
                                 <a href=""><i class="fas fa-edit"></i>Ubah</a> --}}
                                 <a class="btn btn-info btn-sm" href="/company/{{$company->id}}/edit">Edit</a>

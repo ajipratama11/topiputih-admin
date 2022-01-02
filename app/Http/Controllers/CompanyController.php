@@ -11,7 +11,7 @@ class CompanyController extends Controller
     //
     public function index()
     {
-        return view('pages.company',[
+        return view('pages.company.company',[
             'companies' => User::where('roles','user')->get()
         ]);
     }
@@ -19,12 +19,19 @@ class CompanyController extends Controller
 
     public function create()
     {
-        //
+        return view('pages.company.create_company');
     }
 
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'username' => ['required', 'string', 'max:255', 'unique:users'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'phone_number' => ['required', 'string', 'max:255'],
+            'password' => ['required', 'string', 'max:255'],
+            'roles' => ['required', 'string', 'max:255'],
+        ]);
     }
 
   
@@ -38,14 +45,16 @@ class CompanyController extends Controller
     {
         $company = User::findOrFail($id);
    
-        return view('pages.edit_company', [
+        return view('pages.company.edit_company', [
           'company' => $company
         ]);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, User $company)
     {
-        //
+        $company->update($request->all());
+
+        return redirect()->route('company.index');
     }
 
   
