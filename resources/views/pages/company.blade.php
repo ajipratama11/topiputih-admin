@@ -2,91 +2,59 @@
 
 @section('content')
 <div class="container-fluid">
+
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">COMPANY
-            
-        </h1>
+        <h1 class="h3 mb-0 text-gray-800">Perusahaan</h1>
+        <a href="#" class="btn btn-primary"><i class="fas fa-download fa-sm text-white-50"></i> Tambah Perusahaan</a>
     </div>
 
-    <!-- Content Row -->
-    <div class="row">
-
-        <!-- Earnings (Monthly) Card Example -->
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-primary shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                Laporan Diterima</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">70</div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">List Perusahaan</h6>
         </div>
-
-        <!-- Earnings (Monthly) Card Example -->
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-success shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                Total Program</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">90</div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Earnings (Monthly) Card Example -->
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-info shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Total Peneliti Keamanan
-                            </div>
-                            <div class="row no-gutters align-items-center">
-                                <div class="col-auto">
-                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">21</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Pending Requests Card Example -->
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-warning shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                Total Perusahaan</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">7</div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-comments fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Nama Perusahaan</th>
+                            <th>Nama Kontak</th>
+                            <th>Nomor HP Kontak</th>
+                            <th>Surat Elektronik</th>
+                            <th>Total Program</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($companies as $company)
+                        <tr>
+                            <td>{{$company->name}}</td>
+                            <td>{{$company->username}}</td>
+                            <td>{{$company->email}}</td>
+                            <td>{{$company->phone_number}}</td>
+                            <td>{{$company->roles}}</td>
+                            <td>
+                                {{-- <a href="/company/edit/{{$company->id}}"><i class="fas fa-trash-alt"></i> Hapus</a>&nbsp;
+                                <a href=""><i class="fas fa-edit"></i>Ubah</a> --}}
+                                <a class="btn btn-info btn-sm" href="/company/{{$company->id}}/edit">Edit</a>
+                                     {{-- <a class="btn btn-primary btn-sm" href="{{ route('company.show', $company->id) }}">CEK</a> --}}
+                 
+                                     <form action="{{url('company', $company->id)}}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">Hapus</button>
+                                    </form>
+                                    </td>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
+
 </div>
 @endsection

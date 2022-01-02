@@ -19,10 +19,19 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/dashboard',[DashboardController::class,'index'])->middleware('auth');
-Route::get('/company', [CompanyController::class, 'index'])->middleware('auth');;
-Route::get('/researcher', [ResearcherController::class, 'index'])->middleware('auth');;
-Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
+
 Route::post('/login', [LoginController::class, 'authenticate']);
 Route::post('/logout', [LoginController::class, 'logout']);
-// Route::get('/program-publik', [ProgramPublikController::class, 'index']);
-// Route::get('/program-private', [ProgramPrivateController::class, 'index']);
+
+Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
+// Route::get('/company', [CompanyController::class, 'index'])->middleware('auth');
+// Route::get('/company/edit', [CompanyController::class, 'edit'])->middleware('auth');
+
+Route::resource('/researcher', ResearcherController::class)->middleware('auth');
+Route::resource('/company', CompanyController::class)->middleware('auth');
+// Route::resource('/company/edit', CompanyController::class)->middleware('auth');
+// Route::get('/researcher', [ResearcherController::class,'index'])->middleware('auth');;
+
+
+
+
