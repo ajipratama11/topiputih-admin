@@ -34,7 +34,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/dashboard">
                 <div class="sidebar-brand-icon rotate-n-15">
                    <img src="{{asset('img/topiputih.png')}}" width="50px" height="50px" alt="">
                 </div>
@@ -46,7 +46,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="/dashboard">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -68,8 +68,9 @@
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="/researcher">Peneliti Keamanan</a>
-                        <a class="collapse-item" href="/company">Perusahaan</a>
+                        
+                        <a class="collapse-item {{ (request()->is('researcher*')) ? 'active' : '' }}" href="/researcher">Peneliti Keamanan</a>
+                        <a class="collapse-item {{ (request()->is('company*')) ? 'active' : '' }}" href="/company">Pemilik Sistem</a>
                     </div>
                 </div>
             </li>
@@ -322,7 +323,7 @@
                                 {{-- <div class="dropdown-divider"></div> --}}
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
+                                    Keluar
                                 </a>
                             </div>
                         </li>
@@ -366,15 +367,21 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Yakin untuk Keluar?</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-body">Tekan "Keluar" jika anda ingin mengakhiri sesi ini</div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
+                    <form action="/logout" method="post">
+                        @csrf
+                        <button type="submit" class=" btn btn-primary " >
+                            <a class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></a>
+                            Keluar
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>

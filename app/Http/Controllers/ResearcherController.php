@@ -14,8 +14,8 @@ class ResearcherController extends Controller
      */
     public function index()
     {
-        return view('pages.researcher',[
-            'researchers' => User::where('roles','admin')->get()
+        return view('pages.researcher.researcher',[
+            'researchers' => User::where('roles','researcher')->get()
         ]);
     }
 
@@ -26,7 +26,7 @@ class ResearcherController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.researcher.create_researcher');
     }
 
     /**
@@ -37,7 +37,14 @@ class ResearcherController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'username' => ['required', 'string', 'max:255', 'unique:users'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'phone_number' => ['required', 'string', 'max:255'],
+            'password' => ['required', 'string', 'max:255'],
+            'roles' => ['required', 'string', 'max:255'],
+        ]);
     }
 
     /**
@@ -48,7 +55,11 @@ class ResearcherController extends Controller
      */
     public function show($id)
     {
-        
+        $researcher = User::findOrFail($id);
+   
+        return view('pages.researcher.detail_researcher', [
+          'researcher' => $researcher
+        ]);
     }
 
     /**
@@ -61,7 +72,7 @@ class ResearcherController extends Controller
     {
         $researcher = User::findOrFail($id);
    
-        return view('pages.edit_researcher', [
+        return view('pages.researcher.edit_researcher', [
           'researcher' => $researcher
         ]);
         // return view('pages.researcher',[
@@ -76,9 +87,11 @@ class ResearcherController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $researcher)
     {
-        //
+        $researcher->update($request->all());
+
+        return redirect()->route('researcher.index');
     }
 
     /**

@@ -15,9 +15,12 @@ use App\Http\Controllers\ResearcherController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Route::get('/', [DashboardController::class,'index'])->middleware('auth');
+
 Route::get('dashboard',[DashboardController::class,'index'])->middleware('auth');
 
 Route::post('/login', [LoginController::class, 'authenticate']);
