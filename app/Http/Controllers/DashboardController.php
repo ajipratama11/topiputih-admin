@@ -27,12 +27,12 @@ class DashboardController extends Controller
         // $enc = 
         
         $enc = $this->encodeing('123');
-        $dec = $this->decodeing('Hj+zehaFnKgMIPmH2NNs/ZhQe8jKdyqdeDXJhnLONcSpOOBOuGEb+7bRCLDcZ2tRW9bKkXZbgXbnIoi6dyzARctks8OifybxOA9VX7Q6D57rza8jixkRcJ1tdwCGPdPHcTSuwpxvmuuUtvU66Q4sOT71osHVHPGlpFurQAs7ayo=');
+        $dec = $this->decodeing('PriWRxUATQg+arvye7CyZkg0fp2DbYfoMcXQYCzTHf7UN2BLXTHCFYIcz4x+NDf1nMhkRbzJIVIum/D/UaMEGwI1Q1Dn44JesF9x8aMhy0jynzDVgr8g4FnBxozGPL+3Qazz49BGPOpq26qh5vEV7mEMUnHJoj9U5/uvy4mn17g=');
         // $enc = $key_content;
         // $dec = $prikeyid;
         return view('pages.dashboard',compact('count_company','count_researcher','dec','enc'));
     }
-    
+
     public function encodeing($sourcestr)  
     {
         
