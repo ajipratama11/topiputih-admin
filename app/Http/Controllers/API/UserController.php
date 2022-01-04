@@ -82,7 +82,18 @@ class UserController extends Controller
 
     //     return $decrypted;
     // }
-    
+    public function decodeing($crypttext)  
+    {
+        $pathToPrivateKey = app_path('Http/Controllers/privkey.php');
+        $prikeyid    = file_get_contents($pathToPrivateKey);   
+        $crypttext   = base64_decode($crypttext);
+        
+        if (openssl_private_decrypt($crypttext, $sourcestr, $prikeyid, OPENSSL_PKCS1_PADDING))  
+        {
+            return "".$sourcestr;  
+        }
+        return ;  
+    }
     public function login(Request $request)
     {
                 $fields = $request->validate([
@@ -93,8 +104,8 @@ class UserController extends Controller
                 // Check email
                 $user = User::where('email', $fields['email'])->first();
                
-                $decrypted = openssl_decrypt(base64_decode( $fields['password']), 'aes-128-cbc', self::AES_KEY, OPENSSL_RAW_DATA, self::AES_IV);
-                
+                // $decrypted = openssl_decrypt(base64_decode( $fields['password']), 'aes-128-cbc', self::AES_KEY, OPENSSL_RAW_DATA, self::AES_IV);
+                $decrypted = $this->decodeing( $fields['password']);
                 // Check password
                 if(!$user || !Hash::check($decrypted, $user->password)) {
                     return response([

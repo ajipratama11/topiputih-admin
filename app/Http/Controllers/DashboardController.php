@@ -4,36 +4,60 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-
+use Spatie\Crypto\Rsa\KeyPair;
+use Spatie\Crypto\Rsa\PublicKey;
+use Spatie\Crypto\Rsa\PrivateKey;
+ 
 class DashboardController extends Controller
 {
     //
     public function index()
     {
         
+        $pathToPublicKey = app_path('Http/Controllers/pubkey.php');
+        $key_content = file_get_contents($pathToPublicKey);  
+        
+        $pathToPrivateKey = app_path('Http/Controllers/privkey.php');
+        $prikeyid    = file_get_contents($pathToPrivateKey);  
+        // $crypttext   = base64_decode($crypttext);
+
         $count_company = User::where('roles','company')->get()->count();
         $count_researcher = User::where('roles','researcher')->get()->count();
-        $dec = $this->aes_encrypt('123');
-        $enc = $this->aes_decrypt('1SOcNAHVRsKYr9VZmQL7HQ==');
-        // dd($count);
+    
+        // $enc = 
+        
+        $enc = $this->encodeing('123');
+        $dec = $this->decodeing('Hj+zehaFnKgMIPmH2NNs/ZhQe8jKdyqdeDXJhnLONcSpOOBOuGEb+7bRCLDcZ2tRW9bKkXZbgXbnIoi6dyzARctks8OifybxOA9VX7Q6D57rza8jixkRcJ1tdwCGPdPHcTSuwpxvmuuUtvU66Q4sOT71osHVHPGlpFurQAs7ayo=');
+        // $enc = $key_content;
+        // $dec = $prikeyid;
         return view('pages.dashboard',compact('count_company','count_researcher','dec','enc'));
     }
-
-    const AES_KEY = "qq3217834abcdefg"; //16-bit
-    const AES_IV  = "1234567890123456"; //16-bit
-
-    public static function aes_decrypt($str)
+    
+    public function encodeing($sourcestr)  
     {
-        $decrypted = openssl_decrypt(base64_decode($str), 'aes-128-cbc', self::AES_KEY, OPENSSL_RAW_DATA, self::AES_IV);
-
-        return $decrypted;
+        
+        $pathToPublicKey = app_path('Http/Controllers/pubkey.php');
+        $key_content = file_get_contents($pathToPublicKey);  
+        $pubkeyid    = openssl_get_publickey($key_content);  
+          
+        if (openssl_public_encrypt($sourcestr, $crypttext, $pubkeyid))  
+        {
+            return base64_encode("".$crypttext);  
+        }
     }
 
-    public static function aes_encrypt($plain_text)
+    public function decodeing($crypttext)  
     {
-        $encrypted_data = openssl_encrypt($plain_text, 'aes-128-cbc', self::AES_KEY, OPENSSL_RAW_DATA, self::AES_IV);
-
-        return base64_encode($encrypted_data);
+        $pathToPrivateKey = app_path('Http/Controllers/privkey.php');
+        $prikeyid    = file_get_contents($pathToPrivateKey);   
+        $crypttext   = base64_decode($crypttext);
+        
+        if (openssl_private_decrypt($crypttext, $sourcestr, $prikeyid, OPENSSL_PKCS1_PADDING))  
+        {
+            return "".$sourcestr;  
+        }
+        return ;  
     }
+    
 
 }

@@ -85,6 +85,9 @@
                 </div>
             </div>
         </div>
+        <div class="h5 mb-0 font-weight-bold text-gray-800">SUDAH ENKRIP  : {{$enc}}</div>
+
+        <div class="h5 mb-0 font-weight-bold text-gray-800">HASIL DEKRIP  : {{$dec}}</div>
     </div>
 </div>
 @endsection
