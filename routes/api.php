@@ -25,10 +25,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/register', [UserController::class, 'register']);
 Route::post('login', [UserController::class, 'login']);
+Route::post('/register_tes', [UserController::class, 'register_tes']);
+Route::post('login_tes', [UserController::class, 'login_tes']);
 Route::get('/program', [ProgramController::class, 'index']);
 Route::get('/program/{id}', [ProgramController::class, 'show']);
 Route::get('/program/search/{name}', [ProgramController::class, 'search']);
 
+// Route::post('/register_admin', [UserController::class, 'register_admin']);
 
 // Protected routes
 Route::group(['middleware' => ['auth:sanctum']], function () {
@@ -37,7 +40,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::delete('/program/{id}', [ProgramController::class, 'delete']);
     Route::post('/logout', [UserController::class, 'logout']);
     Route::get('/user',  [UserController::class, 'user']);
-
+    Route::put('/password', [UserController::class, 'edit_password']);
+    Route::post('/cek_password', [UserController::class, 'cek_password']);
+    Route::post('/edit_password', [UserController::class, 'edit_password']);
 });
 
 

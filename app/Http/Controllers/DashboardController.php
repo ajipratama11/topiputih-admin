@@ -14,22 +14,22 @@ class DashboardController extends Controller
     public function index()
     {
         
-        $pathToPublicKey = app_path('Http/Controllers/pubkey.php');
-        $key_content = file_get_contents($pathToPublicKey);  
+        // $pathToPublicKey = app_path('Http/Controllers/pubkey.php');
+        // $key_content = file_get_contents($pathToPublicKey);  
         
-        $pathToPrivateKey = app_path('Http/Controllers/privkey.php');
-        $prikeyid    = file_get_contents($pathToPrivateKey);  
-        // $crypttext   = base64_decode($crypttext);
+        // $pathToPrivateKey = app_path('Http/Controllers/privkey.php');
+        // $prikeyid    = file_get_contents($pathToPrivateKey);  
+        // // $crypttext   = base64_decode($crypttext);
 
         $count_company = User::where('roles','company')->get()->count();
         $count_researcher = User::where('roles','researcher')->get()->count();
     
         // $enc = 
         
-        // $enc = $this->encodeing('123');
-        // $dec = $this->decodeing('PriWRxUATQg+arvye7CyZkg0fp2DbYfoMcXQYCzTHf7UN2BLXTHCFYIcz4x+NDf1nMhkRbzJIVIum/D/UaMEGwI1Q1Dn44JesF9x8aMhy0jynzDVgr8g4FnBxozGPL+3Qazz49BGPOpq26qh5vEV7mEMUnHJoj9U5/uvy4mn17g=');
-        $enc = '123';
-        $dec = '123';
+        $enc = $this->encodeing('Aji@pratama11');
+        $dec = $this->decodeing($enc);
+        // $enc = '123';
+        // $dec = '123';
         return view('pages.dashboard',compact('count_company','count_researcher','dec','enc'));
     }
 
