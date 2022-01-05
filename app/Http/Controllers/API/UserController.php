@@ -46,12 +46,13 @@ class UserController extends Controller
                 'password' => ['required', 'string', 'max:255'],
                 'roles' => ['required', 'string', 'max:255'],
             ]);
+            
             User::create([
                 'name' => $request->name,
                 'username' => $request->username,
                 'email' => $request->email,
                 'phone_number' => $request->phone_number,
-                'password' => Hash::make($request->password),
+                'password' => Hash::make($this->decodeing( $request->password)),
                 'roles' => $request->roles,
             ]);
 
@@ -71,17 +72,7 @@ class UserController extends Controller
     }
 
    
-    
 
-    const AES_KEY = "qq3217834abcdefg"; //16-bit
-    const AES_IV  = "1234567890123456"; //16-bit
-
-    // private function aes_decrypt($pass)
-    // {
-    //     $decrypted = openssl_decrypt(base64_decode($pass), 'aes-128-cbc', self::AES_KEY, OPENSSL_RAW_DATA, self::AES_IV);
-
-    //     return $decrypted;
-    // }
     public function decodeing($crypttext)  
     {
         $pathToPrivateKey = app_path('Http/Controllers/privkey.php');
