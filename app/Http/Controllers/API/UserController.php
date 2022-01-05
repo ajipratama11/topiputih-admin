@@ -25,7 +25,7 @@ class UserController extends Controller
         // ];
     }
 
-   
+
 
     public function logout(Request $request) {
         auth()->user()->tokens()->delete();
@@ -34,19 +34,19 @@ class UserController extends Controller
             'message' => 'Berhasil Keluar'
         ];
     }
-   
+
     public function register(Request $request)
     {
         try {
             $request->validate([
                 'name' => ['required', 'string', 'max:255'],
-                'username' => ['required', 'string', 'max:255', 'unique:users'],
+                'username' => ['required', 'string', 'max:255'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
                 'phone_number' => ['required', 'string', 'max:255'],
                 'password' => ['required', 'string', 'max:255'],
                 'roles' => ['required', 'string', 'max:255'],
             ]);
-            
+
             User::create([
                 'name' => $request->name,
                 'username' => $request->username,
@@ -71,19 +71,19 @@ class UserController extends Controller
         }
     }
 
-   
 
-    public function decodeing($crypttext)  
+
+    public function decodeing($crypttext)
     {
         $pathToPrivateKey = app_path('Http/Controllers/privkey.php');
-        $prikeyid    = file_get_contents($pathToPrivateKey);   
+        $prikeyid    = file_get_contents($pathToPrivateKey);
         $crypttext   = base64_decode($crypttext);
-        
-        if (openssl_private_decrypt($crypttext, $sourcestr, $prikeyid, OPENSSL_PKCS1_PADDING))  
+
+        if (openssl_private_decrypt($crypttext, $sourcestr, $prikeyid, OPENSSL_PKCS1_PADDING))
         {
-            return "".$sourcestr;  
+            return "".$sourcestr;
         }
-        return ;  
+        return ;
     }
     public function login(Request $request)
     {
@@ -91,10 +91,9 @@ class UserController extends Controller
                             'email' => 'required|string',
                             'password' => 'required|string'
                         ]);
-        
                 // Check email
                 $user = User::where('email', $fields['email'])->first();
-               
+
                 // $decrypted = openssl_decrypt(base64_decode( $fields['password']), 'aes-128-cbc', self::AES_KEY, OPENSSL_RAW_DATA, self::AES_IV);
                 $decrypted = $this->decodeing( $fields['password']);
                 // Check password
@@ -116,10 +115,10 @@ class UserController extends Controller
         //     return response([
         //         'message' => 'Invalid' ,
         //         'input' => $credentials
-            
+
         //     ], Response::HTTP_UNAUTHORIZED);
         // }
-        
+
 
         // $user = Auth::user();
         $token = $user->createToken('token')->plainTextToken;
