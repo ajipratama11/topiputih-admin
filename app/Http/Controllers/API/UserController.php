@@ -85,6 +85,8 @@ class UserController extends Controller
         }
         return ;
     }
+
+    
     public function login(Request $request)
     {
                 $fields = $request->validate([
