@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\API\ProgramController;
+use App\Http\Controllers\API\ResearcherBankController;
 use App\Http\Controllers\API\UserController;
 use App\Models\Program;
+use App\Models\ResearcherBank;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -31,6 +33,8 @@ Route::get('/program', [ProgramController::class, 'index']);
 Route::get('/program/{id}', [ProgramController::class, 'show']);
 Route::get('/program/search/{name}', [ProgramController::class, 'search']);
 
+Route::post('cek_user', [UserController::class, 'cek_user']);
+
 // Route::post('/register_admin', [UserController::class, 'register_admin']);
 
 // Protected routes
@@ -38,11 +42,17 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/program', [ProgramController::class, 'create']);
     Route::put('/program/{id}', [ProgramController::class, 'update']);
     Route::delete('/program/{id}', [ProgramController::class, 'delete']);
+
     Route::post('/logout', [UserController::class, 'logout']);
     Route::get('/user',  [UserController::class, 'user']);
+
     Route::put('/password', [UserController::class, 'edit_password']);
     Route::post('/cek_password', [UserController::class, 'cek_password']);
     Route::post('/edit_password', [UserController::class, 'edit_password']);
+
+    Route::post('/add_bank',[ResearcherBankController::class, 'create']);
+    Route::post('/edit_bank',[ResearcherBankController::class, 'update']);
+
 });
 
 

@@ -36,7 +36,7 @@
                             <td>{{$researcher->username}}</td>
                             <td>{{$researcher->phone_number}}</td>
                             <td>{{$researcher->email}}</td>
-                            <td>{{$researcher->roles}}</td>
+                            <td>{{$researcher->researcherBank->bank_name}}</td>
                             <td>
                                 <form action="{{url('researcher', $researcher->id)}}" method="POST">
                                     <a class="btn btn-info btn-sm" href="/researcher/{{$researcher->id}}/edit"><i

@@ -38,5 +38,8 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    
+    public function researcherBank()
+    {
+        return $this->hasOne(ResearcherBank::class);
+    }
 }
