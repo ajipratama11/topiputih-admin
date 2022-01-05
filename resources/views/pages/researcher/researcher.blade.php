@@ -21,12 +21,12 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>Nama Lengkap</th>
-                            <th>Nama Pengguna</th>
-                            <th>Nomor HP</th>
-                            <th>Surat Elektronik</th>
-                            <th>Point</th>
-                            <th>Aksi</th>
+                            <th class="col-2">Nama Lengkap</th>
+                            <th class="col-2">Nama Pengguna</th>
+                            <th class="col-1">Nomor HP</th>
+                            <th class="col-1">Surat Elektronik</th>
+                            <th class="col-1">Point</th>
+                            <th class="col-2">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>

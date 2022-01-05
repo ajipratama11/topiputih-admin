@@ -20,12 +20,12 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>Nama Pemilik Sistem</th>
-                            <th>Nama Kontak</th>
-                            <th>Nomor HP Kontak</th>
-                            <th>Surat Elektronik</th>
-                            <th>Total Program</th>
-                            <th>Aksi</th>
+                            <th class="col-2">Nama Pemilik Sistem</th>
+                            <th class="col-2">Nama Kontak</th>
+                            <th class="col-1">Nomor HP Kontak</th>
+                            <th class="col-1">Surat Elektronik</th>
+                            <th class="col-1">Total Program</th>
+                            <th class="col-2">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
