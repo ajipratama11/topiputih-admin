@@ -13,7 +13,7 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">List Peneliti Keamanan</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Daftar Peneliti Keamanan</h6>
         </div>
 
         <div class="card-body">
@@ -22,25 +22,25 @@
                     <thead>
                         <tr>
                             <th class="col-2">Nama Lengkap</th>
-                            <th class="col-2">Nama Pengguna</th>
+                            {{-- <th class="col-2">Nama Pengguna</th> --}}
                             <th class="col-1">Nomor HP</th>
-                            <th class="col-1">Surat Elektronik</th>
-                            <th class="col-1">Point</th>
-                            <th class="col-2">Aksi</th>
+                            <th class="col-1">Alamat Surat Elektronik</th>
+                            <th class="col-1">Bank</th>
+                            <th class="col-1">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($researchers as $researcher)
                         <tr>
                             <td>{{$researcher->name}}</td>
-                            <td>{{$researcher->username}}</td>
+                            {{-- <td>{{$researcher->username}}</td> --}}
                             <td>{{$researcher->phone_number}}</td>
                             <td>{{$researcher->email}}</td>
                             <td>{{$researcher->researcherBank->bank_name}}</td>
-                            <td>
+                            <td class="text-center">
                                 <form action="{{url('researcher', $researcher->id)}}" method="POST">
-                                    <a class="btn btn-info btn-sm" href="/researcher/{{$researcher->id}}/edit"><i
-                                            class="fas fa-fw fa-edit"></i></a>
+                                    {{-- <a class="btn btn-info btn-sm" href="/researcher/{{$researcher->id}}/edit"><i
+                                            class="fas fa-fw fa-edit"></i></a> --}}
                                     <a class="btn btn-info btn-sm"
                                         href="{{ route('researcher.show', $researcher->id)}}"><i
                                             class="fas fa-fw fa-info"></i></a></a>

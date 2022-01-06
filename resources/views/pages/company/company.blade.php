@@ -13,19 +13,19 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">List Pemilik Sistem</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Daftar Pemilik Sistem</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th class="col-2">Nama Pemilik Sistem</th>
-                            <th class="col-2">Nama Kontak</th>
+                            <th class="col-1">Nama Pemilik Sistem</th>
+                            <th class="col-1">Nama Kontak</th>
                             <th class="col-1">Nomor HP Kontak</th>
-                            <th class="col-1">Surat Elektronik</th>
+                            <th class="col-1">Alamat Surat Elektronik</th>
                             <th class="col-1">Total Program</th>
-                            <th class="col-2">Aksi</th>
+                            <th class="col-1">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -35,11 +35,11 @@
                             <td>{{$company->username}}</td>
                             <td>{{$company->phone_number}}</td>
                             <td>{{$company->email}}</td>
-                            <td>{{$company->roles}}</td>
-                            <td>
+                            <td>0</td>
+                            <td class="text-center">
                                 <form action="{{url('company', $company->id)}}" method="POST">
-                                    <a class="btn btn-info btn-sm " href="/company/{{$company->id}}/edit"><i
-                                            class="fas fa-fw fa-edit"></i></a>
+                                        {{-- <a class="btn btn-info btn-sm " href="/company/{{$company->id}}/edit"><i
+                                                class="fas fa-fw fa-edit"></i></a> --}}
                                     <a class="btn btn-info btn-sm"
                                         href="/company/{{$company->id}}"><i
                                             class="fas fa-fw fa-info"></i></a></a>

@@ -29,7 +29,9 @@
                             <p class="font-weight-normal">{{ $company->phone_number }}</p>
                             <span class="font-weight-bolder">Alamat Surat Elektronik </span>
                             <p class="font-weight-normal">{{ $company->email }}</p>
-                            <a class="btn btn-primary " href="/company/{{$company->id}}/edit">Edit</a>
+                            <span class="font-weight-bolder">Total Program </span>
+                            <p class="font-weight-normal">{{ 0 }}</p>
+                            {{-- <a class="btn btn-primary " href="/company/{{$company->id}}/edit">Edit</a> --}}
                         </div>
                     </div>
 

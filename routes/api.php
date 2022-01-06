@@ -1,10 +1,13 @@
 <?php
 
+use App\Http\Controllers\API\CertificateController;
 use App\Http\Controllers\API\ProgramController;
 use App\Http\Controllers\API\ResearcherBankController;
 use App\Http\Controllers\API\UserController;
 use App\Models\Program;
+use App\Models\Researcher;
 use App\Models\ResearcherBank;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -33,7 +36,7 @@ Route::get('/program', [ProgramController::class, 'index']);
 Route::get('/program/{id}', [ProgramController::class, 'show']);
 Route::get('/program/search/{name}', [ProgramController::class, 'search']);
 
-Route::post('cek_user', [UserController::class, 'cek_user']);
+
 
 // Route::post('/register_admin', [UserController::class, 'register_admin']);
 
@@ -52,7 +55,12 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::post('/add_bank',[ResearcherBankController::class, 'create']);
     Route::post('/edit_bank',[ResearcherBankController::class, 'update']);
+    Route::get('/bank/{user_id}', [ResearcherBankController::class, 'show']);
 
+    Route::get('/user/{id}', [UserController::class, 'show']);
+    Route::post('/edit_user',[UserController::class, 'edit_user']);
+
+    Route::post('/upload',[CertificateController::class, 'store']);
 });
 
 
