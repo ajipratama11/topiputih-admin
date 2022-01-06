@@ -11,25 +11,25 @@ class CertificateController extends Controller
 
     public function store(Request $request)
     {
-    $request->validate([
-               'file' => 'required|mimes:jpg,jpeg,png,csv,txt,xlx,xls,pdf|max:2048'
-            ]);
+        $request->validate([
+            'user_id' => 'required',
+            'cert_name' => 'required',
+            'cert_file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'cert_date' => 'required',
+            'cert_type' => 'required',
+        ]);
+  
+        $input = $request->all();
+  
+        if ($image = $request->file('cert_file')) {
+            $destinationPath = 'img/';
+            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            $image->move($destinationPath, $profileImage);
+            $input['cert_file'] = "$profileImage";
+        }
     
-            $fileUpload = new ResearcherSertificate;
-    
-            if($request->file()) {
-                $file_name = time().'_'.$request->file->getClientOriginalName();
-                $file_path = $request->file('file')->storeAs('uploads', $file_name, 'public');
+        ResearcherSertificate::create($input);
 
-                $fileUpload->user_id = '1';
-                $fileUpload->cert_file = time().'_'.$request->file->getClientOriginalName();
-                $fileUpload->cert_name = '/public/' . $file_path;
-                $fileUpload->cert_date = '1';
-                $fileUpload->cert_type = 'test';
-                $fileUpload->save();
-    
-                return response()->json(['success'=>'File uploaded successfully.']);
-            
-            }
+        return ('success Product created successfully.');
     }
 }

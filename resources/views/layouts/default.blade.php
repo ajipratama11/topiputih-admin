@@ -65,9 +65,9 @@
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        
-                        <a class="collapse-item {{ (request()->is('researcher*')) ? 'active' : '' }}" href="/researcher">Peneliti Keamanan</a>
                         <a class="collapse-item {{ (request()->is('company*')) ? 'active' : '' }}" href="/company">Pemilik Sistem</a>
+                        <a class="collapse-item {{ (request()->is('researcher*')) ? 'active' : '' }}" href="/researcher">Peneliti Keamanan</a>
+                        
                     </div>
                 </div>
             </li>

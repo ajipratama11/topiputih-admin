@@ -42,4 +42,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(ResearcherBank::class);
     }
+
+    public function researcherCertificate()
+    {
+        return $this->hasMany(ResearcherBank::class);
+    }
 }
