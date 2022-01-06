@@ -27,8 +27,8 @@ class ResearcherBankController extends Controller
             $bank = new ResearcherBank;
             $bank-> user_id = $fields['user_id'];
             $bank-> bank_name = $fields['bank_name'];
-            $bank-> account_number = $fields['account_number'];
-            $bank-> account_name = $fields['account_name'];
+            $bank-> account_number = $this->decodeing($fields['account_number']);
+            $bank-> account_name = $this->decodeing($fields['account_name']);
             $bank->save();
             return[
                 'message' => ' Berhasil Menambahkan Data',
@@ -50,10 +50,10 @@ class ResearcherBankController extends Controller
             // $bank = ResearcherBank::find( 1);
             // $bank-> user_id = $fields['user_id'];
             $bank-> bank_name = $fields['bank_name'];
-            $bank-> account_number = $fields['account_number'];
-            $bank-> account_name = $fields['account_name'];
-            // $bank-> account_number = $this->decodeing($fields['account_number']);
-            // $bank-> account_name = $this->decodeing($fields['account_name']);
+            // $bank-> account_number = $fields['account_number'];
+            // $bank-> account_name = $fields['account_name'];
+            $bank-> account_number = $this->decodeing($fields['account_number']);
+            $bank-> account_name = $this->decodeing($fields['account_name']);
             $bank->save();
             return[
                 'message' => ' Berhasil Update Data',

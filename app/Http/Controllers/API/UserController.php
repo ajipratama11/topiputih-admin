@@ -195,4 +195,25 @@ class UserController extends Controller
             'program' => $user,
         ];
     }
+
+    public function update_profile(Request $request)
+    {
+        $fields = $request->validate([
+            'id' => 'required',
+        ]);
+  
+        $user = User::where('id', $fields['id'])->first();
+        if ($image = $request->file('profile_picture')) {
+            $destinationPath = 'img/profile_user';
+            $profileImage = date('YmdHis') . "." . $image->getClientOriginalName();
+            $image->move($destinationPath, $profileImage);
+            $user-> profile_picture = "$profileImage";
+        }
+        $user->save();
+
+        return[
+            'message' => ' Berhasil Update Foto',
+            'user' => $user,
+        ];
+    }
 }

@@ -17,8 +17,8 @@
         <div class="card-body">
                     <div class="row">
                         <div class="col-lg-3 border-right ">
-                            <img class="img-profile rounded-circle align-middle"
-                                    src="{{'/img/profile.jpg'}}">
+                            <img class="img-fluid align-middle"
+                            src="{{'/img/profile_user/'}}{{$researcher->profile_picture}}">
                         </div>
                         <div class="col-lg-9">
                             <span class="font-weight-bolder"> Nama Peneliti Keamanan </span>
