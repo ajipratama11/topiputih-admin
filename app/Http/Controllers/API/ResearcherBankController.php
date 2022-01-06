@@ -10,11 +10,9 @@ use Exception;
 class ResearcherBankController extends Controller
 {
 
-    
 
     public function show($user_id)
     {
-        
         return ResearcherBank::where('user_id', $user_id)->first();;
     }
 

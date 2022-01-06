@@ -60,7 +60,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/user/{id}', [UserController::class, 'show']);
     Route::post('/edit_user',[UserController::class, 'edit_user']);
 
-    Route::post('/upload',[CertificateController::class, 'store']);
+    Route::get('/cert/{id}/', [CertificateController::class, 'show']);
+    Route::post('/upload_cert',[CertificateController::class, 'store']);
+    Route::delete('/cert/{id}', [CertificateController::class, 'delete']);
 });
 
 
