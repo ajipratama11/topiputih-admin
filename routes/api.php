@@ -36,7 +36,9 @@ Route::get('/program', [ProgramController::class, 'index']);
 Route::get('/program/{id}', [ProgramController::class, 'show']);
 Route::get('/program/search/{name}', [ProgramController::class, 'search']);
 
+Route::get('/program_list/{id}', [ProgramController::class, 'show_list']);
 
+Route::post('cek_email', [UserController::class, 'cek_email']);
 
 // Route::post('/register_admin', [UserController::class, 'register_admin']);
 
@@ -65,8 +67,11 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/upload_cert',[CertificateController::class, 'store']);
     Route::delete('/cert/{id}', [CertificateController::class, 'delete']);
     Route::post('/update_cert',[CertificateController::class, 'update']);
-});
 
+    Route::get('/cert_keahlian/{user_id}/', [CertificateController::class, 'show_1']);
+    Route::get('/cert_penghargaan/{user_id}/', [CertificateController::class, 'show_2']);
+});
+    
 
 // Route::group(['middleware' => ['auth:sanctum']], function () {
 //     Route::get('/user', function(Request $request) {

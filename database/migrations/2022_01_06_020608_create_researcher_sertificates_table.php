@@ -13,7 +13,7 @@ class CreateResearcherSertificatesTable extends Migration
      */
     public function up()
     {
-        Schema::create('researcher_sertificates', function (Blueprint $table) {
+        Schema::create('researcher_certificates', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id')->unsigned();
             $table->string('cert_name');
@@ -33,6 +33,6 @@ class CreateResearcherSertificatesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('researcher_sertificates');
+        Schema::dropIfExists('researcher_certificates');
     }
 }

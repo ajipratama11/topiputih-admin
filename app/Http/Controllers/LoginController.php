@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use SebastianBergmann\Environment\Console;
@@ -21,10 +22,15 @@ class LoginController extends Controller
             'email' => 'required|email:dns',
             'password' => 'required'
         ]);
-
+        // $user = User::where([
+        //     'email'=>$credentials['email'],
+        //     'password'=>$credentials['']]);
         if(Auth::attempt($credentials)){
-            $request->session()->regenerate();
-            return redirect()->intended('/dashboard');
+            // if($user = User::where('roles','administrator')){
+                $request->session()->regenerate();
+                return redirect()->intended('/dashboard');
+            // };
+            
         };
 
         return back()->with('loginEror','Login Gagal');

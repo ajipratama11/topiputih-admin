@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ResearcherSertificate;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -14,10 +15,17 @@ class ResearcherController extends Controller
      */
     public function index()
     {
+        // $count = ResearcherSertificate::where([
+        //     'cert_type' => 'keahlian'])->count();
+
+
         return view('pages.researcher.researcher',[
             'researchers' => User::where('roles','researcher')->get()
         ]);
     }
+
+    
+
 
     /**
      * Show the form for creating a new resource.

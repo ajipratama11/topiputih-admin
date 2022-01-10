@@ -45,6 +45,22 @@ class User extends Authenticatable
 
     public function researcherCertificate()
     {
-        return $this->hasMany(ResearcherBank::class);
+        return $this->hasOne(ResearcherSertificate::class);
     }
+
+    public function cert_count_1($user_id)
+    {
+        return ResearcherCertificate::where([
+            'user_id'=> $user_id,
+            'cert_type'=> 'keahlian'])->count();
+    }
+    
+    public function cert_count_2($user_id)
+    {
+        return ResearcherCertificate::where([
+            'user_id'=> $user_id,
+            'cert_type'=> 'penghargaan'])->count();
+    }
+
+    
 }

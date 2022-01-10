@@ -23,12 +23,12 @@ class UserController extends Controller
 
 
 
-    public function logout(Request $request) {
-        auth()->user()->tokens()->delete();
-        return [
-            'message' => 'Berhasil Keluar'
-        ];
-    }
+    // public function logout(Request $request) {
+    //     auth()->user()->tokens()->delete();
+    //     return [
+    //         'message' => 'Berhasil Keluar'
+    //     ];
+    // }
 
     public function register(Request $request)
     {
@@ -89,22 +89,21 @@ class UserController extends Controller
     
     public function login(Request $request)
     {
-                $fields = $request->validate([
-                            'email' => 'required|string',
-                            'password' => 'required|string'
-                        ]);
-                // Check email
-                $user = User::where('email',$this->decodeing( $fields['email']))->first();
+        $fields = $request->validate([
+                    'email' => 'required|string',
+                    'password' => 'required|string',
+                    'is_verified' => 'required'
+                ]);
+        
+        $user = User::where('email',$this->decodeing( $fields['email']))->first();
 
-                // $decrypted = openssl_decrypt(base64_decode( $fields['password']), 'aes-128-cbc', self::AES_KEY, OPENSSL_RAW_DATA, self::AES_IV);
-                $decrypted = $this->decodeing( $fields['password']);
-                
-                if(!$user || !Hash::check($decrypted,$user->password)) {
-                    return response([
-                        'message' => 'Invalid',
-                        'field' => $fields
-                    ], 401);
-                }
+        $decrypted = $this->decodeing( $fields['password']);
+        
+        if(!$user || !Hash::check($decrypted,$user->password)) {
+            return response([
+                'message' => 'Invalid',
+            ], 401);
+        }
         $token = $user->createToken('token')->plainTextToken;
 
         $cookie = cookie('jwt', $token, 60 * 24);
@@ -113,9 +112,8 @@ class UserController extends Controller
             'message' => 'Success',
             'token' => $token,
             'token_type' => 'Bearer',
-            'user' => $user,
-            'field' => $fields
-            // 'input' => $credentials,
+            'isVerified' => 'true',
+            'user' => $user
         ])->withCookie($cookie);
 
 
@@ -131,14 +129,12 @@ class UserController extends Controller
         $decrypted = $this->decodeing( $fields['password']);
         if(!$user || !Hash::check( $decrypted,$user->password)) {
             return response([
-                'message' => 'Password Tidak cocok',
-                'field' => $fields
+                'message' => 'Password Tidak cocok'
             ], 401);
         }
         return response([
             'message' => 'Password cocok',
-            'user' => $user,
-            'field' => $fields
+            'user' => $user
         ]);
 
     }
@@ -153,8 +149,7 @@ class UserController extends Controller
         $decrypted = $this->decodeing( $fields['password']);
         if(!$user || !Hash::check($decrypted,$user->password)) {
             return response([
-                'message' => 'Password Tidak cocok',
-                'field' => $fields
+                'message' => 'Password Tidak cocok'
             ], 401);
         }else{
             $user = User::find( $fields['id']);
@@ -190,9 +185,15 @@ class UserController extends Controller
         $user-> email =  $fields['email'];
         $user-> phone_number =  $fields['phone_number'];
         $user->save();
+        
         return[
             'message' => ' Berhasil Update Data',
-            'program' => $user,
+            'user' => 
+            $user-> name,
+            $user-> contact_name ,
+            $this->encodeing($user-> email),
+            $user-> phone_number ,
+            
         ];
     }
 
@@ -213,7 +214,43 @@ class UserController extends Controller
 
         return[
             'message' => ' Berhasil Update Foto',
-            'user' => $user,
+            'message' => ' Berhasil Update Data',
+            'user' => 
+            $user-> name,
+            $user-> contact_name ,
+            $this->encodeing($user-> email),
+            $user-> phone_number ,
+            
         ];
+    }
+
+    public function encodeing($sourcestr)  
+    {
+        
+        $pathToPublicKey = app_path('Http/Controllers/api/client_pubkey.php');
+        $key_content = file_get_contents($pathToPublicKey);  
+        $pubkeyid    = openssl_get_publickey($key_content);  
+          
+        if (openssl_public_encrypt($sourcestr, $crypttext, $pubkeyid))  
+        {
+            return base64_encode("".$crypttext);  
+        }
+    }
+
+    public function cek_email(Request $request)
+    {
+        $fields = $request->validate([
+                            'email' => 'required|string'
+                        ]);
+        $user = User::where('email', $this-> decodeing($fields['email']))->first();
+        // $decrypted = $this->decodeing( $fields['email']);
+        if(!$user) {
+            return response([
+                'message' => 'Alamat Surat Elektronik tidak ditemukan'
+            ], 401);
+        }
+        return response([
+            'message' => 'Link telah dikirim ke Alamat Surat Elektronik Anda'
+        ]);
     }
 }

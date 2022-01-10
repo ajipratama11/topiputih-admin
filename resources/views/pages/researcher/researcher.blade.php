@@ -23,9 +23,11 @@
                         <tr>
                             <th class="col-2">Nama Lengkap</th>
                             {{-- <th class="col-2">Nama Pengguna</th> --}}
-                            <th class="col-1">Nomor HP</th>
                             <th class="col-1">Alamat Surat Elektronik</th>
-                            <th class="col-1">Bank</th>
+                            {{-- <th class="col-1">Nama Bank</th>
+                            <th class="col-1">Nomor Rekening</th> --}}
+                            <th class="col-1">Banyak Sertifikat Keahlian</th>
+                            <th class="col-1">Banyak Sertifikat Penghargaan</th>
                             <th class="col-1">Aksi</th>
                         </tr>
                     </thead>
@@ -33,10 +35,11 @@
                         @foreach ($researchers as $researcher)
                         <tr>
                             <td>{{$researcher->name}}</td>
-                            {{-- <td>{{$researcher->username}}</td> --}}
-                            <td>{{$researcher->phone_number}}</td>
                             <td>{{$researcher->email}}</td>
-                            <td>{{$researcher->researcherBank->bank_name}}</td>
+                            <td>{{$researcher->cert_count_1($researcher->id)}}</td>
+                            <td>{{$researcher->cert_count_2($researcher->id)}}</td>
+                            {{-- <td>{{$researcher->researcherBank->bank_name}}</td>
+                            <td>{{$researcher->researcherBank->account_number}}</td> --}}
                             <td class="text-center">
                                 <form action="{{url('researcher', $researcher->id)}}" method="POST">
                                     {{-- <a class="btn btn-info btn-sm" href="/researcher/{{$researcher->id}}/edit"><i

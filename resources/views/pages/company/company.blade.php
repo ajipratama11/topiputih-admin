@@ -32,7 +32,7 @@
                         @foreach ($companies as $company)
                         <tr>
                             <td>{{$company->name}}</td>
-                            <td>{{$company->username}}</td>
+                            <td>{{$company->contact_name}}</td>
                             <td>{{$company->phone_number}}</td>
                             <td>{{$company->email}}</td>
                             <td>0</td>

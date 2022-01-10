@@ -13,7 +13,18 @@ class ResearcherBankController extends Controller
 
     public function show($user_id)
     {
-        return ResearcherBank::where('user_id', $user_id)->first();;
+        // return ResearcherBank::where('user_id', $user_id)->first();
+
+        $bank =  ResearcherBank::where('user_id', $user_id)->first();
+
+        return[
+            'message' => 'berhasil',
+            'id' => $bank -> id,
+            'user_id' => $bank -> user_id,
+            'bank_name' => $bank -> bank_name,
+            'account_number' => $this->encodeing($bank -> account_number),
+            'account_name' => $this->encodeing($bank -> account_name),
+        ];
     }
 
     public function create(Request $request)
@@ -74,4 +85,19 @@ class ResearcherBankController extends Controller
         }
         return ;
     }
+
+    public function encodeing($sourcestr)  
+    {
+        
+        $pathToPublicKey = app_path('Http/Controllers/api/client_pubkey.php');
+        $key_content = file_get_contents($pathToPublicKey);  
+        $pubkeyid    = openssl_get_publickey($key_content);  
+          
+        if (openssl_public_encrypt($sourcestr, $crypttext, $pubkeyid))  
+        {
+            return base64_encode("".$crypttext);  
+        }
+    }
+
+   
 }

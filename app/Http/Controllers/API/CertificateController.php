@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Controllers\Controller;
-use App\Models\ResearcherSertificate;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Models\ResearcherCertificate;
+use App\Models\ResearcherSertificate;
 
 class CertificateController extends Controller
 {
     public function show($id)
     {
-        return ResearcherSertificate::where('user_id', $id)->get();;
+        return ResearcherCertificate::where('user_id', $id)->get();;
     }
 
     public function store(Request $request)
@@ -32,7 +33,7 @@ class CertificateController extends Controller
             $input['cert_file'] = "$profileImage";
         }
     
-        ResearcherSertificate::create($input);
+        ResearcherCertificate::create($input);
 
         return[
             'message' => ' Berhasil Tambah Data',
@@ -50,7 +51,7 @@ class CertificateController extends Controller
             'cert_type' => 'required',
         ]);
   
-        $cert = ResearcherSertificate::where('id', $fields['id'])->first();
+        $cert = ResearcherCertificate::where('id', $fields['id'])->first();
         if ($image = $request->file('cert_file')) {
             $destinationPath = 'img/';
             $profileImage = date('YmdHis') . "." . $image->getClientOriginalName();
@@ -71,9 +72,23 @@ class CertificateController extends Controller
 
     public function delete($id)
     {
-            ResearcherSertificate::destroy($id);
+            ResearcherCertificate::destroy($id);
             return[
                 'message' => ' Berhasil Hapus',
             ];
+    }
+
+    public function show_1($user_id)
+    {
+        return ResearcherCertificate::where([
+            'user_id'=> $user_id,
+            'cert_type' => 'keahlian'])->get();
+    }
+
+    public function show_2($user_id)
+    {
+        return ResearcherCertificate::where([
+            'user_id'=> $user_id,
+            'cert_type' => 'penghargaan'])->get();
     }
 }

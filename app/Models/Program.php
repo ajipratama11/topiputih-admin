@@ -11,12 +11,12 @@ class Program extends Model
     use HasFactory;
 
     protected $fillable = [
+        'user_id',
         'program_name',
         'company_name',
         'max_price',
         'date_start',
         'date_end',
-        'email',
         'description',
     ];
 }

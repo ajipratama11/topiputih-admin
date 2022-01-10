@@ -26,17 +26,17 @@ class DashboardController extends Controller
     
         // $enc = 
         
-        $enc = $this->encodeing('fahd@mail.coms');
-        $dec = $this->decodeing($enc);
+        $enc = $this->encodeing('fahrizal@gmail.com');
+        // $dec = $this->decodeing($enc);
         // $enc = '123';
-        // $dec = '123';
+        $dec = '123';
         return view('pages.dashboard',compact('count_company','count_researcher','dec','enc'));
     }
 
     public function encodeing($sourcestr)  
     {
-        
         $pathToPublicKey = app_path('Http/Controllers/pubkey.php');
+        // $pathToPublicKey = app_path('Http/Controllers/api/client_pubkey.php');
         $key_content = file_get_contents($pathToPublicKey);  
         $pubkeyid    = openssl_get_publickey($key_content);  
           
@@ -46,9 +46,11 @@ class DashboardController extends Controller
         }
     }
 
+
     public function decodeing($crypttext)  
     {
         $pathToPrivateKey = app_path('Http/Controllers/privkey.php');
+        // $pathToPrivateKey = app_path('Http/Controllers/api/client_privkey.php');
         $prikeyid    = file_get_contents($pathToPrivateKey);   
         $crypttext   = base64_decode($crypttext);
         

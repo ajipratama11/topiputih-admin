@@ -5,14 +5,10 @@ namespace App\Http\Controllers\API;
 use Exception;
 use App\Models\Program;
 use Illuminate\Http\Request;
-use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\ProgramResource;
-use Illuminate\Support\Facades\Validator;
 
 class ProgramController extends Controller
 {
-    
 
     public function index()
     {
@@ -22,12 +18,12 @@ class ProgramController extends Controller
     public function create(Request $request)
     {
         $request->validate([
+            'user_id'=>'required',
             'program_name' => 'required',
             'company_name' => 'required',
             'max_price' => 'required',
             'date_start' => 'required',
             'date_end' => 'required',
-            'email' => 'required',
             'description' => 'required',
         ]);
 
@@ -39,10 +35,14 @@ class ProgramController extends Controller
         return Program::find($id);
     }
 
+    public function show_list($id)
+    {
+        return Program::where('user_id',$id)->get();
+    }
+
     
     public function update(Request $request, $id)
     {
-        
         try{
             $program = Program::find($id);
             $program->update($request->all());
@@ -62,7 +62,7 @@ class ProgramController extends Controller
     public function delete($id)
     {
         
-            $program = Program::destroy($id);
+        Program::destroy($id);
 
             return[
                 'message' => ' Berhasil Hapus',
