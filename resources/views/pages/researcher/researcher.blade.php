@@ -21,12 +21,12 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th class="col-2">Nama Lengkap</th>
+                            <th class="col-1">Nama Lengkap</th>
                             {{-- <th class="col-2">Nama Pengguna</th> --}}
                             <th class="col-1">Alamat Surat Elektronik</th>
                             {{-- <th class="col-1">Nama Bank</th>
                             <th class="col-1">Nomor Rekening</th> --}}
-                            <th class="col-1">Banyak Sertifikat Keahlian</th>
+                            <th class="col-1">Banyak Sertifikat<br>Keahlian</th>
                             <th class="col-1">Banyak Sertifikat Penghargaan</th>
                             <th class="col-1">Aksi</th>
                         </tr>

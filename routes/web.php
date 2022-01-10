@@ -1,10 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CompanyController;
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\ProgramController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ResearcherController;
+use App\Http\Controllers\CertificateController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -35,6 +37,8 @@ Route::group(['middleware' => ['admin']], function() {
     Route::get('dashboard',[DashboardController::class,'index']);
     Route::resource('researcher', ResearcherController::class);
     Route::resource('company', CompanyController::class);
+    Route::resource('program', ProgramController::class);
+    Route::resource('certificate', CertificateController::class);
 });
 // Route::resource('/company/edit', CompanyController::class)->middleware('auth');
 // Route::get('/researcher', [ResearcherController::class,'index'])->middleware('auth');;

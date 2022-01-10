@@ -82,8 +82,8 @@
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="program.html">Program Publik</a>
-                        <a class="collapse-item" href="program.html">Program Privasi</a>
+                        <a class="collapse-item {{ (request()->is('program*')) ? 'active' : '' }}" href="/program">Program Publik</a>
+                        {{-- <a class="collapse-item {{ (request()->is('program*')) ? 'active' : '' }}" href="/program">Program Privasi</a> --}}
                     </div>
                 </div>
             </li>

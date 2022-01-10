@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Company;
 use App\Models\User;
+use App\Models\Company;
+use App\Models\Program;
 use Illuminate\Http\Request;
 
 class CompanyController extends Controller
@@ -40,7 +41,8 @@ class CompanyController extends Controller
         $company = User::findOrFail($id);
    
         return view('pages.company.detail_company', [
-          'company' => $company
+          'company' => $company,
+          'program' => Program::where('user_id',$id)->get()
         ]);
     }
 

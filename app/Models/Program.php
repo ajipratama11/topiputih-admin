@@ -19,4 +19,9 @@ class Program extends Model
         'date_end',
         'description',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

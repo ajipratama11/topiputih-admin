@@ -26,7 +26,7 @@ class DashboardController extends Controller
     
         // $enc = 
         
-        $enc = $this->encodeing('fahrizal@gmail.com');
+        $enc = $this->encodeing('Aji@pratama11');
         // $dec = $this->decodeing($enc);
         // $enc = '123';
         $dec = '123';

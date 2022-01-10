@@ -14,6 +14,11 @@ class CertificateController extends Controller
         return ResearcherCertificate::where('user_id', $id)->get();;
     }
 
+    public function show_detail($id)
+    {
+        return ResearcherCertificate::where('id', $id)->first();;
+    }
+
     public function store(Request $request)
     {
         $request->validate([

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ResearcherCertificate;
 use App\Models\ResearcherSertificate;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -23,8 +24,6 @@ class ResearcherController extends Controller
             'researchers' => User::where('roles','researcher')->get()
         ]);
     }
-
-    
 
 
     /**
@@ -66,7 +65,8 @@ class ResearcherController extends Controller
         $researcher = User::findOrFail($id);
    
         return view('pages.researcher.detail_researcher', [
-          'researcher' => $researcher
+          'researcher' => $researcher,
+          'certificate' => ResearcherCertificate::where('user_id',$id)->get()
         ]);
     }
 
