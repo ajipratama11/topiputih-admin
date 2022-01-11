@@ -3,12 +3,8 @@
 use App\Http\Controllers\API\CertificateController;
 use App\Http\Controllers\API\ProgramController;
 use App\Http\Controllers\API\ResearcherBankController;
+use App\Http\Controllers\API\ResetPasswordController;
 use App\Http\Controllers\API\UserController;
-use App\Models\Program;
-use App\Models\Researcher;
-use App\Models\ResearcherBank;
-use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,6 +32,8 @@ Route::get('/program', [ProgramController::class, 'index']);
 Route::get('/program/{id}', [ProgramController::class, 'show']);
 Route::get('/program/search/{name}', [ProgramController::class, 'search']);
 
+Route::post('forgot_password', [ResetPasswordController::class, 'forgotPassword']);
+Route::post('reset_password', [ResetPasswordController::class, 'reset']);
 
 
 Route::post('cek_email', [UserController::class, 'cek_email']);

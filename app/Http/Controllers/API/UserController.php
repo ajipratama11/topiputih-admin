@@ -59,13 +59,14 @@ class UserController extends Controller
             // dd($user);
             $tokenResult = $user->createToken('token')->plainTextToken;
             return ResponseFormatter::success([
+                'message' => 'Berhasil daftar',
                 'access_token' => $tokenResult,
                 'token_type' => 'Bearer',
                 'user' => $user,
             ], 'User Registered');
         } catch (Exception $error) {
             return ResponseFormatter::error([
-                'message' => 'Email atau username sudah digunakan',
+                'message' => 'Alamat Surat Elektronik sudah Digunakan',
                 'error' => $error
             ], 'Authentication Failed', 500);
         }
@@ -92,7 +93,7 @@ class UserController extends Controller
         $fields = $request->validate([
                     'email' => 'required|string',
                     'password' => 'required|string',
-                    'is_verified' => 'required'
+                    // 'is_verified' => 'required'
                 ]);
         
         $user = User::where('email',$this->decodeing( $fields['email']))->first();
@@ -101,7 +102,7 @@ class UserController extends Controller
         
         if(!$user || !Hash::check($decrypted,$user->password)) {
             return response([
-                'message' => 'Invalid',
+                'message' => 'Alamat Surat Elektronik atau Kata Sandi salah',
             ], 401);
         }
         $token = $user->createToken('token')->plainTextToken;
@@ -109,7 +110,7 @@ class UserController extends Controller
         $cookie = cookie('jwt', $token, 60 * 24);
 
         return response([
-            'message' => 'Success',
+            'message' => 'Berhasil Masuk',
             'token' => $token,
             'token_type' => 'Bearer',
             'isVerified' => 'true',
@@ -149,7 +150,7 @@ class UserController extends Controller
         $decrypted = $this->decodeing( $fields['password']);
         if(!$user || !Hash::check($decrypted,$user->password)) {
             return response([
-                'message' => 'Password Tidak cocok'
+                'message' => 'Kata Sandi Tidak cocok'
             ], 401);
         }else{
             $user = User::find( $fields['id']);
@@ -157,7 +158,7 @@ class UserController extends Controller
             $user-> password =  Hash::make($this->decodeing($fields['password_new']));
             $user->save();
             return[
-                'message' => ' Berhasil Update Data',
+                'message' => ' Berhasil Mengubah Kata Sandi',
                 'program' => $user,
             ];
         }
@@ -187,7 +188,7 @@ class UserController extends Controller
         $user->save();
         
         return[
-            'message' => ' Berhasil Update Data',
+            'message' => ' Berhasil Mengubah Data',
             'user' => 
             $user-> name,
             $user-> contact_name ,
@@ -213,8 +214,8 @@ class UserController extends Controller
         $user->save();
 
         return[
-            'message' => ' Berhasil Update Foto',
-            'message' => ' Berhasil Update Data',
+            // 'message' => ' Berhasil Update Foto',
+            'message' => ' Berhasil Mengubah Foto',
             'user' => 
             $user-> name,
             $user-> contact_name ,

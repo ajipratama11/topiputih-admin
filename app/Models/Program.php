@@ -13,11 +13,14 @@ class Program extends Model
     protected $fillable = [
         'user_id',
         'program_name',
+        'program_image',
         'company_name',
         'max_price',
         'date_start',
         'date_end',
         'description',
+        'status',
+        'category'
     ];
 
     public function user()

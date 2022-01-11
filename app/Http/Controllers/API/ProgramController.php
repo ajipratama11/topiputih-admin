@@ -12,7 +12,15 @@ class ProgramController extends Controller
 
     public function index()
     {
-        return Program::all();
+        return Program::where([
+            'status'=>'active',
+            'category' => 'public'
+        ])->get();
+        // $program = Program::where('user_id',2)
+        // ->Where('program_name', 'like', '%1%')
+        // ->get();
+
+        // return $program;
     }
 
     public function create(Request $request)
@@ -20,11 +28,14 @@ class ProgramController extends Controller
         $request->validate([
             'user_id'=>'required',
             'program_name' => 'required',
+            'program_image' => 'required',
             'company_name' => 'required',
             'max_price' => 'required',
             'date_start' => 'required',
             'date_end' => 'required',
             'description' => 'required',
+            'status' => 'required',
+            'category' => 'required',
         ]);
 
         return Program::create($request->all());

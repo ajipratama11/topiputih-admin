@@ -54,9 +54,9 @@
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                 Banyak Program</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{$enc}}</div>
-                            <br>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">20</div>
+                            {{-- <div class="h5 mb-0 font-weight-bold text-gray-800">{{$enc}}</div>
+                            <br> --}}
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{$count_program}}</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -88,7 +88,7 @@
             
         </div>
         <!-- Pending Requests Card Example -->
-        <div class="h5 mb-0 font-weight-bold text-gray-800">SUDAH ENKRIP : {{$enc}}</div>
+        {{-- <div class="h5 mb-0 font-weight-bold text-gray-800">SUDAH ENKRIP : {{$enc}}</div> --}}
         
 
         {{-- <div class="h5 mb-0 font-weight-bold text-gray-800">HASIL DEKRIP : {{$dec}}</div> --}}
