@@ -168,7 +168,7 @@ class UserController extends Controller
 
     public function show($id)
     {
-        return User::where('id', $id)->first();;
+        return User::where('id', $id)->first();
     }
 
     public function edit_user (Request $request){

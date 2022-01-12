@@ -77,10 +77,10 @@ class CertificateController extends Controller
 
     public function delete($id)
     {
-            ResearcherCertificate::destroy($id);
-            return[
-                'message' => ' Berhasil Hapus',
-            ];
+        ResearcherCertificate::destroy($id);
+        return[
+            'message' => ' Berhasil Hapus',
+        ];
     }
 
     public function show_1($user_id)

@@ -15,10 +15,15 @@ class Program extends Model
         'program_name',
         'program_image',
         'company_name',
-        'max_price',
+        'price_1',
+        'price_2',
+        'price_3',
+        'price_4',
+        'price_5',
         'date_start',
         'date_end',
         'description',
+        'scope',
         'status',
         'category'
     ];
