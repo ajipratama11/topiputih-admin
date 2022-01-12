@@ -36,14 +36,14 @@ Route::post('forgot_password', [ResetPasswordController::class, 'forgotPassword'
 Route::post('reset_password', [ResetPasswordController::class, 'reset']);
 
 
-Route::post('cek_email', [UserController::class, 'cek_email']);
+
 
 // Route::post('/register_admin', [UserController::class, 'register_admin']);
 
 // Protected routes
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/program', [ProgramController::class, 'create']);
-    Route::put('/program/{id}', [ProgramController::class, 'update']);
+    Route::post('/update_program', [ProgramController::class, 'update']);
     Route::delete('/program/{id}', [ProgramController::class, 'delete']);
     Route::get('/program_list/{id}', [ProgramController::class, 'show_list']);
 
