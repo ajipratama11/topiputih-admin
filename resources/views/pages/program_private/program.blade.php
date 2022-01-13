@@ -5,7 +5,7 @@
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Program</h1>
+        <h1 class="h3 mb-0 text-gray-800">Program Privat</h1>
         {{-- <a href="{{ route('company.create') }}" class="btn btn-primary"><i
                 class="fas fa-download fa-sm text-white-50"></i> Tambah Perusahaan</a> --}}
     </div>
@@ -13,7 +13,7 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Daftar Program</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Daftar Program Privat</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -35,7 +35,7 @@
                             <td>{{$program->user->name}}</td>
                             <td>{{$program->program_name}}</td>
                             <td>{{$program->company_name}}</td>
-                            <td>@currency($program->max_price)</td>
+                            <td>@currency($program->price_5)</td>
                             
                             <td>
                                 {{$start_date = \Carbon\Carbon::createFromFormat('Y-m-d', $program->date_start)
@@ -44,9 +44,9 @@
                                 ->format('d-M-Y');}}
                             </td>
                             <td class="text-center">
-                                <form action="{{url('program', $program->id)}}" method="POST">
+                                <form action="{{url('program_private', $program->id)}}" method="POST">
 
-                                    <a class="btn btn-info btn-sm" href="/program/{{$program->id}}"><i
+                                    <a class="btn btn-info btn-sm" href="/program_private/{{$program->id}}"><i
                                             class="fas fa-fw fa-info"></i></a></a>
                                     @csrf
                                     @method('DELETE')

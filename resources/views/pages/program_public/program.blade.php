@@ -4,39 +4,16 @@
 <div class="container-fluid">
 
     <!-- Page Heading -->
-    <a href="/company" class=" mb-4 text-gray-1000"><i class="fas fa-fw fa-arrow-left"></i>Kembali</a>
-    <div class="d-sm-flex align-items-center justify-content-between mb-2 mt-3">
-        <h1 class="h3 mb-0 text-gray-800">Pemilik Sistem</h1>
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Program Publik</h1>
+        {{-- <a href="{{ route('company.create') }}" class="btn btn-primary"><i
+                class="fas fa-download fa-sm text-white-50"></i> Tambah Perusahaan</a> --}}
     </div>
+
+    <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Detail Data</h6>
-        </div>
-        <div class="card-body">
-            <div class="row">
-                <div class="col-lg-3 border-right ">
-                    <img class="img-fluid align-middle" src="{{'/img/profile_user/'}}{{$company->profile_picture}}">
-                </div>
-                <div class="col-lg-9">
-                    <span class="font-weight-bolder"> Nama Pemilik Sistem </span>
-                    <p class="font-weight-normal">{{ $company->name }}</p>
-                    <span class="font-weight-bolder"> Nama Kontak </span>
-                    <p class="font-weight-normal">{{ $company->contact_name }}</p>
-                    <span class="font-weight-bolder"> Nomor HP Kontak </span>
-                    <p class="font-weight-normal">{{ $company->phone_number }}</p>
-                    <span class="font-weight-bolder">Alamat Surat Elektronik </span>
-                    <p class="font-weight-normal">{{ $company->email }}</p>
-                    <span class="font-weight-bolder">Total Program </span>
-                    <p class="font-weight-normal">{{$company->program_count($company->companyProgram->user_id ??
-                        0)}}</p>
-                    {{-- <a class="btn btn-primary " href="/company/{{$company->id}}/edit">Edit</a> --}}
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Daftar Program Pemilik Sistem</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Daftar Program Publik</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -47,19 +24,19 @@
                             <th class="col-1">Nama Program</th>
                             <th class="col-1">Nama Perushaan</th>
                             <th class="col-1">Imbalan Tertinggi</th>
-                            <th class="col-2">Tanggal Program</th>
+                            <th class="col-2">Tanggal</th>
                             <th class="col-1">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($program as $program )
-
+                        
                         <tr>
                             <td>{{$program->user->name}}</td>
                             <td>{{$program->program_name}}</td>
                             <td>{{$program->company_name}}</td>
                             <td>@currency($program->price_5)</td>
-
+                            
                             <td>
                                 {{$start_date = \Carbon\Carbon::createFromFormat('Y-m-d', $program->date_start)
                                 ->format('d-M-Y');}} -
@@ -67,9 +44,9 @@
                                 ->format('d-M-Y');}}
                             </td>
                             <td class="text-center">
-                                <form action="{{url('program', $program->id)}}" method="POST">
+                                <form action="{{url('program_public', $program->id)}}" method="POST">
 
-                                    <a class="btn btn-info btn-sm" href="/program/{{$program->id}}"><i
+                                    <a class="btn btn-info btn-sm" href="/program_public/{{$program->id}}"><i
                                             class="fas fa-fw fa-info"></i></a></a>
                                     @csrf
                                     @method('DELETE')
@@ -86,5 +63,6 @@
             </div>
         </div>
     </div>
+
 </div>
 @endsection

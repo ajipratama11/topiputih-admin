@@ -20,8 +20,8 @@
 
     <!-- Custom styles for this template-->
     <link href="{{asset('css/sb-admin-2.min.css')}}" rel="stylesheet">
-        <!-- Custom styles for this page -->
-        <link href="{{asset('vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
+    <!-- Custom styles for this page -->
+    <link href="{{asset('vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
 
 </head>
 
@@ -36,7 +36,7 @@
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/dashboard">
                 <div class="sidebar-brand-icon rotate-n-15">
-                   <img src="{{asset('img/topiputih.png')}}" width="50px" height="50px" alt="">
+                    <img src="{{asset('img/topiputih.png')}}" width="50px" height="50px" alt="">
                 </div>
                 <div class="sidebar-brand-text mx-3">Administrator</div>
             </a>
@@ -54,7 +54,7 @@
             <!-- Divider -->
             <hr class="sidebar-divider">
 
-            
+
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
@@ -65,9 +65,11 @@
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item {{ (request()->is('company*')) ? 'active' : '' }}" href="/company">Pemilik Sistem</a>
-                        <a class="collapse-item {{ (request()->is('researcher*')) ? 'active' : '' }}" href="/researcher">Peneliti Keamanan</a>
-                        
+                        <a class="collapse-item {{ (request()->is('company*')) ? 'active' : '' }}"
+                            href="/company">Pemilik Sistem</a>
+                        <a class="collapse-item {{ (request()->is('researcher*')) ? 'active' : '' }}"
+                            href="/researcher">Peneliti Keamanan</a>
+
                     </div>
                 </div>
             </li>
@@ -82,21 +84,25 @@
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item {{ (request()->is('program*')) ? 'active' : '' }}" href="/program">Program Publik</a>
-                        {{-- <a class="collapse-item {{ (request()->is('program*')) ? 'active' : '' }}" href="/program">Program Privasi</a> --}}
+                        <a class="collapse-item {{ (request()->is('program_public*')) ? 'active' : '' }}"
+                            href="/program_public">Program Publik</a>
+                        <a class="collapse-item {{ (request()->is('program_private*')) ? 'active' : '' }}"
+                            href="/program_private">Program Privasi</a>
                     </div>
                 </div>
             </li>
-{{-- 
+            {{--
             <!-- Divider -->
             <hr class="sidebar-divider"> --}}
 
-            {{-- <!-- Heading -->
+            {{--
+            <!-- Heading -->
             <div class="sidebar-heading">
                 Rekap
             </div> --}}
 
-            {{-- <!-- Nav Item - Pages Collapse Menu -->
+            {{--
+            <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
                     aria-expanded="true" aria-controls="collapsePages">
@@ -143,7 +149,7 @@
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
 
-           
+
 
         </ul>
         <!-- End of Sidebar -->
@@ -163,16 +169,16 @@
                     </button>
 
                     <!-- Topbar Search -->
-                    
+
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
 
                         <!-- Nav Item - Search Dropdown (Visible Only XS) -->
                         <li class="nav-item dropdown no-arrow d-sm-none">
-                            
+
                             <!-- Dropdown - Messages -->
-                         
+
                         </li>
 
                         <!-- Nav Item - Alerts -->
@@ -242,8 +248,7 @@
                                 </h6>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_1.svg"
-                                            alt="...">
+                                        <img class="rounded-circle" src="img/undraw_profile_1.svg" alt="...">
                                         <div class="status-indicator bg-success"></div>
                                     </div>
                                     <div class="font-weight-bold">
@@ -254,8 +259,7 @@
                                 </a>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_2.svg"
-                                            alt="...">
+                                        <img class="rounded-circle" src="img/undraw_profile_2.svg" alt="...">
                                         <div class="status-indicator"></div>
                                     </div>
                                     <div>
@@ -266,8 +270,7 @@
                                 </a>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_3.svg"
-                                            alt="...">
+                                        <img class="rounded-circle" src="img/undraw_profile_3.svg" alt="...">
                                         <div class="status-indicator bg-warning"></div>
                                     </div>
                                     <div>
@@ -298,7 +301,8 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ auth()->user()->name}}</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{
+                                    auth()->user()->name}}</span>
                                 <img class="img-profile rounded-circle"
                                     src="{{'/img/profile_user/'}}{{ auth()->user()->profile_picture}}">
                             </a>
@@ -331,7 +335,7 @@
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
-    @yield('content')
+                @yield('content')
                 <!-- /.container-fluid -->
 
             </div>
@@ -374,7 +378,7 @@
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
                     <form action="/logout" method="post">
                         @csrf
-                        <button type="submit" class=" btn btn-primary " >
+                        <button type="submit" class=" btn btn-primary ">
                             <a class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></a>
                             Keluar
                         </button>
@@ -401,12 +405,12 @@
     <script src="{{ asset('js/demo/chart-area-demo.js')}}"></script>
     <script src="{{ asset('js/demo/chart-pie-demo.js')}}"></script>
 
-       <!-- Page level plugins -->
-       <script src="{{ asset('vendor/datatables/jquery.dataTables.min.js')}}"></script>
-       <script src="{{ asset('vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
-   
-       <!-- Page level custom scripts -->
-       <script src="{{ asset('js/demo/datatables-demo.js')}}"></script>
+    <!-- Page level plugins -->
+    <script src="{{ asset('vendor/datatables/jquery.dataTables.min.js')}}"></script>
+    <script src="{{ asset('vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="{{ asset('js/demo/datatables-demo.js')}}"></script>
 
 </body>
 
