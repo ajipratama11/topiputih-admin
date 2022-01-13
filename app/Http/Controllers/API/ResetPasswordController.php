@@ -57,7 +57,7 @@ class ResetPasswordController extends Controller
 
         if ($status == Password::PASSWORD_RESET) {
             return response([
-                'message'=> 'Password reset successfully'
+                'message'=> 'Berhasil Mengubah Kata Sandi'
             ]);
         }
 

@@ -13,18 +13,19 @@ class ResearcherBankController extends Controller
 
     public function show($user_id)
     {
-        // return ResearcherBank::where('user_id', $user_id)->first();
-
-        $bank =  ResearcherBank::where('user_id', $user_id)->first();
-
+        
+        $bank =  ResearcherBank::where('user_id',$user_id)->first();
         return[
+
             'message' => 'berhasil',
-            'id' => $bank -> id,
-            'user_id' => $bank -> user_id,
+            'id' => $this->encodeing($bank -> id),
+            'user_id' => $this->encodeing( $bank -> user_id),
             'bank_name' => $bank -> bank_name,
             'account_number' => $this->encodeing($bank -> account_number),
             'account_name' => $this->encodeing($bank -> account_name),
         ];
+
+        
     }
 
     public function create(Request $request)
@@ -36,14 +37,14 @@ class ResearcherBankController extends Controller
             'account_name' => 'required',
         ]);
             $bank = new ResearcherBank;
-            $bank-> user_id = $fields['user_id'];
+            $bank-> user_id = $this->decodeing($fields['user_id']);
             $bank-> bank_name = $fields['bank_name'];
             $bank-> account_number = $this->decodeing($fields['account_number']);
             $bank-> account_name = $this->decodeing($fields['account_name']);
             $bank->save();
             return[
                 'message' => ' Berhasil Menambahkan Data',
-                'bank' => $bank,
+                // 'bank' => $bank,
             ];
     }
 
@@ -57,7 +58,7 @@ class ResearcherBankController extends Controller
             'account_name' => 'required',
         ]);
         
-            $bank = ResearcherBank::where('user_id', $fields['user_id'])->first();
+            $bank = ResearcherBank::where('user_id', $this->decodeing($fields['user_id']))->first();
             // $bank = ResearcherBank::find( 1);
             // $bank-> user_id = $fields['user_id'];
             $bank-> bank_name = $fields['bank_name'];
@@ -68,7 +69,7 @@ class ResearcherBankController extends Controller
             $bank->save();
             return[
                 'message' => ' Berhasil Update Data',
-                'bank' => $bank,
+                // 'bank' => $bank,
             ];
         
     }

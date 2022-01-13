@@ -42,7 +42,7 @@ class CertificateController extends Controller
 
         return[
             'message' => ' Berhasil Tambah Data',
-            'cert' => $input,
+            // 'cert' => $input,
         ];
     }
 
@@ -71,7 +71,7 @@ class CertificateController extends Controller
 
         return[
             'message' => ' Berhasil Update Data',
-            'cert' => $cert,
+            // 'cert' => $cert,
         ];
     }
 

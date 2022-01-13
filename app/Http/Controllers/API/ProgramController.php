@@ -5,22 +5,28 @@ namespace App\Http\Controllers\API;
 use Exception;
 use App\Models\Program;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
 class ProgramController extends Controller
 {
 
     public function index()
-    {
-        return Program::where([
+    {   
+        $program = DB::table('programs')
+        ->rightJoin('users', 'users.id', '=', 'programs.user_id')
+        ->where([
             'status'=>'active',
             'category' => 'public'
-        ])->get();
-        // $program = Program::where('user_id',2)
-        // ->Where('program_name', 'like', '%1%')
-        // ->get();
+        ])
+        ->get(['programs.*']);
 
-        // return $program;
+        // $program = Program::where([
+        // 'status'=>'active',
+        // 'category' => 'public'
+        // ])->get();
+
+        return $program;
     }
 
     public function create(Request $request)
@@ -54,7 +60,7 @@ class ProgramController extends Controller
 
         return[
             'message' => ' Berhasil Tambah Data',
-            'program' => $input,
+            // 'program' => $input,
         ];
     }
 
@@ -115,7 +121,7 @@ class ProgramController extends Controller
 
         return[
             'message' => ' Berhasil Update Data',
-            'program' => $program,
+            // 'program' => $program,
         ];
         // }
 

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Program;
 use Illuminate\Http\Request;
 
-class ProgramController extends Controller
+class ProgramPrivateController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class ProgramController extends Controller
      */
     public function index()
     {
-        return view('pages.program.program',[
-            'program' => Program::where('category','public')->get()
+        return view('pages.program_private.program',[
+            'program' => Program::where('category','private')->get()
         ]);
     }
 
@@ -50,7 +50,7 @@ class ProgramController extends Controller
     {
         $program = Program::findOrFail($id);
    
-        return view('pages.company.detail_program', [
+        return view('pages.program_private.detail_program', [
           'program' => $program
         ]);
     }

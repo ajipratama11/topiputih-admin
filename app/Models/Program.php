@@ -25,7 +25,8 @@ class Program extends Model
         'description',
         'scope',
         'status',
-        'category'
+        'category',
+        'type'
     ];
 
     public function user()

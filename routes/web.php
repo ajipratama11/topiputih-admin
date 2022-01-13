@@ -7,6 +7,9 @@ use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ResearcherController;
 use App\Http\Controllers\CertificateController;
+use App\Http\Controllers\ProgramPublicController;
+use App\Http\Controllers\ProgramPrivateController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -38,6 +41,8 @@ Route::group(['middleware' => ['admin']], function() {
     Route::resource('researcher', ResearcherController::class);
     Route::resource('company', CompanyController::class);
     Route::resource('program', ProgramController::class);
+    Route::resource('program_public', ProgramPublicController::class);
+    Route::resource('program_private', ProgramPrivateController::class);
     Route::resource('certificate', CertificateController::class);
 });
 // Route::resource('/company/edit', CompanyController::class)->middleware('auth');
