@@ -15,7 +15,7 @@ class ProgramPrivateController extends Controller
     public function index()
     {
         return view('pages.program_private.program',[
-            'program' => Program::where('category','private')->get()
+            'program' => Program::where('category','privat')->get()
         ]);
     }
 

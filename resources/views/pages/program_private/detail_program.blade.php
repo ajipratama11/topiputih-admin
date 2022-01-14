@@ -22,10 +22,10 @@
                         <div class="col-lg-5">
                             <span class="font-weight-bolder"> Nama Pemilik Sistem </span>
                             <p class="font-weight-normal">{{ $program->user->name }}</p>
-
-                            <span class="font-weight-bolder"> Nana Perusahaan </span>
+                            <span class="font-weight-bolder"> Nama Perusahaan </span>
                             <p class="font-weight-normal">{{ $program->company_name }}</p>
-
+                            <span class="font-weight-bolder"> Tipe Program </span>
+                            <p class="font-weight-normal">{{ $program->type }}</p>
                         </div>
                         <div class="col-lg-5">
                             <span class="font-weight-bolder"> Nama Progam </span>
@@ -37,10 +37,12 @@
                                 {{$end_date = \Carbon\Carbon::createFromFormat('Y-m-d', $program->date_end)
                                 ->format('d-M-Y');}}
                             </p>
+                            <span class="font-weight-bolder"> Status Progam </span>
+                            <p class="font-weight-normal">{{ $program->status }}</p>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-2 border-top">
+                        <div class="col-lg-2">
                             <span class="font-weight-bolder">Imbalan Tingkat 1</span>
                             <p class="font-weight-normal">@currency($program->price_1)</p>
                         </div>
@@ -63,15 +65,21 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-9">
-                    <span class="font-weight-bolder">Deskripsi Program</span>
-                    <p class="font-weight-normal">{{ $program->description }}</p>
-                    <span class="font-weight-bolder">Cakupan Program</span>
-                    <p class="font-weight-normal">{{ $program->scope }}</p>
+            <div class="row mt-3">
+                <div class="col-lg-12">
+                    <div class="card shadow mb-4">
+                        <div class="card-body">
+                            <span class="font-weight-bold">Deskripsi Program</span>
+                            <p class="font-weight-normal">{!! $program->description !!}</p>
+                        </div>
+                        <div class="card-body">
+                            <span class="font-weight-bold">Cakupan Program</span>
+                            <p class="font-weight-normal">{!! $program->scope !!}</p>
+                        </div>
+                    </div>
                 </div>
+            </div>
             </div>
         </div>
     </div>
-</div>
-@endsection
+    @endsection

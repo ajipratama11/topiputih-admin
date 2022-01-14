@@ -45,7 +45,7 @@
                         <tr>
                             <th class="col-1">Nama Pemilik Sistem</th>
                             <th class="col-1">Nama Program</th>
-                            <th class="col-1">Nama Perushaan</th>
+                            <th class="col-1">Tipe Program</th>
                             <th class="col-1">Imbalan Tertinggi</th>
                             <th class="col-2">Tanggal Program</th>
                             <th class="col-1">Aksi</th>
@@ -57,7 +57,7 @@
                         <tr>
                             <td>{{$program->user->name}}</td>
                             <td>{{$program->program_name}}</td>
-                            <td>{{$program->company_name}}</td>
+                            <td>{{$program->type}}</td>
                             <td>@currency($program->price_5)</td>
 
                             <td>
