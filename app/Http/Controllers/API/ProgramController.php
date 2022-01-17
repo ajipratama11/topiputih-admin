@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use Exception;
 use App\Models\Program;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
@@ -13,18 +14,16 @@ class ProgramController extends Controller
 
     public function index()
     {   
+      
         $program = DB::table('programs')
         ->rightJoin('users', 'users.id', '=', 'programs.user_id')
+        ->where('date_start','<=',Carbon::now()->isoFormat('Y-MM-DD'))
+        ->where('date_end','>=',Carbon::now()->isoFormat('Y-MM-DD'))
         ->where([
-            'status'=>'active',
-            'category' => 'public'
+            'status'=>'aktif',
+            'category' => 'publik'
         ])
         ->get(['programs.*']);
-
-        // $program = Program::where([
-        // 'status'=>'active',
-        // 'category' => 'public'
-        // ])->get();
 
         return $program;
     }
@@ -47,6 +46,7 @@ class ProgramController extends Controller
             'description' => 'required',
             'scope' => 'required',
             'status' => 'required',
+            'type' => 'required',
             'category' => 'required',
         ]);
   
@@ -81,7 +81,7 @@ class ProgramController extends Controller
         $fields = $request->validate([
             'id' => 'required',
             'program_name' => 'required',
-            'program_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'program_image' => 'required',
             'company_name' => 'required',
             'price_1' => 'required',
             'price_2' => 'required',
@@ -94,6 +94,7 @@ class ProgramController extends Controller
             'scope' => 'required',
             'status' => 'required',
             'category' => 'required',
+            'type' => 'required',
         ]);
 
         $program = Program::where('id', $fields['id'])->first();
@@ -116,6 +117,7 @@ class ProgramController extends Controller
         $program-> scope = $fields['scope'];
         $program-> status = $fields['status'];
         $program-> category = $fields['category'];
+        $program-> type = $fields['type'];
     
         $program->save();
 
