@@ -6,8 +6,8 @@
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Program Publik</h1>
-        {{-- <a href="{{ route('company.create') }}" class="btn btn-primary"><i
-                class="fas fa-download fa-sm text-white-50"></i> Tambah Perusahaan</a> --}}
+        <a href="{{ route('program_public.create') }}" class="btn btn-primary"><i
+            class="fas fa-download fa-sm text-white-50"></i> Tambah Program</a>
     </div>
 
     <!-- DataTales Example -->

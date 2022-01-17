@@ -49,7 +49,7 @@ class ProgramController extends Controller
             'type' => 'required',
             'category' => 'required',
         ]);
-  
+        
         if ($image = $request->file('program_image')) {
             $destinationPath = 'img/program_image/';
             $profileImage = date('YmdHis') . "." . $image->getClientOriginalName();
@@ -81,7 +81,7 @@ class ProgramController extends Controller
         $fields = $request->validate([
             'id' => 'required',
             'program_name' => 'required',
-            'program_image' => 'required',
+            // 'program_image' => 'required',
             'company_name' => 'required',
             'price_1' => 'required',
             'price_2' => 'required',
@@ -98,12 +98,12 @@ class ProgramController extends Controller
         ]);
 
         $program = Program::where('id', $fields['id'])->first();
-        if ($image = $request->file('img/program_image')) {
-            $destinationPath = 'img/';
-            $profileImage = date('YmdHis') . "." . $image->getClientOriginalName();
-            $image->move($destinationPath, $profileImage);
-            $program-> program_image = "$profileImage";
-        }
+        // if ($image = $request->file('program_image')) {
+        //     $destinationPath = 'img/program_image';
+        //     $profileImage = date('YmdHis') . "." . $image->getClientOriginalName();
+        //     $image->move($destinationPath, $profileImage);
+        //     $program-> program_image = "$profileImage";
+        // }
         $program-> program_name = $fields['program_name'];
         $program-> company_name = $fields['company_name'];
         $program-> price_1 = $fields['price_1'];
@@ -133,6 +133,39 @@ class ProgramController extends Controller
         //         'message' => $error
         //     ];
         // }
+    }
+
+    public function update_image(Request $request)
+    {
+         try {
+            $fields = $request->validate([
+                'id' => 'required',
+                'program_image' => 'required',
+            ]);
+
+            $program = Program::where('id', $fields['id'])->first();
+            if ($image = $request->file('program_image')) {
+                $destinationPath = 'img/program_image';
+                $profileImage = date('YmdHis') . "." . $image->getClientOriginalName();
+                $image->move($destinationPath, $profileImage);
+                $program-> program_image = "$profileImage";
+            }
+            // $program->program_image = "$profileImage";
+            $program->save();
+
+            return[
+                'message' => ' Berhasil Update Data',
+                // 'program' => $program,
+                // 'image' => "$profileImage"
+
+            ];
+        } catch (Exception $error) {
+            return [
+                'message' => 'gagal',
+                'error' => $error
+            ];
+        }
+
     }
 
     public function delete($id)

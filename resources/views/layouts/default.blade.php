@@ -87,7 +87,7 @@
                         <a class="collapse-item {{ (request()->is('program_public*')) ? 'active' : '' }}"
                             href="/program_public">Program Publik</a>
                         <a class="collapse-item {{ (request()->is('program_private*')) ? 'active' : '' }}"
-                            href="/program_private">Program Privasi</a>
+                            href="/program_private">Program Privat</a>
                     </div>
                 </div>
             </li>
@@ -388,6 +388,9 @@
         </div>
     </div>
 
+
+
+
     <!-- Bootstrap core JavaScript-->
     <script src="{{ asset('vendor/jquery/jquery.min.js')}}"></script>
     <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
@@ -412,6 +415,25 @@
     <!-- Page level custom scripts -->
     <script src="{{ asset('js/demo/datatables-demo.js')}}"></script>
 
+    <script src="//cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+           $('.ckeditor').ckeditor();
+        });
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function (e) {
+            $('#image').change(function(){     
+                let reader = new FileReader();
+                reader.onload = (e) => { 
+                $('#preview-image-before-upload').attr('src', e.target.result); 
+                }
+                reader.readAsDataURL(this.files[0]); 
+            });
+        });
+    </script>
 </body>
 
 </html>

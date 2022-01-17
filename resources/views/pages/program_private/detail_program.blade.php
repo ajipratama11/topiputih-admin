@@ -16,6 +16,8 @@
             <div class="row">
                 <div class="col-lg-3">
                     <img class="img-fluid align-middle" src="{{'/img/program_image/'}}{{$program->program_image}}">
+                    <a href="{{ route('program_private.edit',$program->id)}}" class="btn btn-primary mt-5"><i
+                            class="fas fa-edit fa-sm text-white-50"></i> Edit Program</a>
                 </div>
                 <div class="col-lg-9">
                     <div class="row">
@@ -79,7 +81,7 @@
                     </div>
                 </div>
             </div>
-            </div>
         </div>
     </div>
-    @endsection
+</div>
+@endsection

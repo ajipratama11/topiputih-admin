@@ -34,6 +34,7 @@ Route::post('reset_password', [ResetPasswordController::class, 'reset']);
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/program', [ProgramController::class, 'create']);
     Route::post('/update_program', [ProgramController::class, 'update']);
+    Route::post('/program_image', [ProgramController::class, 'update_image']);
     Route::delete('/program/{id}', [ProgramController::class, 'delete']);
     Route::get('/program_list/{id}', [ProgramController::class, 'show_list']);
 
