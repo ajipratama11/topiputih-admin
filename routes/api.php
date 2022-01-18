@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\CertificateController;
 use App\Http\Controllers\API\ProgramController;
+use App\Http\Controllers\API\ReportController;
 use App\Http\Controllers\API\ResearcherBankController;
 use App\Http\Controllers\API\ResetPasswordController;
 use App\Http\Controllers\API\UserController;
@@ -61,6 +62,12 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::get('/cert_keahlian/{user_id}/', [CertificateController::class, 'show_1']);
     Route::get('/cert_penghargaan/{user_id}/', [CertificateController::class, 'show_2']);
+
+    Route::get('/report', [ReportController::class, 'index']);
+    Route::post('/report', [ReportController::class, 'create']);
+    Route::get('/report/{id}', [ReportController::class, 'show']);
+    Route::get('/report_user/{id}', [ReportController::class, 'show_list_user']);
+    Route::get('/report_program/{id}', [ReportController::class, 'show_list_program']);
 });
-    
+
 

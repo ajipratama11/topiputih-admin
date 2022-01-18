@@ -91,6 +91,20 @@
                     </div>
                 </div>
             </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseReport"
+                    aria-expanded="true" aria-controls="collapseReport">
+                    <i class="fas fa-fw fa-wrench"></i>
+                    <span>Data Laporan</span>
+                </a>
+                <div id="collapseReport" class="collapse" aria-labelledby="headingUtilities"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item {{ (request()->is('report*')) ? 'active' : '' }}"
+                            href="/report">Laporan Program</a>
+                    </div>
+                </div>
+            </li>
             {{--
             <!-- Divider -->
             <hr class="sidebar-divider"> --}}

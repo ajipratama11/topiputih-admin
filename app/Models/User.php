@@ -65,9 +65,21 @@ class User extends Authenticatable
             'cert_type'=> 'penghargaan'])->count();
     }
 
+    public function report_count($user_id)
+    {
+        return Report::where([
+            'user_id'=> $user_id])->count();
+    }
+
+
     public function companyProgram()
     {
         return $this->hasOne(Program::class);
+    }
+
+    public function Report()
+    {
+        return $this->hasOne(Report::class);
     }
 
     public function program_count($user_id)

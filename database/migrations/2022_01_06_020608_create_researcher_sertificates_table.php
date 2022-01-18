@@ -22,7 +22,7 @@ class CreateResearcherSertificatesTable extends Migration
             $table->string('cert_type');
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');;
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

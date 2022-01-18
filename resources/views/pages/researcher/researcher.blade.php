@@ -28,6 +28,7 @@
                             <th class="col-1">Nomor Rekening</th> --}}
                             <th class="col-1">Banyak Sertifikat<br>Keahlian</th>
                             <th class="col-1">Banyak Sertifikat Penghargaan</th>
+                            <th class="col-1">Laporan Terkirim</th>
                             <th class="col-1">Aksi</th>
                         </tr>
                     </thead>
@@ -36,10 +37,9 @@
                         <tr>
                             <td>{{$researcher->name}}</td>
                             <td>{{$researcher->email}}</td>
-                            <td>{{$researcher->cert_count_1($researcher->id)}}</td>
-                            <td>{{$researcher->cert_count_2($researcher->id)}}</td>
-                            {{-- <td>{{$researcher->researcherBank->bank_name}}</td>
-                            <td>{{$researcher->researcherBank->account_number}}</td> --}}
+                            <td>{{$researcher->cert_count_1($researcher->id)}} Sertifikat</td>
+                            <td>{{$researcher->cert_count_2($researcher->id)}} Sertifikat</td>
+                            <td>{{$researcher->report_count($researcher->id)}} Laporan</td>
                             <td class="text-center">
                                 <form action="{{url('researcher', $researcher->id)}}" method="POST">
                                     {{-- <a class="btn btn-info btn-sm" href="/researcher/{{$researcher->id}}/edit"><i

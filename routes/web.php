@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\DashboardController;
@@ -44,6 +45,7 @@ Route::group(['middleware' => ['admin']], function() {
     Route::resource('program_public', ProgramPublicController::class);
     Route::resource('program_private', ProgramPrivateController::class);
     Route::resource('certificate', CertificateController::class);
+    Route::resource('report', ReportController::class);
 });
 // Route::resource('/company/edit', CompanyController::class)->middleware('auth');
 // Route::get('/researcher', [ResearcherController::class,'index'])->middleware('auth');;
