@@ -23,7 +23,7 @@
                             <th class="col-1">Nama Pemilik Sistem</th>
                             <th class="col-1">Nama Program</th>
                             <th class="col-1">Tipe Program</th>
-                            <th class="col-1">Imbalan Tertinggi</th>
+                            <th class="col-1">Hadiah Tertinggi</th>
                             <th class="col-2">Tanggal</th>
                             <th class="col-1">Aksi</th>
                         </tr>
@@ -54,7 +54,6 @@
                                         onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')"><i
                                             class="fas fa-fw fa-trash-alt"></i></button>
                                 </form>
-                            </td>
                             </td>
                         </tr>
                         @endforeach

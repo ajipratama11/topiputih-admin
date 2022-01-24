@@ -4,7 +4,7 @@
 <div class="container-fluid">
 
     <!-- Page Heading -->
-    <a href="/researcher"class=" mb-4 text-gray-1000" ><i class="fas fa-fw fa-arrow-left"></i>Kembali</a>
+    <a href="/researcher" class=" mb-4 text-gray-1000"><i class="fas fa-fw fa-arrow-left"></i>Kembali</a>
     <div class="d-sm-flex align-items-center justify-content-between mb-2 mt-3">
         <h1 class="h3 mb-0 text-gray-800">Peneliti Keamanan</h1>
     </div>
@@ -27,11 +27,12 @@
                     <span class="font-weight-bolder">Alamat Surat Elektronik </span>
                     <p class="font-weight-normal">{{ $researcher->email }}</p>
                     <span class="font-weight-bolder">Nama Bank </span>
-                    <p class="font-weight-normal">{{ $researcher->researcherBank->bank_name }}</p>
+                    <p class="font-weight-normal">{{ $researcher->researcherBank->bank_name ?? 'Belum Mengisi'}}</p>
                     <span class="font-weight-bolder">Nomor Rekening</span>
-                    <p class="font-weight-normal">{{ $researcher->researcherBank->account_number }}</p>
+                    <p class="font-weight-normal">{{ $researcher->researcherBank->account_number ?? 'Belum Mengisi'}}
+                    </p>
                     <span class="font-weight-bolder">Nama Rekening Bank </span>
-                    <p class="font-weight-normal">{{ $researcher->researcherBank->account_name }}</p>
+                    <p class="font-weight-normal">{{ $researcher->researcherBank->account_name ?? 'Belum Mengisi'}}</p>
                     {{-- <a class="btn btn-primary " href="/researcher/{{$researcher->id}}/edit">Edit</a> --}}
                 </div>
             </div>
@@ -64,7 +65,9 @@
                             <td class="text-center">
                                 <form action="{{url('certificate', $certificate->id)}}" method="POST">
 
-                                    <a class="btn btn-info btn-sm" href="{{ route('certificate.show', $certificate->id)}}" ><i class="fas fa-fw fa-info"></i></a></a>
+                                    <a class="btn btn-info btn-sm"
+                                        href="{{ route('certificate.show', $certificate->id)}}"><i
+                                            class="fas fa-fw fa-info"></i></a></a>
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm"

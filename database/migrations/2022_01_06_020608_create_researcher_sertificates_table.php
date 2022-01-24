@@ -17,9 +17,10 @@ class CreateResearcherSertificatesTable extends Migration
             $table->id();
             $table->bigInteger('user_id')->unsigned();
             $table->string('cert_name');
-            $table->string('cert_file');
-            $table->string('cert_date');
+            $table->string('cert_file')->nullable();
+            $table->string('cert_date')->nullable();
             $table->string('cert_type');
+            $table->enum('cert_type', ['Keahlian', 'Penghargaan'])->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

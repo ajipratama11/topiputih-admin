@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Program;
 use Illuminate\Http\Request;
 
@@ -26,7 +27,10 @@ class ProgramPrivateController extends Controller
      */
     public function create()
     {
-        return view('pages.program_private.create_program');
+        $user = User::where('roles','company')->get([
+            'id','name'
+        ]);
+        return view('pages.program_private.create_program',compact('user'));
     }
 
     /**
@@ -41,12 +45,12 @@ class ProgramPrivateController extends Controller
             'user_id'=>'required',
             'program_name' => 'required',
             'program_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'company_name' => 'required',
-            'price_1' => 'required',
-            'price_2' => 'required',
-            'price_3' => 'required',
-            'price_4' => 'required',
-            'price_5' => 'required',
+            'company_name' => '',
+            'price_1' => '',
+            'price_2' => '',
+            'price_3' => '',
+            'price_4' => '',
+            'price_5' => '',
             'date_start' => 'required',
             'date_end' => 'required',
             'description' => 'required',
@@ -125,10 +129,12 @@ class ProgramPrivateController extends Controller
     public function edit($id)
     {
         $program = Program::findOrFail($id);
-   
-        return view('pages.program_private.edit_program', [
-          'program' => $program
+        $user = User::where('roles','company')->get([
+            'id','name'
         ]);
+        return view('pages.program_private.edit_program', compact('user'),[
+            'program' => $program
+          ] );
     }
 
     /**
@@ -141,15 +147,15 @@ class ProgramPrivateController extends Controller
     public function update(Request $request, $id)
     {
         $fields = $request->validate([
-            // 'id' => 'required',
+            'user_id' => 'required',
             'program_name' => 'required',
             'program_image' => '',
-            'company_name' => 'required',
-            'price_1' => 'required',
-            'price_2' => 'required',
-            'price_3' => 'required',
-            'price_4' => 'required',
-            'price_5' => 'required',
+            // 'company_name' => 'required',
+            'price_1' => '',
+            'price_2' => '',
+            'price_3' => '',
+            'price_4' => '',
+            'price_5' => '',
             'date_start' => 'required',
             'date_end' => 'required',
             'description' => 'required',
@@ -166,9 +172,9 @@ class ProgramPrivateController extends Controller
             $image->move($destinationPath, $profileImage);
             $program-> program_image = "$profileImage";
         }
-        
+        $program-> user_id = $fields['user_id'];
         $program-> program_name = $fields['program_name'];
-        $program-> company_name = $fields['company_name'];
+        // $program-> company_name = $fields['company_name'];
         $program-> price_1 = $fields['price_1'];
         $program-> price_2 = $fields['price_2'];
         $program-> price_3 = $fields['price_3'];
@@ -214,4 +220,6 @@ class ProgramPrivateController extends Controller
 
         return back()->with('success',' Penghapusan berhasil.');
     }
+
+    
 }

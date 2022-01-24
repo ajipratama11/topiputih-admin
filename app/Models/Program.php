@@ -34,5 +34,19 @@ class Program extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function researcher(){
+        
+        return User::where('roles','researcher')->get([
+            'id','name'
+        ]);
+    }
+
+    public function company(){
+        
+        return User::where('roles','company')->get([
+            'id','name'
+        ]);
+    }
+
     
 }

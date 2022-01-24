@@ -16,8 +16,7 @@
             <div class="row">
                 <div class="col-lg-3">
                     <img class="img-fluid align-middle" src="{{'/img/program_image/'}}{{$program->program_image}}">
-                    <a href="{{ route('program_private.edit',$program->id)}}" class="btn btn-primary mt-5"><i
-                            class="fas fa-edit fa-sm text-white-50"></i> Edit Program</a>
+
                 </div>
                 <div class="col-lg-9">
                     <div class="row">
@@ -43,28 +42,42 @@
                             <p class="font-weight-normal">{{ $program->status }}</p>
                         </div>
                     </div>
+                    @if ($program->type =="Bug Bounty")
                     <div class="row">
                         <div class="col-lg-2">
-                            <span class="font-weight-bolder">Imbalan Tingkat 1</span>
+                            <span class="font-weight-bolder">Hadiah Tingkat 1</span>
                             <p class="font-weight-normal">@currency($program->price_1)</p>
                         </div>
                         <div class="col-lg-2">
-                            <span class="font-weight-bolder">Imbalan Tingkat 2</span>
+                            <span class="font-weight-bolder">Hadiah Tingkat 2</span>
                             <p class="font-weight-normal">@currency($program->price_2)</p>
                         </div>
                         <div class="col-lg-2">
-                            <span class="font-weight-bolder">Imbalan Tingkat 3</span>
+                            <span class="font-weight-bolder">Hadiah Tingkat 3</span>
                             <p class="font-weight-normal">@currency($program->price_3)</p>
                         </div>
                         <div class="col-lg-2">
-                            <span class="font-weight-bolder">Imbalan Tingkat 4</span>
+                            <span class="font-weight-bolder">Hadiah Tingkat 4</span>
                             <p class="font-weight-normal">@currency($program->price_4)</p>
                         </div>
                         <div class="col-lg-2">
-                            <span class="font-weight-bolder">Imbalan Tingkat 5</span>
+                            <span class="font-weight-bolder">Hadiah Tingkat 5</span>
                             <p class="font-weight-normal">@currency($program->price_5)</p>
                         </div>
                     </div>
+                    @endif
+                </div>
+
+              
+            </div>
+            <div class="row mt-3">
+                <div class="col-lg-3">
+                    <a href="{{ route('program_private.edit',$program->id)}}" class="btn btn-primary mr-5" ><i class="fas fa-edit fa-sm text-white-50"></i> Edit Program</a>
+                    
+                </div>
+                <div class="col-lg-9">
+                    <a href="{{ route('invite_user.edit',$program->id)}}" class="btn btn-primary"><i
+                        class="fas fa-envelope fa-sm text-white-50"></i> Undang Peneliti Keamanan</a>
                 </div>
             </div>
             <div class="row mt-3">

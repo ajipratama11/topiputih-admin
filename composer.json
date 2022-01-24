@@ -8,6 +8,7 @@
         "php": "^7.3",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.4",
+        "harvesthq/chosen": "^1.8",
         "laravel/framework": "^8.65",
         "laravel/sanctum": "^2.13",
         "laravel/tinker": "^2.5",

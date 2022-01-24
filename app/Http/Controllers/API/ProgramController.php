@@ -3,11 +3,16 @@
 namespace App\Http\Controllers\API;
 
 use Exception;
+use App\Models\User;
 use App\Models\Program;
+use App\Models\InvitedUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use App\Mail\InviteProgramMail;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Route;
 
 class ProgramController extends Controller
 {
@@ -35,12 +40,12 @@ class ProgramController extends Controller
             'user_id'=>'required',
             'program_name' => 'required',
             'program_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'company_name' => 'required',
-            'price_1' => 'required',
-            'price_2' => 'required',
-            'price_3' => 'required',
-            'price_4' => 'required',
-            'price_5' => 'required',
+            'company_name' => '',
+            'price_1' => '',
+            'price_2' => '',
+            'price_3' => '',
+            'price_4' => '',
+            'price_5' => '',
             'date_start' => 'required',
             'date_end' => 'required',
             'description' => 'required',
@@ -82,12 +87,12 @@ class ProgramController extends Controller
             'id' => 'required',
             'program_name' => 'required',
             // 'program_image' => 'required',
-            'company_name' => 'required',
-            'price_1' => 'required',
-            'price_2' => 'required',
-            'price_3' => 'required',
-            'price_4' => 'required',
-            'price_5' => 'required',
+            'company_name' => '',
+            'price_1' => '',
+            'price_2' => '',
+            'price_3' => '',
+            'price_4' => '',
+            'price_5' => '',
             'date_start' => 'required',
             'date_end' => 'required',
             'description' => 'required',
@@ -184,4 +189,76 @@ class ProgramController extends Controller
         return Program::where('program_name', 'like', '%'.$program_name.'%')->get();
         
     }
+
+    public function get_researcher($id){
+
+        $notin = InvitedUser::where('invited_users.program_id',$id)->select('invited_users.user_id');
+
+        $user = DB::table('users')
+                ->where('roles','researcher')
+                ->whereNotIn('users.id',$notin)->get(['id as user_id','name']);
+
+        return $user;
+
+    }
+
+    public function set_user(Request $request){
+        $request->validate([
+            'input.*' => 'required',
+            'program_id'=>''
+        ]);
+
+        $program = Program::where('program_id',$request->program_id)->first();
+
+        $data = [
+            'name' => $program->program_name,
+            'category' => $program->category
+        ];
+        foreach ($request->input as $key => $value) {
+            $value['program_id']= $request->program_id; 
+            InvitedUser::create($value);
+            $email = User::where('id',$value['user_id'])->first();
+
+            Mail::to($email['email'])->send(new InviteProgramMail($data));
+            // return ['berhasil'];
+        };
+    }
+
+    public function delete_invited($id)
+    {
+        
+        InvitedUser::destroy($id);
+
+            return[
+                'message' => ' Berhasil Hapus',
+            ];
+       
+    }
+
+    public function get_user_invited($id){
+        // return InvitedUser::where('program_id',$id)->get();
+
+        $invite = DB::table('invited_users')
+        ->join('users', 'users.id', '=', 'invited_users.user_id')
+        ->join('programs', 'programs.id', '=', 'invited_users.program_id')
+        ->where('programs.id',$id)
+        ->select('invited_users.*','users.name')
+        ->get();
+
+        return $invite;
+    }
+
+    public function get_user_program($id){
+        // return InvitedUser::where('invited_users',$id)->get();
+
+        $invite = DB::table('invited_users')
+        ->join('users', 'users.id', '=', 'invited_users.user_id')
+        ->join('programs', 'programs.id', '=', 'invited_users.program_id')
+        ->where('invited_users.user_id',$id)
+        ->select('invited_users.*','programs.program_name','programs.program_image','programs.type')
+        ->get();
+
+        return $invite;
+    }
+
 }

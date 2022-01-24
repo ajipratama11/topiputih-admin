@@ -23,7 +23,7 @@
                             <span class="font-weight-bolder"> Nama Pemilik Sistem </span>
                             <p class="font-weight-normal">{{ $program->user->name }}</p>
 
-                            <span class="font-weight-bolder"> Nana Perusahaan </span>
+                            <span class="font-weight-bolder"> Nama Perusahaan </span>
                             <p class="font-weight-normal">{{ $program->company_name }}</p>
 
                         </div>
@@ -41,23 +41,23 @@
                     </div>
                     <div class="row  ">
                         <div class="col-lg-2">
-                            <span class="font-weight-bolder">Imbalan Tingkat 1</span>
+                            <span class="font-weight-bolder">Hadiah Tingkat 1</span>
                             <p class="font-weight-normal">@currency($program->price_1)</p>
                         </div>
                         <div class="col-lg-2">
-                            <span class="font-weight-bolder">Imbalan Tingkat 2</span>
+                            <span class="font-weight-bolder">Hadiah Tingkat 2</span>
                             <p class="font-weight-normal">@currency($program->price_2)</p>
                         </div>
                         <div class="col-lg-2">
-                            <span class="font-weight-bolder">Imbalan Tingkat 3</span>
+                            <span class="font-weight-bolder">Hadiah Tingkat 3</span>
                             <p class="font-weight-normal">@currency($program->price_3)</p>
                         </div>
                         <div class="col-lg-2">
-                            <span class="font-weight-bolder">Imbalan Tingkat 4</span>
+                            <span class="font-weight-bolder">Hadiah Tingkat 4</span>
                             <p class="font-weight-normal">@currency($program->price_4)</p>
                         </div>
                         <div class="col-lg-2">
-                            <span class="font-weight-bolder">Imbalan Tingkat 5</span>
+                            <span class="font-weight-bolder">Hadiah Tingkat 5</span>
                             <p class="font-weight-normal">@currency($program->price_5)</p>
                         </div>
                     </div>
@@ -66,9 +66,9 @@
             <div class="row border-top">
                 <div class="col-lg-9">
                     <span class="font-weight-bolder">Deskripsi Program</span>
-                    <p class="font-weight-normal">{{ $program->description }}</p>
+                    <p class="font-weight-normal">{!! $program->description !!}</p>
                     <span class="font-weight-bolder">Cakupan Program</span>
-                    <p class="font-weight-normal">{{ $program->scope }}</p>
+                    <p class="font-weight-normal">{!! $program->scope !!}</p>
                 </div>
             </div>
         </div>

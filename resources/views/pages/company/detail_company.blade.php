@@ -46,7 +46,7 @@
                             <th class="col-1">Nama Pemilik Sistem</th>
                             <th class="col-1">Nama Program</th>
                             <th class="col-1">Tipe Program</th>
-                            <th class="col-1">Imbalan Tertinggi</th>
+                            <th class="col-1">Hadiah Tertinggi</th>
                             <th class="col-2">Tanggal Program</th>
                             <th class="col-1">Aksi</th>
                         </tr>
@@ -59,7 +59,6 @@
                             <td>{{$program->program_name}}</td>
                             <td>{{$program->type}}</td>
                             <td>@currency($program->price_5)</td>
-
                             <td>
                                 {{$start_date = \Carbon\Carbon::createFromFormat('Y-m-d', $program->date_start)
                                 ->format('d-M-Y');}} -
@@ -68,7 +67,6 @@
                             </td>
                             <td class="text-center">
                                 <form action="{{url('program', $program->id)}}" method="POST">
-
                                     <a class="btn btn-info btn-sm" href="/program/{{$program->id}}"><i
                                             class="fas fa-fw fa-info"></i></a></a>
                                     @csrf

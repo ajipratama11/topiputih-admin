@@ -5,7 +5,7 @@
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Program Privat</h1>
+        <h1 class="h3 mb-0 text-gray-800">Program</h1>
     </div>
     <div class="card shadow mb-4">
         <div class="card-header py-3">
@@ -13,7 +13,7 @@
         </div>
         <div class="card-body">
             <form method="POST" enctype="multipart/form-data" id="upload-image"
-                action="{{ route('program_private.store') }}">
+                action="{{ route('program_public.store') }}">
                 <div class="row">
                     @csrf
                     <div class="col-lg-6">
@@ -25,13 +25,7 @@
                             <label class="form-label">Tanggal Mulai</label>
                             <input name="date_start" type="date" class="form-control">
                         </div>
-                        <div class="mb-3">
-                            <label for="exampleInputEmail1" class="form-label">Tipe Program</label>
-                            <select name="type" class="custom-select" id="target">
-                                <option value="Vulnerability Disclosure">Vulnerability Disclosure</option>
-                                <option value="Bug Bounty" selected>Bug Bounty</option>
-                            </select>
-                        </div>
+
                     </div>
                     <div class="col-lg-6">
                         <div class="mb-3">
@@ -47,12 +41,31 @@
                             <label name="date_end" class="form-label">Tanggal Selesai</label>
                             <input name="date_end" type="date" class="form-control">
                         </div>
-                        <div class="mb-3">
-                            <label for="exampleInputEmail1" class="form-label">Status</label>
-                            <select name="status" class="custom-select">
-                                <option value="Aktif">Aktif</option>
-                                <option value="Tidak Aktif">Tidak Aktif</option>
-                            </select>
+
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-4 mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Tipe Program</label>
+                                <select name="type" class="custom-select" id="target">
+                                    <option value="Vulnerability Disclosure">Vulnerability Disclosure</option>
+                                    <option value="Bug Bounty" selected>Bug Bounty</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-4 mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Kategori Program</label>
+                                <select name="category" class="custom-select">
+                                    <option value="Publik" selected>Publik</option>
+                                    <option value="Privat">Privat</option>
+                                </select>
+                            </div>
+                            <div class=" col-lg-4 mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Status</label>
+                                <select name="status" class="custom-select">
+                                    <option value="Aktif">Aktif</option>
+                                    <option value="Tidak Aktif">Tidak Aktif</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                     <div class="col-lg-12" id="hadiah">
@@ -91,15 +104,11 @@
                             <div class="col-lg-2 col-half-offset"">
                             {{-- <input name=" user_id" type="hidden" class="form-control" value="12"> --}}
                                 {{-- <input name="category" type="hidden" class="form-control" value="Publik"> --}}
-                                {{-- <div class="col-lg-2">
-                                    <input name="user_id" type="hidden" class="form-control" value="12">
-                                </div> --}}
-                                <input name="category" type="hidden" class="form-control" value="Privat">
                             </div>
                         </div>
                     </div>
-
                     <div class="col-lg-12">
+
                         <div class="form-group">
                             <input type="file" class="btn btn-secondary" name="program_image" placeholder="Choose image"
                                 id="image">

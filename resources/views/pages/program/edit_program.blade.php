@@ -5,7 +5,7 @@
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Program Privat</h1>
+        <h1 class="h3 mb-0 text-gray-800">Program</h1>
     </div>
     <div class="card shadow mb-4">
         <div class="card-header py-3">
@@ -13,7 +13,7 @@
         </div>
         <div class="card-body">
             <form method="POST" enctype="multipart/form-data" id="upload-image"
-                action="{{ route('program_private.update',$program->id) }}">
+                action="{{ route('program_public.update',$program->id) }}">
                 <div class="row">
                     @csrf
                     @method('put')
@@ -27,7 +27,6 @@
                             <label class="form-label">Tanggal Mulai</label>
                             <input name="date_start" type="date" class="form-control" value="{{$program->date_start}}">
                         </div>
-
                     </div>
                     <div class="col-lg-6">
                         <div class="mb-3">
@@ -45,7 +44,6 @@
                             <label name="date_end" class="form-label">Tanggal Selesai</label>
                             <input name="date_end" type="date" class="form-control" value="{{$program->date_end}}">
                         </div>
-
                     </div>
                     <div class="col-lg-12">
                         <div class="row">
@@ -120,7 +118,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="col-lg-12">
                         <div class="form-group">
                             <input type="file" class="btn btn-secondary" name="program_image" placeholder="Choose image"

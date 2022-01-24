@@ -7,7 +7,7 @@
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Program Privat</h1>
         <a href="{{ route('program_private.create') }}" class="btn btn-primary"><i
-                class="fas fa-download fa-sm text-white-50"></i> Tambah Perusahaan</a>
+                class="fas fa-download fa-sm text-white-50"></i> Tambah Program Privat</a>
     </div>
 
     <!-- DataTales Example -->
@@ -23,20 +23,20 @@
                             <th class="col-1">Nama Pemilik Sistem</th>
                             <th class="col-1">Nama Program</th>
                             <th class="col-1">Tipe Program</th>
-                            <th class="col-1">Imbalan Tertinggi</th>
+                            <th class="col-1">Hadiah Tertinggi</th>
                             <th class="col-2">Tanggal</th>
                             <th class="col-1">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($program as $program )
-                        
+
                         <tr>
                             <td>{{$program->user->name}}</td>
                             <td>{{$program->program_name}}</td>
                             <td>{{$program->type}}</td>
                             <td>@currency($program->price_5)</td>
-                            
+
                             <td>
                                 {{$start_date = \Carbon\Carbon::createFromFormat('Y-m-d', $program->date_start)
                                 ->format('d-M-Y');}} -

@@ -17,6 +17,8 @@ class ProgramController extends Controller
         return view('pages.program.program',[
             'program' => Program::where('category','public')->get()
         ]);
+
+        
     }
 
     /**
@@ -50,7 +52,7 @@ class ProgramController extends Controller
     {
         $program = Program::findOrFail($id);
    
-        return view('pages.company.detail_program', [
+        return view('pages.program.detail_program', [
           'program' => $program
         ]);
     }
