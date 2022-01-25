@@ -96,7 +96,9 @@ class ReportController extends Controller
     }
 
     public function update(Request $request){
-
+        Validator::extend('without_spaces', function($attr, $value){
+            return preg_match('/^\S*$/u', $value);
+        });
         $input = $request->validate([
             'user_id'=>'required',
             'program_id' => 'required',
@@ -109,6 +111,8 @@ class ReportController extends Controller
             'date' => 'required',
             'status_report' => 'required',
             'point' => ''
+        ], [
+            'file.without_spaces' => 'Berkas tidak boleh menggunakan spasi'
         ]);
 
       
@@ -127,8 +131,8 @@ class ReportController extends Controller
             $report->description_report = $input['description'];
             $report->impact = $input['impact'];
             $report->date = $input['date'];
-
-        
+            $report->status_report = $input['status_report'];
+            $report->point = $input['point'];
         
             $report->save();
         return[

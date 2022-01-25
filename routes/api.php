@@ -77,17 +77,17 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
    
     Route::post('/insert_user',  [ProgramController::class, 'set_user']);
     Route::delete('/delete_invited/{id}', [ProgramController::class, 'delete_invited']);
-   
+    Route::post('/researcher',  [ProgramController::class, 'researcher_program']);
+    Route::get('/researcher/{id}',  [ProgramController::class, 'get_researcher']);
+    Route::get('/get_invite/{id}',  [ProgramController::class, 'get_user_invited']);
    
     Route::get('/get_program/{id}',  [ProgramController::class, 'get_user_program']);
     Route::get('send_email/{email}',[SendEmailController::class,'index']);
 
 
-    
+    Route::get('/point_program/{id}', [PointController::class, 'show_point_program']);
+    Route::get('/point', [PointController::class, 'index']);
+    Route::get('/point_user/{id}', [PointController::class, 'point_user']);
 });
-Route::get('/point_program/{id}', [PointController::class, 'show_point_program']);
-Route::get('/point', [PointController::class, 'index']);
 
-Route::post('/researcher',  [ProgramController::class, 'researcher_program']);
-Route::get('/researcher/{id}',  [ProgramController::class, 'get_researcher']);
-Route::get('/get_invite/{id}',  [ProgramController::class, 'get_user_invited']);
+
