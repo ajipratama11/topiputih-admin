@@ -25,6 +25,7 @@ class CreateReportTable extends Migration
             $table->string('file');
             $table->date('date')->nullable();
             $table->string('status_report')->nullable();
+            $table->decimal('point',8,2)->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

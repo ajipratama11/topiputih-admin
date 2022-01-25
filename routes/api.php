@@ -6,6 +6,7 @@ use App\Http\Controllers\SendEmailController;
 use App\Http\Controllers\API\ReportController;
 use App\Http\Controllers\API\ProgramController;
 use App\Http\Controllers\API\CertificateController;
+use App\Http\Controllers\API\PointController;
 use App\Http\Controllers\API\ResetPasswordController;
 use App\Http\Controllers\API\ResearcherBankController;
 
@@ -26,6 +27,7 @@ Route::post('/register_tes', [UserController::class, 'register_tes']);
 Route::post('login_tes', [UserController::class, 'login_tes']);
 Route::get('/program', [ProgramController::class, 'index']);
 Route::get('/program/{id}', [ProgramController::class, 'show']);
+Route::get('/program_cek/{id}&{user_id}', [ProgramController::class, 'cek_program']);
 Route::get('/program/search/{name}', [ProgramController::class, 'search']);
 
 Route::post('forgot_password', [ResetPasswordController::class, 'forgotPassword']);
@@ -75,9 +77,17 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
    
     Route::post('/insert_user',  [ProgramController::class, 'set_user']);
     Route::delete('/delete_invited/{id}', [ProgramController::class, 'delete_invited']);
-    Route::get('/researcher/{id}',  [ProgramController::class, 'get_researcher']);
-    Route::get('/get_invite/{id}',  [ProgramController::class, 'get_user_invited']);
+   
+   
     Route::get('/get_program/{id}',  [ProgramController::class, 'get_user_program']);
     Route::get('send_email/{email}',[SendEmailController::class,'index']);
 
+
+    
 });
+Route::get('/point_program/{id}', [PointController::class, 'show_point_program']);
+Route::get('/point', [PointController::class, 'index']);
+
+Route::post('/researcher',  [ProgramController::class, 'researcher_program']);
+Route::get('/researcher/{id}',  [ProgramController::class, 'get_researcher']);
+Route::get('/get_invite/{id}',  [ProgramController::class, 'get_user_invited']);

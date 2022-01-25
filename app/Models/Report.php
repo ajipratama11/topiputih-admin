@@ -19,7 +19,8 @@ class Report extends Model
         'category_report',
         'file',
         'date',
-        'status_report'
+        'status_report',
+        'point'
     ];
 
     public function user()

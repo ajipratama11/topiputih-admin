@@ -23,10 +23,10 @@
                         <div class="col-lg-5">
                             <span class="font-weight-bolder"> Nama Pemilik Sistem </span>
                             <p class="font-weight-normal">{{ $program->user->name }}</p>
-                            <span class="font-weight-bolder"> Nama Perusahaan </span>
-                            <p class="font-weight-normal">{{ $program->company_name }}</p>
                             <span class="font-weight-bolder"> Tipe Program </span>
                             <p class="font-weight-normal">{{ $program->type }}</p>
+                            <span class="font-weight-bolder"> Status Progam </span>
+                            <p class="font-weight-normal">{{ $program->status }}</p>
                         </div>
                         <div class="col-lg-5">
                             <span class="font-weight-bolder"> Nama Progam </span>
@@ -38,8 +38,9 @@
                                 {{$end_date = \Carbon\Carbon::createFromFormat('Y-m-d', $program->date_end)
                                 ->format('d-M-Y');}}
                             </p>
-                            <span class="font-weight-bolder"> Status Progam </span>
-                            <p class="font-weight-normal">{{ $program->status }}</p>
+
+                            <span class="font-weight-bolder"> Kategori </span>
+                            <p class="font-weight-normal">{{ $program->category }}</p>
                         </div>
                     </div>
                     @if ($program->type =="Bug Bounty")
@@ -68,16 +69,18 @@
                     @endif
                 </div>
 
-              
+
             </div>
             <div class="row mt-3">
                 <div class="col-lg-3">
-                    <a href="{{ route('program_private.edit',$program->id)}}" class="btn btn-primary mr-5" ><i class="fas fa-edit fa-sm text-white-50"></i> Edit Program</a>
-                    
+                    <div class="text-center">
+                        <a href="{{ route('program_private.edit',$program->id)}}" class="btn btn-primary mr-5"><i
+                                class="fas fa-edit fa-sm text-white-50"></i> Ubah Data</a>
+                    </div>
                 </div>
                 <div class="col-lg-9">
                     <a href="{{ route('invite_user.edit',$program->id)}}" class="btn btn-primary"><i
-                        class="fas fa-envelope fa-sm text-white-50"></i> Undang Peneliti Keamanan</a>
+                            class="fas fa-envelope fa-sm text-white-50"></i> Undang Peneliti Keamanan</a>
                 </div>
             </div>
             <div class="row mt-3">

@@ -21,7 +21,7 @@
                     </div>
                     <div class="text-center">
                         <a href="{{ route('program_public.edit',$program->id)}}" class="btn btn-primary mt-5"><i
-                                class="fas fa-edit fa-sm text-white-50"></i> Edit Program</a>
+                                class="fas fa-edit fa-sm text-white-50"></i> Ubah Data</a>
                     </div>
                 </div>
                 <div class="col-lg-9">

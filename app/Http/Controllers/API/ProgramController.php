@@ -25,10 +25,10 @@ class ProgramController extends Controller
         ->where('date_start','<=',Carbon::now()->isoFormat('Y-MM-DD'))
         ->where('date_end','>=',Carbon::now()->isoFormat('Y-MM-DD'))
         ->where([
-            'status'=>'aktif',
+            'status'=>'Aktif',
             'category' => 'publik'
         ])
-        ->get(['programs.*']);
+        ->get(['programs.*','users.name']);
 
         return $program;
     }
@@ -40,7 +40,7 @@ class ProgramController extends Controller
             'user_id'=>'required',
             'program_name' => 'required',
             'program_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'company_name' => '',
+            // 'company_name' => '',
             'price_1' => '',
             'price_2' => '',
             'price_3' => '',
@@ -69,9 +69,42 @@ class ProgramController extends Controller
         ];
     }
 
+    public function cek_program($id,$user_id){
+        $notin = InvitedUser::where('invited_users.program_id',$id)->select('invited_users.user_id');
+
+        $user = DB::table('users')
+                ->rightJoin('programs','programs.user_id','=','users.id')
+                ->where('users.id',$user_id)
+                ->where('programs.id',$id)
+                ->whereIn('users.id',$notin)
+                ->get(['users.id','users.name','programs.program_name']);
+
+        
+
+        // $program = DB::table('programs')
+        // ->rightJoin('users', 'users.id', '=', 'programs.user_id')
+        // ->where('programs.id','=',$id)
+        // ->first(['programs.*','users.name']);
+
+        return $user;
+    }
+
     public function show($id)
     {
-        return Program::find($id);
+
+        // $notin = InvitedUser::where('invited_users.program_id',$id)->select('invited_users.user_id');
+
+        // $user = DB::table('users')
+        //         ->where('users.id',$user_id)
+        //         ->whereIn('users.id',$notin)
+        //         ->get(['id as user_id','name']);
+
+        $program = DB::table('programs')
+        ->rightJoin('users', 'users.id', '=', 'programs.user_id')
+        ->where('programs.id','=',$id)
+        ->first(['programs.*','users.name']);
+
+        return $program;
     }
 
     public function show_list($id)
@@ -87,7 +120,7 @@ class ProgramController extends Controller
             'id' => 'required',
             'program_name' => 'required',
             // 'program_image' => 'required',
-            'company_name' => '',
+            // 'company_name' => '',
             'price_1' => '',
             'price_2' => '',
             'price_3' => '',
@@ -110,7 +143,7 @@ class ProgramController extends Controller
         //     $program-> program_image = "$profileImage";
         // }
         $program-> program_name = $fields['program_name'];
-        $program-> company_name = $fields['company_name'];
+        // $program-> company_name = $fields['company_name'];
         $program-> price_1 = $fields['price_1'];
         $program-> price_2 = $fields['price_2'];
         $program-> price_3 = $fields['price_3'];
@@ -196,9 +229,31 @@ class ProgramController extends Controller
 
         $user = DB::table('users')
                 ->where('roles','researcher')
-                ->whereNotIn('users.id',$notin)->get(['id as user_id','name']);
+                ->whereIn('users.id',$notin)
+                ->get('id as user_id','name');
 
         return $user;
+
+    }
+
+    public function researcher_program(Request $request){
+
+        $fields = $request->validate([
+            'program_id'=>'',
+            'user_id' => '',
+        ]);
+
+    
+        $notin = InvitedUser::where('invited_users.program_id',$fields['program_id'])
+        ->where('user_id',$fields['user_id'])
+        ->get();
+        // $program = Program::where('user_id',$fields['program_id'])->get();
+        // $user = DB::table('users')
+        //         ->where('roles','researcher')
+        //         ->whereIn('users.id',$notin)
+        //         ->get('id as user_id','name');
+
+        return $notin;
 
     }
 

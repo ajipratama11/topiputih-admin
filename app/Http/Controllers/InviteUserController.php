@@ -7,6 +7,7 @@ use App\Models\Program;
 use App\Models\InvitedUser;
 use Illuminate\Http\Request;
 use App\Mail\InviteProgramMail;
+use App\Mail\MailInvite;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
@@ -60,7 +61,7 @@ class InviteUserController extends Controller
             InvitedUser::create($value);
             
             $email = User::where('id',$value['user_id'])->first();
-            Mail::to($email['email'])->send(new InviteProgramMail($data));
+            Mail::to($email['email'])->send(new MailInvite($data));
         }
         return back();
       

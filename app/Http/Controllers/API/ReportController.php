@@ -37,7 +37,8 @@ class ReportController extends Controller
             'impact' => 'required',
             'file' => 'required|mimes:pdf|max:20000|without_spaces',
             'date' => 'required',
-            'status_report' => 'required'
+            'status_report' => 'required',
+            'point' => ''
         ],
         
         [
@@ -106,7 +107,8 @@ class ReportController extends Controller
             'impact' => 'required',
             'file' => 'max:20000',
             'date' => 'required',
-            'status_report' => 'required'
+            'status_report' => 'required',
+            'point' => ''
         ]);
 
       
