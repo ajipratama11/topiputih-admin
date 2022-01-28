@@ -33,6 +33,7 @@ Route::get('/program/search/{name}', [ProgramController::class, 'search']);
 Route::post('forgot_password', [ResetPasswordController::class, 'forgotPassword']);
 Route::post('reset_password', [ResetPasswordController::class, 'reset']);
 
+Route::get('/point_program/{id}', [PointController::class, 'show_point_program']);
 
 
 // Protected routes
@@ -72,6 +73,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/report/{id}', [ReportController::class, 'show']);
     Route::get('/report_user/{id}', [ReportController::class, 'show_list_user']);
     Route::get('/report_program/{id}', [ReportController::class, 'show_list_program']);
+    
 
     //invite
    
@@ -84,10 +86,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/get_program/{id}',  [ProgramController::class, 'get_user_program']);
     Route::get('send_email/{email}',[SendEmailController::class,'index']);
 
-
-    Route::get('/point_program/{id}', [PointController::class, 'show_point_program']);
     Route::get('/point', [PointController::class, 'index']);
     Route::get('/point_user/{id}', [PointController::class, 'point_user']);
 });
 
-
+Route::get('/count_report/{id}', [ReportController::class, 'count_report_program']);

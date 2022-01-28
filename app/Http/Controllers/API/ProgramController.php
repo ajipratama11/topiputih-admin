@@ -11,6 +11,7 @@ use Illuminate\Support\Carbon;
 use App\Mail\InviteProgramMail;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Mail\MailInvite;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
@@ -229,11 +230,9 @@ class ProgramController extends Controller
     public function get_researcher($id){
 
         $notin = InvitedUser::where('invited_users.program_id',$id)->select('invited_users.user_id');
-
-        $user = DB::table('users')
-                ->where('roles','researcher')
-                ->whereIn('users.id',$notin)
-                ->get('id as user_id','name');
+        $user = User::where('roles','researcher') 
+        ->whereNotIn('users.id',$notin)
+        ->get(['id as user_id','name']);
 
         return $user;
 
@@ -262,13 +261,14 @@ class ProgramController extends Controller
 
     public function set_user(Request $request){
         $request->validate([
-            'input.*' => 'required',
+            'input.*' => '',
             'program_id'=>''
         ]);
 
-        $program = Program::where('program_id',$request->program_id)->first();
+        $program = Program::where('id',$request->program_id)->first();
 
         $data = [
+            'id' => $program->id,
             'name' => $program->program_name,
             'category' => $program->category
         ];
@@ -277,7 +277,7 @@ class ProgramController extends Controller
             InvitedUser::create($value);
             $email = User::where('id',$value['user_id'])->first();
 
-            Mail::to($email['email'])->send(new InviteProgramMail($data));
+            Mail::to($email['email'])->send(new MailInvite($data));
             // return ['berhasil'];
         };
     }

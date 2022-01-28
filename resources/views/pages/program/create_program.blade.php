@@ -101,7 +101,7 @@
                                     <input name="price_5" type="number" class="form-control">
                                 </div>
                             </div>
-                            <div class="col-lg-2 col-half-offset"">
+                            <div class="col-lg-2 col-half-offset">
                             {{-- <input name=" user_id" type="hidden" class="form-control" value="12"> --}}
                                 {{-- <input name="category" type="hidden" class="form-control" value="Publik"> --}}
                             </div>

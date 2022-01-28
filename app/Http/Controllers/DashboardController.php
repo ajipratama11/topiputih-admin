@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Program;
+use App\Models\Report;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Spatie\Crypto\Rsa\KeyPair;
@@ -25,14 +26,14 @@ class DashboardController extends Controller
         $count_company = User::where('roles','company')->get()->count();
         $count_researcher = User::where('roles','researcher')->get()->count();
         $count_program = Program::count();
-    
+        $count_report = Report::all()->count();
         // $enc = 
         
         $enc = $this->encodeing('Aji@pratama11');
         // $dec = $this->decodeing($enc);
         // $enc = '123';
         $dec = '123';
-        return view('pages.dashboard',compact('count_company','count_researcher','dec','enc','count_program'));
+        return view('pages.dashboard',compact('count_company','count_researcher','dec','enc','count_program','count_report'));
     }
 
     public function encodeing($sourcestr)  

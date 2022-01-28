@@ -77,6 +77,7 @@ class ReportController extends Controller
         ->join('users', 'users.id', '=', 'reports.user_id')
         ->join('programs', 'programs.id', '=', 'reports.program_id')
         ->where('reports.user_id',$id)
+        // ->where('status_report','')
         ->select('reports.*','programs.program_name','programs.date_start','programs.date_end')
         ->get();
 
@@ -138,5 +139,20 @@ class ReportController extends Controller
         return[
             'message' => ' Berhasil Update Data',
         ];
+    }
+
+    public function count_report_program($id)
+    {
+   
+        $report = DB::select("SELECT users.name ,reports.program_id,
+        programs.program_name, programs.date_start, programs.date_end,
+        programs.type,
+        count(reports.program_id) as count_report FROM `reports`
+        JOIN programs ON programs.id = reports.program_id
+        JOIN users ON users.id = programs.user_id
+        WHERE users.id = $id
+        GROUP by reports.program_id");
+       
+        return $report;
     }
 }

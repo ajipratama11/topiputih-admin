@@ -31,7 +31,7 @@
                     <div class="col-lg-6">
                         <div class="mb-3">
                             <label class="form-label">Nama Pemilik Sistem</label>
-                            <select name="user_id" class="custom-select" id="inputGroupSelect01">
+                            <select name="user_id" class="custom-select" id="inputGroupSelect01" disabled >
                                 {{-- <option value={{$program->user->id}}>{{$program->user->name}}</option> --}}
                                 @foreach ($user as $name)
                                 {{-- <option value={{$name->id}}>{{$name->name}}</option> --}}

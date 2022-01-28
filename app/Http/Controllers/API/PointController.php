@@ -12,10 +12,11 @@ class PointController extends Controller
 {
     public function index()
     {
-        $report = Report::selectRaw('user_id, sum(point) as amount')
+        $report = Report::selectRaw('user_id, sum(point) as points')
         ->groupBy('user_id')
         ->with(['user' => function ($query) {
-            $query->select('id','users.name');}])
+            $query->select('id','users.name','users.profile_picture');}])
+        ->orderBy('points','desc')
         ->get('user.name');
 
         return $report;
@@ -23,13 +24,14 @@ class PointController extends Controller
 
     public function show_point_program($id)
     {
-        $report = Report::selectRaw('reports.user_id, sum(point) as amount')
+        $report = Report::selectRaw('reports.user_id, sum(point) as poinxts')
         ->groupBy('reports.user_id')
         ->where('reports.program_id',$id)
         ->with(['user' => function ($query) {
-            $query->select('id','users.name');}])
+            $query->select('id','users.name','users.profile_picture');}])
+        ->orderBy('points','desc')
         ->get();
-
+    
 
         return $report;
     }

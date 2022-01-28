@@ -4,7 +4,7 @@
 <div class="container-fluid">
 
     <!-- Page Heading -->
-    <a href="/company" class=" mb-4 text-gray-1000"><i class="fas fa-fw fa-arrow-left"></i>Kembali</a>
+    <a href="/report" class=" mb-4 text-gray-1000"><i class="fas fa-fw fa-arrow-left"></i>Kembali</a>
     <div class="d-sm-flex align-items-center justify-content-between mb-2 mt-3">
         <h1 class="h3 mb-0 text-gray-800">Laporan Program</h1>
     </div>
@@ -38,6 +38,16 @@
                 </div>
                 <div class="col-lg-4">
                 </div>
+                <div class="col-lg-4 mt-3">
+                    <a href="{{'/file/report/'}}{{$report->file}}" download="{{$report->file}}"
+                        class="btn btn-primary"><i class="fas fa-fw fa-download"></i> Unduh File </a>
+                </div>
+                <div class="col-lg-4 mt-3">
+                    <a href="" class="btn btn-primary"><i class="fas fa-fw fa-edit"></i> Ubah Status</a>
+                </div>
+                <div class="col-lg-4 mt-3">
+
+                </div>
             </div>
             <div class="row mt-3">
                 <div class="col-lg-12">
@@ -53,7 +63,10 @@
                             <div class="col-lg-12 mt-3">
                                 <span class=" font-weight-bold"> Deskripsi </span>
                                 <p class="font-weight-normal">{!! $report->description_report !!}</p>
+
+
                             </div>
+
                         </div>
                     </div>
                 </div>

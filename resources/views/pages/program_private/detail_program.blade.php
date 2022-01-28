@@ -39,32 +39,36 @@
                                 ->format('d-M-Y');}}
                             </p>
 
-                            <span class="font-weight-bolder"> Kategori </span>
+                            <span class="font-weight-bolder"> Kategori Program</span>
                             <p class="font-weight-normal">{{ $program->category }}</p>
                         </div>
                     </div>
                     @if ($program->type =="Bug Bounty")
                     <div class="row">
-                        <div class="col-lg-2">
-                            <span class="font-weight-bolder">Hadiah Tingkat 1</span>
-                            <p class="font-weight-normal">@currency($program->price_1)</p>
+                        <div class="col-lg-12">
+                            <span class="font-weight-bolder">Hadiah Per-Tingkat Kerentanan</span>
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Sangat Rendah</th>
+                                        <th scope="col">Rendah</th>
+                                        <th scope="col">Sedang</th>
+                                        <th scope="col">Tinggi</th>
+                                        <th scope="col">Sangat Tinggi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>@currency($program->price_1)</td>
+                                        <td>@currency($program->price_2)</td>
+                                        <td>@currency($program->price_3)</td>
+                                        <td>@currency($program->price_4)</td>
+                                        <td>@currency($program->price_5)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
-                        <div class="col-lg-2">
-                            <span class="font-weight-bolder">Hadiah Tingkat 2</span>
-                            <p class="font-weight-normal">@currency($program->price_2)</p>
-                        </div>
-                        <div class="col-lg-2">
-                            <span class="font-weight-bolder">Hadiah Tingkat 3</span>
-                            <p class="font-weight-normal">@currency($program->price_3)</p>
-                        </div>
-                        <div class="col-lg-2">
-                            <span class="font-weight-bolder">Hadiah Tingkat 4</span>
-                            <p class="font-weight-normal">@currency($program->price_4)</p>
-                        </div>
-                        <div class="col-lg-2">
-                            <span class="font-weight-bolder">Hadiah Tingkat 5</span>
-                            <p class="font-weight-normal">@currency($program->price_5)</p>
-                        </div>
+                        
                     </div>
                     @endif
                 </div>

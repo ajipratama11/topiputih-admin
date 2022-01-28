@@ -19,7 +19,7 @@
                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{$count_company}}</div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+                            <i class="fas fa-building fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>
@@ -39,7 +39,7 @@
                             </div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                            <i class="fas fa-user-tie fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>
@@ -59,7 +59,7 @@
                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{$count_program}}</div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                            <i class="fas fa-code fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>
@@ -76,11 +76,11 @@
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                 Laporan Diterima</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">30</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{$count_report}}</div>
                             {{-- <div class="h5 mb-0 font-weight-bold text-gray-800">{{$dec}}</div> --}}
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>

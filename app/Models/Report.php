@@ -20,7 +20,8 @@ class Report extends Model
         'file',
         'date',
         'status_report',
-        'point'
+        'point',
+        'reward'
     ];
 
     public function user()
