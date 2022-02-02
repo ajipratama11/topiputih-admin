@@ -24,7 +24,7 @@ class PointController extends Controller
 
     public function show_point_program($id)
     {
-        $report = Report::selectRaw('reports.user_id, sum(point) as poinxts')
+        $report = Report::selectRaw('reports.user_id, sum(point) as points')
         ->groupBy('reports.user_id')
         ->where('reports.program_id',$id)
         ->with(['user' => function ($query) {

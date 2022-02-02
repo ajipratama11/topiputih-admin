@@ -38,7 +38,8 @@ class ReportController extends Controller
             'file' => 'required|mimes:pdf|max:20000|without_spaces',
             'date' => 'required',
             'status_report' => 'required',
-            'point' => ''
+            'point' => '',
+            'reward'=> ''
         ],
         
         [
@@ -154,5 +155,22 @@ class ReportController extends Controller
         GROUP by reports.program_id");
        
         return $report;
+    }
+    
+    public function change_status(Request $request)
+    {
+        $fields = $request->validate([
+            'id'=>'required',
+            'status_report'=> 'required',
+            'status_causes'=> ''
+        ]);
+        $report = Report::where('id',$fields['id'])->first();
+        $report->status_report = $fields['status_report'];
+        $report->status_causes = $fields['status_causes'];
+
+        $report->save();
+        return[
+            'message' => ' Berhasil Update Data',
+        ];
     }
 }

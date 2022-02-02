@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Program;
+use App\Mail\MailInvite;
 use App\Models\InvitedUser;
 use Illuminate\Http\Request;
-use App\Mail\InviteProgramMail;
-use App\Mail\MailInvite;
+use Illuminate\Http\Response;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
@@ -75,7 +76,16 @@ class InviteUserController extends Controller
      */
     public function show($id)
     {
-        //
+        $researcher = User::findOrFail($id);
+
+        $point = DB::table('reports')
+        ->where('user_id',$id)
+        ->sum('point');
+
+        return view('pages.invite_user.detail_user', [
+          'researcher' => $researcher,
+          'point' => $point
+        ]);
     }
 
     /**
@@ -86,23 +96,22 @@ class InviteUserController extends Controller
      */
     public function edit($id)
     {
-
-        $notin = InvitedUser::where('invited_users.program_id',$id)->select('invited_users.user_id');
-
         $program = Program::findOrFail($id);
         
         $invited = InvitedUser::where('program_id',$id)->get();
 
+        $notin = InvitedUser::where('invited_users.program_id',$id)->select('invited_users.user_id');
         $user = User::where('roles','researcher') 
                 ->whereNotIn('users.id',$notin)
                 ->get(['id','name']);
 
+        // $choice = User::findOrFail($id);
         return view('pages.invite_user.invite_user',compact('user'),
         [
             'program' => $program,
-            'users' => $invited
+            'users' => $invited,
+            // 'choice' => $choice
             ]);
-    
     }
 
     /**
@@ -130,5 +139,14 @@ class InviteUserController extends Controller
         $invited->delete();
 
         return back()->with('success',' Penghapusan berhasil.');
+    }
+
+    public function search($id)
+    {
+    	$category = User::find($id);
+
+	    return response()->json([
+	      'data' => $category
+	    ]);
     }
 }

@@ -79,7 +79,16 @@ class ReportController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $fields = $request->validate([
+            'status_report'=> 'required',
+            'status_causes'=> ''
+        ]);
+        $report = Report::where('id',$id)->first();
+        $report->status_report = $fields['status_report'];
+        $report->status_causes = $fields['status_causes'];
+    
+        $report->save();
+        return back();
     }
 
     /**
@@ -91,9 +100,9 @@ class ReportController extends Controller
     public function destroy($id)
     {
     
-        $program = Report::find($id);
+        $report = Report::find($id);
 
-        $program->delete();
+        $report->delete();
 
         return back()->with('success',' Penghapusan berhasil.');
     

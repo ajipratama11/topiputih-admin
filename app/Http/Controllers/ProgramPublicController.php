@@ -161,8 +161,8 @@ class ProgramPublicController extends Controller
     public function update(Request $request, $id)
     {
         $fields = $request->validate([
-            'user_id' => 'required',
-            'program_name' => 'required',
+            // 'user_id' => '',
+            'program_name' => '',
             'program_image' => '',
             // 'company_name' => '',
             'price_1' => '',
@@ -170,13 +170,13 @@ class ProgramPublicController extends Controller
             'price_3' => '',
             'price_4' => '',
             'price_5' => '',
-            'date_start' => 'required',
-            'date_end' => 'required',
-            'description' => 'required',
-            'scope' => 'required',
-            'status' => 'required',
-            'category' => 'required',
-            'type' => 'required',
+            'date_start' => '',
+            'date_end' => '',
+            'description' => '',
+            'scope' => '',
+            'status' => '',
+            'category' => '',
+            'type' => '',
         ]);
 
         $program = Program::where('id',$id)->first();
@@ -186,7 +186,7 @@ class ProgramPublicController extends Controller
             $image->move($destinationPath, $profileImage);
             $program-> program_image = "$profileImage";
         }
-        $program-> user_id = $fields['user_id'];
+        // $program-> user_id = $fields['user_id'];
         $program-> program_name = $fields['program_name'];
         // $program-> company_name = $fields['company_name'];
         $program-> price_1 = $fields['price_1'];

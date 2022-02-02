@@ -12,7 +12,6 @@ use App\Http\Controllers\InviteUserController;
 use App\Http\Controllers\ProgramPublicController;
 use App\Http\Controllers\ProgramPrivateController;
 use App\Http\Controllers\SendEmailController;
-use App\Models\InvitedUser;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,6 +50,7 @@ Route::group(['middleware' => ['admin']], function() {
     Route::resource('certificate', CertificateController::class);
     Route::resource('report', ReportController::class);
     Route::get('dashboard',[DashboardController::class,'index']);
+    Route::get('search/{id}/show',[InviteUserController::class,'search']);
 });
 // Route::resource('/company/edit', CompanyController::class)->middleware('auth');
 // Route::get('/researcher', [ResearcherController::class,'index'])->middleware('auth');;

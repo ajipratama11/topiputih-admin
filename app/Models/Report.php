@@ -20,6 +20,7 @@ class Report extends Model
         'file',
         'date',
         'status_report',
+        'status_causes',
         'point',
         'reward'
     ];

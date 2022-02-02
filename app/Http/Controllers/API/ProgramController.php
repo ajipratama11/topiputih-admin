@@ -18,21 +18,34 @@ use Illuminate\Support\Facades\Route;
 class ProgramController extends Controller
 {
 
-    public function index()
+    public function index_bb()
     {   
-      
         $program = DB::table('programs')
         ->rightJoin('users', 'users.id', '=', 'programs.user_id')
         ->where('date_start','<=',Carbon::now()->isoFormat('Y-MM-DD'))
         ->where('date_end','>=',Carbon::now()->isoFormat('Y-MM-DD'))
         ->where([
             'status'=>'Aktif',
-            'category' => 'publik'
+            'category' => 'publik',
+            // 'type' => 'Bug Bounty'
         ])
         ->get(['programs.*','users.name']);
 
+        return $program;
+    }
 
-       
+    public function index_vd()
+    {   
+        $program = DB::table('programs')
+        ->rightJoin('users', 'users.id', '=', 'programs.user_id')
+        ->where('date_start','<=',Carbon::now()->isoFormat('Y-MM-DD'))
+        ->where('date_end','>=',Carbon::now()->isoFormat('Y-MM-DD'))
+        ->where([
+            'status'=>'Aktif',
+            'category' => 'publik',
+            'type' => 'Vulnerability Disclosure'
+        ])
+        ->get(['programs.*','users.name']);
 
         return $program;
     }
@@ -230,9 +243,12 @@ class ProgramController extends Controller
     public function get_researcher($id){
 
         $notin = InvitedUser::where('invited_users.program_id',$id)->select('invited_users.user_id');
+
         $user = User::where('roles','researcher') 
+        // ->join('researcher_certificates','researcher_certificates.user_id','=','users.id')
         ->whereNotIn('users.id',$notin)
-        ->get(['id as user_id','name']);
+        ->with('researchercertificate')
+        ->get();
 
         return $user;
 
@@ -307,6 +323,19 @@ class ProgramController extends Controller
     }
 
     public function get_user_program($id){
+        // return InvitedUser::where('invited_users',$id)->get();
+
+        $invite = DB::table('invited_users')
+        ->join('users', 'users.id', '=', 'invited_users.user_id')
+        ->join('programs', 'programs.id', '=', 'invited_users.program_id')
+        ->where('invited_users.user_id',$id)
+        ->select('invited_users.*','programs.program_name','programs.program_image','programs.type')
+        ->get();
+
+        return $invite;
+    }
+
+    public function get_info_invited($id){
         // return InvitedUser::where('invited_users',$id)->get();
 
         $invite = DB::table('invited_users')

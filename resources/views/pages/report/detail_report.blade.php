@@ -17,10 +17,10 @@
                 <div class="col-lg-4">
                     <span class="font-weight-bolder"> Nama Program </span>
                     <p class="font-weight-normal">{{ $report->program->program_name }}</p>
-                    <span class="font-weight-bolder"> Kategori </span>
-                    <p class="font-weight-normal">{{ $report->category_report}}</p>
-                    <span class="font-weight-bolder"> Cakupan </span>
-                    <p class="font-weight-normal">{{ $report->scope_report}}</p>
+                    <span class="font-weight-bolder"> Tanggal Laporan </span>
+                    <p class="font-weight-normal"> {{$date = \Carbon\Carbon::createFromFormat('Y-m-d',
+                        $report->date)->format('d-M-Y');}} </p>
+
                 </div>
                 <div class="col-lg-4">
                     <span class="font-weight-bolder"> Tanggal Program </span>
@@ -30,31 +30,28 @@
                         ->format('d-M-Y');}} -
                         {{$end_date = \Carbon\Carbon::createFromFormat('Y-m-d',
                         $report->program->date_end)->format('d-M-Y');}}</p>
-                    <span class="font-weight-bolder"> Tanggal Laporan </span>
-                    <p class="font-weight-normal"> {{$date = \Carbon\Carbon::createFromFormat('Y-m-d',
-                        $report->date)->format('d-M-Y');}} </p>
-                    <span class="font-weight-bolder"> Status </span>
-                    <p class="font-weight-normal">{{ $report->status_report}}</p>
                 </div>
                 <div class="col-lg-4">
                 </div>
-                <div class="col-lg-4 mt-3">
-                    <a href="{{'/file/report/'}}{{$report->file}}" download="{{$report->file}}"
-                        class="btn btn-primary"><i class="fas fa-fw fa-download"></i> Unduh File </a>
+                <div class="col-lg-4">
+                    <span class="font-weight-bolder"> Objek</span>
+                    <p class="font-weight-normal">{{ $report->scope_report}}</p>
                 </div>
-                <div class="col-lg-4 mt-3">
-                    <a href="" class="btn btn-primary"><i class="fas fa-fw fa-edit"></i> Ubah Status</a>
-                </div>
-                <div class="col-lg-4 mt-3">
+                <div class="col-lg-4">
 
+                    <span class="font-weight-bolder"> Kategori </span>
+                    <p class="font-weight-normal">{{ $report->category_report}}</p>
                 </div>
+                <div class="col-lg-4">
+                </div>
+
             </div>
             <div class="row mt-3">
                 <div class="col-lg-12">
                     <div class="card shadow mb-4">
                         <div class="card-body">
                             <div class="col-lg-12 border-bottom">
-                                <span class="font-weight-bold"> Ringkasan </span>
+                                <span class="font-weight-bold"> Kerentanan </span>
                                 <p class="font-weight-normal">{{ $report->summary }}</p>
 
                                 <span class="font-weight-bold"> Dampak </span>
@@ -71,7 +68,91 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-lg-4 ">
+                            <span class="font-weight-bolder"> Laporan </span>
+                        </div>
+                        <div class="col-lg-4 ">
+                            <span class="font-weight-bolder"> Status : {{ $report->status_report}} </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 mt-3">
+                    <a href="{{'/file/report/'}}{{$report->file}}" download="{{$report->file}}"
+                        class="btn btn-primary"><i class="fas fa-fw fa-download"></i> Unduh File </a>
+                </div>
+                <div class="col-lg-4 mt-3">
+                    <a data-toggle="modal" data-target="#change-status" class="btn btn-primary"><i
+                            class="fas fa-fw fa-edit"></i> Ubah Status</a>
+                </div>
+
+            </div>
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="change-status" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ubah Status</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="{{ route('report.update',$report->id) }}" method="POST">
+                @csrf
+                @method('put')
+                <div class="modal-body">
+                    <select name="status_report" class="custom-select" id="target">
+                        <option value="Diterima" {{ $report->status_report == 'Diterima' ? 'selected' :'' }}> Diterima
+                        </option>
+                        <option value="Ditinjau" {{ $report->status_report == 'Ditinjau' ? 'selected' :'' }}> Ditinjau
+                        </option>
+                        <option value="Ditolak" {{ $report->status_report == 'Ditolak' ? 'selected' :'' }}> Ditolak
+                        </option>
+                        <option value="Disetujui" {{ $report->status_report == 'Disetujui' ? 'selected' :'' }}>Disetujui
+                        </option>
+                    </select>
+
+                    <div class=" mt-3" id="causes">
+                        <label for="exampleInputEmail1" class="form-label">Alasan Penolakan</label>
+                        <input name="status_causes" type="text" class="form-control" value="{{$report->status_causes}}">
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        console.log($("#target").val());
+    })
+</script>
+<script type="text/javascript">
+    $(document).ready(function (e) {
+        if ($("#target").val() === "Ditolak") {
+        $("#causes").show();
+        } else {
+        $("#causes").hide();
+        }
+        $('#target').on('change', function () {
+        if(this.value === 'Ditolak'){
+            $('#causes').show();
+        }else{
+            $('#causes').hide();
+        }
+        });
+    });
+</script>
 @endsection

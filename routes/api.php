@@ -25,7 +25,9 @@ Route::post('/register', [UserController::class, 'register']);
 Route::post('login', [UserController::class, 'login']);
 Route::post('/register_tes', [UserController::class, 'register_tes']);
 Route::post('login_tes', [UserController::class, 'login_tes']);
-Route::get('/program', [ProgramController::class, 'index']);
+Route::get('/program', [ProgramController::class, 'index_bb']);
+Route::get('/program_vd', [ProgramController::class, 'index_vd']);
+
 Route::get('/program/{id}', [ProgramController::class, 'show']);
 Route::get('/program_cek/{id}&{user_id}', [ProgramController::class, 'cek_program']);
 Route::get('/program/search/{name}', [ProgramController::class, 'search']);
@@ -43,6 +45,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/program_image', [ProgramController::class, 'update_image']);
     Route::delete('/program/{id}', [ProgramController::class, 'delete']);
     Route::get('/program_list/{id}', [ProgramController::class, 'show_list']);
+    Route::get('/program_private', [ProgramController::class, 'index_vd']);
 
     Route::post('/logout', [UserController::class, 'logout']);
     Route::get('/user',  [UserController::class, 'user']);
@@ -73,8 +76,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/report/{id}', [ReportController::class, 'show']);
     Route::get('/report_user/{id}', [ReportController::class, 'show_list_user']);
     Route::get('/report_program/{id}', [ReportController::class, 'show_list_program']);
-    
-
+    Route::get('/count_report/{id}', [ReportController::class, 'count_report_program']);
+    Route::post('/status_report', [ReportController::class, 'change_status']);
     //invite
    
     Route::post('/insert_user',  [ProgramController::class, 'set_user']);
@@ -88,6 +91,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::get('/point', [PointController::class, 'index']);
     Route::get('/point_user/{id}', [PointController::class, 'point_user']);
+
 });
 
-Route::get('/count_report/{id}', [ReportController::class, 'count_report_program']);
+

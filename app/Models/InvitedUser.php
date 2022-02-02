@@ -13,6 +13,7 @@ class InvitedUser extends Model
         'program_id',
         'user_id',
         'name'
+        
     ];
 
     public function user()
@@ -22,6 +23,6 @@ class InvitedUser extends Model
 
     public function program()
     {
-        return $this->belongsTo(program::class);
+        return $this->belongsTo(Program::class);
     }
 }

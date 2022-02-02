@@ -44,11 +44,10 @@ class User extends Authenticatable
         return $this->hasOne(ResearcherBank::class);
     }
 
-    
 
     public function researcherCertificate()
     {
-        return $this->hasOne(ResearcherSertificate::class);
+        return $this->hasOne(ResearcherCertificate::class);
     }
 
     public function cert_count_1($user_id)
@@ -77,9 +76,14 @@ class User extends Authenticatable
         return $this->hasOne(Program::class);
     }
 
-    public function Report()
+    public function report()
     {
         return $this->hasOne(Report::class);
+    }
+
+    public function invitedUser()
+    {
+        return $this->hasOne(InvitedUser::class);
     }
 
     public function program_count($user_id)
