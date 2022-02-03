@@ -4,14 +4,15 @@ namespace App\Http\Controllers\API;
 
 use Exception;
 use App\Models\User;
+use App\Models\Report;
 use App\Models\Program;
+use App\Mail\MailInvite;
 use App\Models\InvitedUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Mail\InviteProgramMail;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Mail\MailInvite;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
@@ -241,17 +242,28 @@ class ProgramController extends Controller
     }
 
     public function get_researcher($id){
-
         $notin = InvitedUser::where('invited_users.program_id',$id)->select('invited_users.user_id');
 
         $user = User::where('roles','researcher') 
-        // ->join('researcher_certificates','researcher_certificates.user_id','=','users.id')
+        // ->join('reports','reports.user_id','=','users.id')
         ->whereNotIn('users.id',$notin)
-        ->with('researchercertificate')
-        ->get();
+        // ->groupBy('reports.user_id')
+        // ->sum('reports.point')
+        ->get(['users.id as user_id','name']);
 
         return $user;
+    }
+    public function no_researcher($id){
 
+        $notin = Report::get('reports.user_id');
+        $notin2 = InvitedUser::where('invited_users.program_id',$id)->select('invited_users.user_id');
+
+        $user = User::where('roles','researcher') 
+        ->whereNotIn('users.id',$notin)
+        ->whereNotIn('users.id',$notin2)
+        ->select(['users.id as user_id','name'])->get();
+
+        return $user;
     }
 
     public function researcher_program(Request $request){

@@ -36,7 +36,7 @@
             <span class="font-weight-bolder"> Nama Peneliti Keamanan </span>
             <p class="font-weight-normal">{{ $researcher->name }}</p>
             <span class="font-weight-bolder"> Point </span>
-            <p class="font-weight-normal">{{ $point ?? 'Belum Memiliki Point'}}</p>
+            {{-- <p class="font-weight-normal">{{ $point ?? 'Belum Memiliki Point'}}</p>
             <span class="font-weight-bolder">Sertifikat Keahlian</span>
             <p class="font-weight-normal">{{$researcher->cert_count_1($researcher->id) ?? 'Belum Mengisi'}}
             </p>
@@ -45,7 +45,7 @@
             </p>
             <span class="font-weight-bolder">Laporan Terkirim</span>
             <p class="font-weight-normal">{{ $researcher->report_count($researcher->id) ?? 'Belum Mengisi'}}
-            </p>
+            </p> --}}
         </div>
     </div>
 

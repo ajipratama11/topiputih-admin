@@ -50,7 +50,8 @@ Route::group(['middleware' => ['admin']], function() {
     Route::resource('certificate', CertificateController::class);
     Route::resource('report', ReportController::class);
     Route::get('dashboard',[DashboardController::class,'index']);
-    Route::get('search/{id}/show',[InviteUserController::class,'search']);
+    Route::get('search/{id}',[InviteUserController::class,'search']);
+    Route::get('list/{id}',[InviteUserController::class,'list']);
 });
 // Route::resource('/company/edit', CompanyController::class)->middleware('auth');
 // Route::get('/researcher', [ResearcherController::class,'index'])->middleware('auth');;

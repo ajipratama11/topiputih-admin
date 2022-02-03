@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Models\User;
+use App\Models\Report;
+use App\Models\InvitedUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Models\InvitedUser;
-use App\Models\Report;
 
 class PointController extends Controller
 {
@@ -15,9 +16,16 @@ class PointController extends Controller
         $report = Report::selectRaw('user_id, sum(point) as points')
         ->groupBy('user_id')
         ->with(['user' => function ($query) {
-            $query->select('id','users.name','users.profile_picture');}])
+            $query->select('id','users.name','users.email');}])
         ->orderBy('points','desc')
-        ->get('user.name');
+        ->get('user.name','user.email');
+
+        // $notin = Report::get('reports.user_id');
+
+        // $report = User::where('roles','researcher') 
+        // ->whereNotIn('users.id',$notin)
+        // ->select(['users.id as user_id','name'])->get();
+
 
         return $report;
     }

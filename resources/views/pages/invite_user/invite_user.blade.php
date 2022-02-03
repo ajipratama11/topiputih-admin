@@ -25,11 +25,10 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <select name="input[0][user_id]" class="custom-select select2"
-                                        onchange="myFunction(event)">
+                                    <select name="input[0][user_id]" class="custom-select select2">
                                         <option value=""></option>
                                         @foreach ($user as $name)
-                                        <option value={{$name->id}}>{{$name->name}}</option>
+                                        <option data-id={{$name->id}} value={{$name->id}}>{{$name->name}}</option>
                                         @endforeach
                                     </select>
                                 </td>
@@ -39,12 +38,13 @@
                                         <i class="fas fa-fw fa-info">
                                         </i>
                                     </a> --}}
-                                    <input id="myText" type="hidden" value="0">
-
-                                    <a data-toggle="modal" id="smallButton" data-target="#smallModal"
+                                    {{-- <input id="myText" type="text" value="0"> --}}
+                                    <a class="btn btn-secondary detail-btn" data-toggle="modal"
+                                        data-target="#myModal">Detail</a>
+                                    {{-- <a data-toggle="modal" id="smallButton" data-target="#smallModal"
                                         data-attr="{{ route('invite_user.show','')}}" title="show">
                                         <i class="btn btn-info">Info</i>
-                                    </a>
+                                    </a> --}}
                                 </td>
                                 {{-- <td><a id="info" class="btn btn-info">Show {{$name->id}}</a> --}}
                                 <td>
@@ -78,7 +78,9 @@
                                             onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')"><i
                                                 class="fas fa-fw fa-trash-alt"></i></button>
                                     </form>
+
                                 </td>
+
                                 {{-- <td>
                                     <a id="show-user" data-id="{{$invited->user->id}}" class="btn btn-info">Show</a>
 
@@ -99,7 +101,7 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="smallModal" tabindex="-1" role="dialog" aria-labelledby="smallModalLabel"
+{{-- <div class="modal fade" id="smallModal" tabindex="-1" role="dialog" aria-labelledby="smallModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-md" role="document">
         <div class="modal-content">
@@ -115,40 +117,89 @@
             </div>
         </div>
     </div>
+</div> --}}
+
+<div class="modal" tabindex="-1" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Detail Peneliti Keamanan</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <span class="font-weight-bolder">Nama</span>
+                        <p id="name"></p>
+                        <span class="font-weight-bolder">Point</span>
+                        <p id="point"></p>
+                    </div>
+                    <div class="col-lg-6">
+                        <span class="font-weight-bolder">Alamat Surat Elektronik</span>
+                        <p id="email"></p>
+                        <span class="font-weight-bolder">Laporan Dikirim</span>
+                        <p id="report"></p>
+                    </div>
+                    <div class="col-lg-12 mt-3">
+                        <table class="table table-striped" id="address-table" width="100%">
+                            <thead id="tblHead">
+                                <tr>
+                                    <th>Nama Sertifikat</th>
+                                    <th>Tanggal</th>
+                                    <th>Tipe</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                {{-- <button id="destroy" type="button" class="btn btn-primary">Save changes</button> --}}
+            </div>
+        </div>
+    </div>
 </div>
 
-<script>
-    function myFunction(e) {
-    document.getElementById("myText").value = e.target.value
-    // document.getElementById("smallButton").value = e.target.value
-    // var key = e.target.value
-    }
-    $(document).on('click', '#smallButton', function(event) {
-            event.preventDefault();
-            let href = $(this).attr('data-attr')+'/'+ document.getElementById("myText").value;
-            $.ajax({
-                url: href,
-                beforeSend: function() {
-                    $('#loader').show();
-                },
-                // return the result
-                success: function(result) {
-                    $('#smallModal').modal("show");
-                    $('#smallBody').html(result).show();
-                },
-                complete: function() {
-                    $('#loader').hide();
-                },
-                error: function(jqXHR, testStatus, error) {
-                    console.log(error);
-                    alert("Page " + href + " cannot open. Error:" + error);
-                    $('#loader').hide();
-                },
-                timeout: 8000
-            })
-        });
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"
+    integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous">
 </script>
-<script type="text/javascript">
+
+{{-- <script>
+    $('body').on('click','.detail-btn',function(event){
+        event.preventDefault();
+
+        var me=$(this),
+            url = me.attr('href'),
+            // title = me.attr('name');
+
+        $.ajax({
+            url:url,
+            dataType: 'html',
+            success:function(response){
+                $('#modal-body').html(response);
+            }
+        })
+    })
+</script> --}}
+<script>
+    // function myFunction(e) {
+    // document.getElementById("myText").value = e.target.value
+    // // document.getElementById("smallButton").value = e.target.value
+    // // var key = e.target.value
+    // }
+   
+</script>
+{{-- <script type="text/javascript">
     var i = 0;
     $("#dynamic-ar").click(function () {
         ++i;
@@ -161,28 +212,76 @@
     $(document).on('click', '.remove-input-field', function () {
         $(this).parents('tr').remove();
     });
+</script> --}}
+<script>
+    $('#myModal').modal('hide');
+    // function myFunction(e) {
+    // // document.getElementById("myText").value = e.target.value
+    
+    // // console.log($(this).find(':selected').attr('data-id'))
+    // // document.getElementById("smallButton").value = e.target.value
+    // // var key = e.target.value
+    // }
+    
+    $(document).ready(function() {
+        
+        $('select').change(function(){
+           var id = $(this).find(':selected').attr('data-id'); 
+           console.log(id)
+        
+            $('.detail-btn').click(function() {
+                // var id = $(this).find(':selected').attr('data-id');
+                // consol.log(id+id)
+                $.ajax({
+                url: '/search/'+id,
+                type: 'GET',
+                data: {
+                    "id": id
+                },
+                success:function(data) {
+                    console.log(data);
+                    $('#name').html(data.user.name);
+                    $('#email').html(data.user.email);
+                    $('#point').html(data.point);
+                    $('#report').html(data.report);
+                    $('#myModal').modal('show');
+                },
+                })
+                if ($.fn.dataTable.isDataTable('#address-table')) {
+                    $('#address-table').DataTable().clear().destroy();               
+                }
+                $("#address-table").DataTable({
+                    processing: true,
+                    serverSide: true,
+                    paging: false,
+                    searching: false,
+                    ordering: false,
+                    info:false,
+                        type : "get",
+                    ajax: '{{ url("list")}}'+'/'+id,
+                    columns: [
+                        { data:'cert_name', name: 'cert_name'},
+                        { data:'cert_date', name: 'cert_date'},
+                        { data:'cert_type', name: 'cert_type'}
+                    ]
+                });
+            });
+            
+      });
+    });
 </script>
-<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
-    crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
 <script>
     $(document).ready(function(){
         $('.select2').select2();
-
-        $('#myselect').change(function() { //jQuery Change Function
-        var opval = $(this).val(); //Get value from select element
-        if(opval=="secondoption"){ //Compare it and if true
-            $('#info').modal("show"); //Open Modal
-        }
-        });
-
-
         
-    });
-
-    
+        // $('#myselect').change(function() { //jQuery Change Function
+        // var opval = $(this).val(); //Get value from select element
+        // if(opval=="secondoption"){ //Compare it and if true
+        //     $('#info').modal("show"); //Open Modal
+        // }
+        // });
+    });    
 </script>
 
 

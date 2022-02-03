@@ -6,6 +6,7 @@ use App\Models\Report;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\CategoryReport;
 use Illuminate\Support\Facades\Validator;
 
 class ReportController extends Controller
@@ -172,5 +173,9 @@ class ReportController extends Controller
         return[
             'message' => ' Berhasil Update Data',
         ];
+    }
+
+    public function category_report(){
+        return CategoryReport::all();
     }
 }

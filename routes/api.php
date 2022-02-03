@@ -63,6 +63,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/update_profile',[UserController::class, 'update_profile']);
 
     Route::get('/cert/{id}/', [CertificateController::class, 'show']);
+    Route::get('/cert', [CertificateController::class, 'index']);
     Route::post('/upload_cert',[CertificateController::class, 'store']);
     Route::delete('/cert/{id}', [CertificateController::class, 'delete']);
     Route::post('/update_cert',[CertificateController::class, 'update']);
@@ -78,12 +79,14 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/report_program/{id}', [ReportController::class, 'show_list_program']);
     Route::get('/count_report/{id}', [ReportController::class, 'count_report_program']);
     Route::post('/status_report', [ReportController::class, 'change_status']);
+    Route::get('/category_report', [ReportController::class, 'category_report']);
     //invite
    
     Route::post('/insert_user',  [ProgramController::class, 'set_user']);
     Route::delete('/delete_invited/{id}', [ProgramController::class, 'delete_invited']);
     Route::post('/researcher',  [ProgramController::class, 'researcher_program']);
     Route::get('/researcher/{id}',  [ProgramController::class, 'get_researcher']);
+    Route::get('/no_researcher/{id}',  [ProgramController::class, 'no_researcher']);
     Route::get('/get_invite/{id}',  [ProgramController::class, 'get_user_invited']);
    
     Route::get('/get_program/{id}',  [ProgramController::class, 'get_user_program']);

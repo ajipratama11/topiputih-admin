@@ -8,9 +8,11 @@ use App\Mail\MailInvite;
 use App\Models\InvitedUser;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Yajra\Datatables\Datatables;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use App\Models\ResearcherCertificate;
 
 class InviteUserController extends Controller
 {
@@ -82,10 +84,11 @@ class InviteUserController extends Controller
         ->where('user_id',$id)
         ->sum('point');
 
-        return view('pages.invite_user.detail_user', [
-          'researcher' => $researcher,
-          'point' => $point
+        return view('pages.invite_user.detail_user',compact('researcher'), [
+        //   'researcher' => $researcher,
+        //   'point' => $point
         ]);
+        // return $researcher;
     }
 
     /**
@@ -143,10 +146,29 @@ class InviteUserController extends Controller
 
     public function search($id)
     {
-    	$category = User::find($id);
-
-	    return response()->json([
-	      'data' => $category
-	    ]);
+        $user = User::find($id);
+        $point = DB::table('reports')
+        ->where('user_id',$id)
+        ->sum('point');
+        $report = DB::table('reports')
+        ->where('user_id',$id)
+        ->count('user_id');
+        
+	    return [
+            'user'=>$user,
+            'point' =>$point,
+            'report' => $report,
+        ];
+    	
+    }
+    public function list($id)
+    {
+        $foruser = ResearcherCertificate::where('user_id',$id)->get();
+        // // $foruser = User::all();
+	    // return $foruser;
+    	
+        return DataTables::of($foruser)
+        ->make(true);
+   
     }
 }

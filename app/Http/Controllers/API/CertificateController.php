@@ -9,6 +9,12 @@ use App\Models\ResearcherSertificate;
 
 class CertificateController extends Controller
 {
+
+    public function index()
+    {
+        return ResearcherCertificate::all();
+    }
+    
     public function show($id)
     {
         return ResearcherCertificate::where('user_id', $id)->get();;
