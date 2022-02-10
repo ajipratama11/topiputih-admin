@@ -53,7 +53,6 @@ class ProgramController extends Controller
 
     public function create(Request $request)
     {
-
         $input = $request->validate([
             'user_id'=>'required',
             'program_name' => 'required',
@@ -251,17 +250,26 @@ class ProgramController extends Controller
         // ->sum('reports.point')
         ->get(['users.id as user_id','name']);
 
+        // $user = DB::table('users')
+        //     ->leftJoin('reports','reports.user_id','=','users.id')
+        //     ->where('roles','researcher')
+        //     ->WhereNotIn('users.id',$notin)
+        //     ->select('users.id as user_id','users.name as name',DB::raw('SUM(reports.point) AS points'))
+        //     ->groupBy('reports.user_id')
+        //     ->get();
+            // ->toSql();
+
         return $user;
     }
-    public function no_researcher($id){
+    
+    public function no_researcher(){
 
-        $notin = Report::get('reports.user_id');
-        $notin2 = InvitedUser::where('invited_users.program_id',$id)->select('invited_users.user_id');
-
-        $user = User::where('roles','researcher') 
-        ->whereNotIn('users.id',$notin)
-        ->whereNotIn('users.id',$notin2)
-        ->select(['users.id as user_id','name'])->get();
+        $user = DB::table('users')
+        ->leftJoin('reports','reports.user_id','=','users.id')
+        ->where('roles','researcher')
+        ->select('users.id as user_id','users.name as name','users.email',DB::raw('SUM(reports.point) AS points'))
+        ->groupBy('reports.user_id')
+        ->get();
 
         return $user;
     }
@@ -290,6 +298,7 @@ class ProgramController extends Controller
     public function set_user(Request $request){
         $request->validate([
             'input.*' => '',
+            // 'user_id'=>'',
             'program_id'=>''
         ]);
 
@@ -303,7 +312,8 @@ class ProgramController extends Controller
         foreach ($request->input as $key => $value) {
             $value['program_id']= $request->program_id; 
             InvitedUser::create($value);
-            $email = User::where('id',$value['user_id'])->first();
+            // InvitedUser::create($value['user_id']);
+            $email = User::where('id', $value['user_id'])->first();
 
             Mail::to($email['email'])->send(new MailInvite($data));
             // return ['berhasil'];
@@ -360,4 +370,11 @@ class ProgramController extends Controller
         return $invite;
     }
 
+    public function get_reward($program_id){
+        $program = Program::where('id',$program_id)
+        ->select('price_1','price_2','price_3','price_4','price_5')
+        ->get();
+
+        return $program;
+    }
 }

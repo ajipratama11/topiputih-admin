@@ -86,6 +86,11 @@ class User extends Authenticatable
         return $this->hasOne(InvitedUser::class);
     }
 
+    public function payment()
+    {
+        return $this->hasOne(Payment::class);
+    }
+
     public function program_count($user_id)
     {
         
@@ -98,6 +103,26 @@ class User extends Authenticatable
         
     }
 
+    public function get_balance($user_id)
+    {
+        return Payment::where('status','Diterima')
+        ->where('user_id',$user_id)
+        ->sum('payments.payment_amount');
+    }
+    public function get_payment($user_id)
+    {
+        return  Program::where('users.id',$user_id)
+        ->where('reports.status_reward','Selesai')
+        ->rightJoin('reports', 'reports.program_id', '=', 'programs.id')
+        ->leftJoin('users', 'users.id', '=', 'programs.user_id')
+        ->sum('reports.reward');
+    }
+    public function payment_used($user_id)
+    {
+        $calculate = $this->get_balance($user_id) -  $this->get_payment($user_id);
+
+        return $calculate;
+    }
 
     public function sendPasswordResetNotification($token)
     {

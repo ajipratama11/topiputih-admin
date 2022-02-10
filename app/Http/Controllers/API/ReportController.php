@@ -7,13 +7,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\CategoryReport;
+use App\Models\Program;
 use Illuminate\Support\Facades\Validator;
 
 class ReportController extends Controller
 {
     public function index()
     {   
-      
         $report = DB::table('programs')
         ->rightJoin('users', 'users.id', '=', 'programs.user_id')
         ->rightJoin('reports', 'programs.id', '=', 'reports.program_id')
@@ -33,14 +33,15 @@ class ReportController extends Controller
             'program_id' => 'required',
             'summary' => 'required',
             'scope_report' => 'required',
-            'category_report' => 'required',
+            'category_id' => 'required',
             'description_report' => 'required',
             'impact' => 'required',
-            'file' => 'required|mimes:pdf|max:20000|without_spaces',
+            'file' => 'mimes:pdf|max:20000|without_spaces',
             'date' => 'required',
             'status_report' => 'required',
             'point' => '',
-            'reward'=> ''
+            'reward'=> '',
+            'status_reward'=> ''
         ],
         
         [
@@ -54,11 +55,44 @@ class ReportController extends Controller
             $file->move($destinationPath, $fileName);
             $input['file'] = "$fileName";
             }
-        Report::create($input);
 
+        
+        $cat = CategoryReport::select('category')
+        ->where('id',$input['category_id'])
+        ->first();
+        $program = Program::where('id',$input['program_id'])
+        ->select('price_1','price_2','price_3','price_4','price_5')
+        ->first();
+
+        if ($cat->category == 'Sangat Rendah' ){
+             $input['reward']= $program->price_1;
+             $input['point'] = '12.5';
+        }elseif($cat->category == 'Rendah' ){
+            $input['reward']= $program->price_2;
+            $input['point'] = '25';
+        }
+        elseif($cat->category == 'Sedang' ){
+            $input['reward']= $program->price_3;
+            $input['point'] = '37.5';
+        }
+        elseif($cat->category == 'Tinggi' ){
+            $input['reward']= $program->price_4;
+            $input['point'] = '62.5';
+        }
+        elseif($cat->category == 'Sangat Tinggi' ){
+            $input['reward']= $program->price_5;
+            $input['point'] = '100';
+        }
+        $input['status_reward']= 'Proses';
+        Report::create($input);
         return[
             'message' => ' Berhasil Tambah Data',
+            // 'program' => $cat->category,
+            // 'price' => $input['reward']
+
         ];
+
+
     }
 
     public function show($id)
@@ -66,6 +100,7 @@ class ReportController extends Controller
         $report = DB::table('reports')
         ->join('users', 'users.id', '=', 'reports.user_id')
         ->join('programs', 'programs.id', '=', 'reports.program_id')
+        ->join('category_reports','category_reports.id','=','reports.category_id')
         ->where('reports.id',$id)
         // ->select('reports.*','programs.program_name','programs.date_start','programs.date_end')
         ->get();
@@ -91,8 +126,10 @@ class ReportController extends Controller
         $report = DB::table('reports')
         ->rightJoin('users', 'users.id', '=', 'reports.user_id')
         ->rightJoin('programs', 'programs.id', '=', 'reports.program_id')
+        ->rightJoin('category_reports','category_reports.id','=','reports.category_id')
         ->where('reports.program_id',$id)
-        ->select('reports.*','users.name')
+        ->where('status_report','Disetujui')
+        ->select('reports.*','users.name','category_reports.detail','category_reports.category')
         ->get();
 
         return $report;
@@ -107,7 +144,7 @@ class ReportController extends Controller
             'program_id' => 'required',
             'summary' => 'required',
             'scope_report' => 'required',
-            'category_report' => 'required',
+            'category_id' => 'required',
             'description_report' => 'required',
             'impact' => 'required',
             'file' => 'max:20000',
@@ -130,7 +167,7 @@ class ReportController extends Controller
 
             $report->summary = $input['summary'];
             $report->scope_report = $input['scope'];
-            $report->category_report = $input['category'];
+            $report->category_id = $input['category'];
             $report->description_report = $input['description'];
             $report->impact = $input['impact'];
             $report->date = $input['date'];
@@ -146,15 +183,26 @@ class ReportController extends Controller
     public function count_report_program($id)
     {
    
-        $report = DB::select("SELECT users.name ,reports.program_id,
-        programs.program_name, programs.date_start, programs.date_end,
-        programs.type,
-        count(reports.program_id) as count_report FROM `reports`
-        JOIN programs ON programs.id = reports.program_id
-        JOIN users ON users.id = programs.user_id
-        WHERE users.id = $id
-        GROUP by reports.program_id");
-       
+        // $report = DB::select("SELECT users.name ,reports.program_id,
+        // programs.program_name, programs.date_start, programs.date_end,
+        // programs.type,
+        // count(reports.program_id) as count_report FROM `reports`
+        // RIGHT JOIN programs ON programs.id = reports.program_id
+        // RIGHT JOIN users ON users.id = programs.user_id
+        // WHERE users.id = $id 
+        // AND status_report = 'Disetujui'
+        // GROUP by reports.program_id");
+
+        $report = Program::where('users.id',$id)
+        ->leftJoin('reports','reports.program_id','=','programs.id')
+        ->leftJoin('users','users.id','=','programs.user_id')
+        ->select('users.name' ,'reports.program_id',
+        'programs.program_name', 'programs.date_start', 'programs.date_end',
+        'programs.type',DB::raw('count(reports.user_id) AS count_report'))
+        ->groupBy('programs.id')
+        ->where('status_report','Disetujui')
+        ->get();
+
         return $report;
     }
     
@@ -177,5 +225,14 @@ class ReportController extends Controller
 
     public function category_report(){
         return CategoryReport::all();
+    }
+
+    public function reward_researcher($id){
+        $bank =  Report::where('reports.user_id',$id)
+        ->where('reports.status_report','Disetujui')
+        ->where('reports.status_reward','Selesai')
+        ->sum('reports.reward');
+
+        return $bank;
     }
 }

@@ -5,7 +5,7 @@
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Pemilik Sistem</h1>
+        <h1 class="h3 mb-0 text-gray-800">Laporan Program</h1>
         {{-- <a href="{{ route('report.create') }}" class="btn btn-primary"><i
                 class="fas fa-download fa-sm text-white-50"></i> Tambah Perusahaan</a> --}}
     </div>
@@ -13,7 +13,7 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Daftar Pemilik Sistem</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Daftar Laporan</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -33,7 +33,7 @@
                         <tr>
                             <td>{{$report->user->name}}</td>
                             <td>{{$report->program->program_name}}</td>
-                            <td>{{$report->category_report}}</td>
+                            <td>{{$report->categoryReport->category}} - {{$report->categoryReport->detail}}</td>
                             <td>{{$report->status_report}}</td>
                             <td>{{$date = \Carbon\Carbon::createFromFormat('Y-m-d', $report->date)->format('d-M-Y');}}
                             </td>
@@ -51,6 +51,7 @@
                             </td>
                         </tr>
                         @endforeach
+                       
                     </tbody>
                 </table>
             </div>

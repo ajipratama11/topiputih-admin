@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Program;
+use App\Models\Payment;
 use Illuminate\Http\Request;
 
-class ProgramController extends Controller
+class PaymentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +14,13 @@ class ProgramController extends Controller
      */
     public function index()
     {
-        return view('pages.program.program',[
-            'program' => Program::where('category','public')->get()
-        ]);        
+        $payment = Payment::orderBy('payment_date','desc')
+        ->get();
+        // ->join('users','users.id','=','payments.user_id')
+        // ->get();
+        return view('pages.payment.payment',[
+            'payment' => $payment
+        ]);
     }
 
     /**
@@ -48,10 +52,10 @@ class ProgramController extends Controller
      */
     public function show($id)
     {
-        $program = Program::findOrFail($id);
+        $payment = Payment::findOrFail($id);
    
-        return view('pages.program.detail_program', [
-          'program' => $program
+        return view('pages.payment.detail_payment', [
+          'payment' => $payment
         ]);
     }
 
@@ -86,10 +90,6 @@ class ProgramController extends Controller
      */
     public function destroy($id)
     {
-        $program = Program::find($id);
-
-        $program->delete();
-
-        return back()->with('success',' Penghapusan berhasil.');
+        //
     }
 }

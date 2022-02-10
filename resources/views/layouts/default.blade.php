@@ -24,9 +24,9 @@
     <link href="{{asset('vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    
+
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
- 
+
 </head>
 
 <body id="page-top">
@@ -106,6 +106,22 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item {{ (request()->is('report*')) ? 'active' : '' }}" href="/report">Laporan
                             Program</a>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePayment"
+                    aria-expanded="true" aria-controls="collapsePayment">
+                    <i class="fas fa-fw fa-wrench"></i>
+                    <span>Data Keuangan</span>
+                </a>
+                <div id="collapsePayment" class="collapse" aria-labelledby="headingUtilities"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="/balance">Laporan Saldo <br> Pemilik Sistem</a>
+                        <a class="collapse-item" href="/payment">Laporan Transaksi <br> Pemilik Sistem</a>
+                        <a class="collapse-item {{ (request()->is('payment_program*')) ? 'active' : '' }}"
+                            href="/payment_program">Laporan Pembayaran <br> Program</a>
                     </div>
                 </div>
             </li>

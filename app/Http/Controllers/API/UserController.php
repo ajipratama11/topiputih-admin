@@ -120,7 +120,7 @@ class UserController extends Controller
         }
         $token = $user->createToken('token')->plainTextToken;
 
-        $cookie = cookie('jwt', $token, 60 * 24);
+        $cookie = cookie('jwt', $token, 60);
 
         return response([
             'message' => 'Berhasil Masuk',

@@ -24,7 +24,6 @@ class ResearcherBankController extends Controller
             'account_number' => $this->encodeing($bank -> account_number),
             'account_name' => $this->encodeing($bank -> account_name),
         ];
-
         
     }
 

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Payment;
 use App\Models\Program;
+use App\Models\Report;
 use Illuminate\Http\Request;
 
-class ProgramController extends Controller
+class PaymentProgramController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +16,16 @@ class ProgramController extends Controller
      */
     public function index()
     {
-        return view('pages.program.program',[
-            'program' => Program::where('category','public')->get()
-        ]);        
+        $payment=  Program::select('users.id','users.name','reports.user_id','programs.program_name','reports.reward','reports.status_reward','reports.updated_at')
+        ->rightJoin('reports', 'reports.program_id', '=', 'programs.id')
+        ->leftJoin('users', 'users.id', '=', 'programs.user_id')
+        ->where('reports.status_report','Disetujui')
+        ->orderBy('date','desc')
+        ->get();
+
+        return view('pages.payment_program.payment',[
+            'payment' => $payment
+        ]);
     }
 
     /**
@@ -48,10 +57,10 @@ class ProgramController extends Controller
      */
     public function show($id)
     {
-        $program = Program::findOrFail($id);
+        $payment = Report::findOrFail($id);
    
-        return view('pages.program.detail_program', [
-          'program' => $program
+        return view('pages.payment_program.detail_payment', [
+          'payment' => $payment
         ]);
     }
 
@@ -86,10 +95,6 @@ class ProgramController extends Controller
      */
     public function destroy($id)
     {
-        $program = Program::find($id);
-
-        $program->delete();
-
-        return back()->with('success',' Penghapusan berhasil.');
+        //
     }
 }

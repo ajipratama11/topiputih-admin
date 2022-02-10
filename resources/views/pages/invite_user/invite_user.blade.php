@@ -31,6 +31,12 @@
                                         <option data-id={{$name->id}} value={{$name->id}}>{{$name->name}}</option>
                                         @endforeach
                                     </select>
+                                    {{-- <select name="input[1][user_id]" class="custom-select select2">
+                                        <option value=""></option>
+                                        @foreach ($user as $name)
+                                        <option data-id={{$name->id}} value={{$name->id}}>{{$name->name}}</option>
+                                        @endforeach
+                                    </select> --}}
                                 </td>
                                 <td>
                                     {{-- <a name="url_code" class="btn btn-info btn-sm" data-toggle="modal"
@@ -199,7 +205,7 @@
     // }
    
 </script>
-{{-- <script type="text/javascript">
+<script type="text/javascript">
     var i = 0;
     $("#dynamic-ar").click(function () {
         ++i;
@@ -212,7 +218,7 @@
     $(document).on('click', '.remove-input-field', function () {
         $(this).parents('tr').remove();
     });
-</script> --}}
+</script>
 <script>
     $('#myModal').modal('hide');
     // function myFunction(e) {

@@ -15,4 +15,9 @@ class CategoryReport extends Model
         'detail'
         
     ];
+
+    public function report()
+    {
+        return $this->hasOne(Report::class);
+    }
 }

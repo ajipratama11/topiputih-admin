@@ -51,4 +51,14 @@ class PointController extends Controller
         
         return $point;
     }
+
+    public function get_rank($id){
+       $query = DB::select("SELECT ranking
+        FROM
+        (select reports.user_id, rank() over (order by reward desc) as ranking
+        from  reports  GROUP BY user_id) reports
+        WHERE user_id = $id");
+
+        return $query;
+    }
 }

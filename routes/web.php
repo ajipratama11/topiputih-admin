@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BalanceCompanyController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ReportController;
@@ -9,6 +10,8 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ResearcherController;
 use App\Http\Controllers\CertificateController;
 use App\Http\Controllers\InviteUserController;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\PaymentProgramController;
 use App\Http\Controllers\ProgramPublicController;
 use App\Http\Controllers\ProgramPrivateController;
 use App\Http\Controllers\SendEmailController;
@@ -49,6 +52,9 @@ Route::group(['middleware' => ['admin']], function() {
     Route::resource('invite_user', InviteUserController::class);
     Route::resource('certificate', CertificateController::class);
     Route::resource('report', ReportController::class);
+    Route::resource('payment', PaymentController::class);
+    Route::resource('balance', BalanceCompanyController::class);
+    Route::resource('payment_program', PaymentProgramController::class);
     Route::get('dashboard',[DashboardController::class,'index']);
     Route::get('search/{id}',[InviteUserController::class,'search']);
     Route::get('list/{id}',[InviteUserController::class,'list']);

@@ -19,18 +19,21 @@ class CreateReportTable extends Migration
             $table->bigInteger('program_id')->unsigned();
             $table->string('summary');
             $table->string('scope_report');
-            $table->string('category_report');
+            $table->bigInteger('category_id')->unsigned();
             $table->text('description_report');
             $table->string('impact');
-            $table->string('file');
+            $table->string('file')->nullable();
             $table->date('date')->nullable();
             $table->string('status_report')->nullable();
+            $table->string('status_causes')->nullable();
             $table->decimal('point',8,2)->nullable();
             $table->integer('reward')->nullable();
+            $table->string('status_reward')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('program_id')->references('id')->on('programs')->onDelete('cascade');
+            $table->foreign('category_id')->references('id')->on('category_reports')->onDelete('cascade');
         });
 
     }

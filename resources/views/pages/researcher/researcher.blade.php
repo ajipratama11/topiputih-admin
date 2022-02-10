@@ -53,8 +53,6 @@
                                         onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')"><i
                                             class="fas fa-fw fa-trash-alt"></i></button>
                                 </form>
-                                <button class="btn btn-secondary mt-4 detail-btn" data-toggle="modal"
-                                    data-target="#myModal" data-id="{{$researcher->id }}">Detail</button>
                             </td>
                         </tr>
                         @endforeach
@@ -67,48 +65,9 @@
 
 </div>
 
-<div class="modal" tabindex="-1" id="myModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 id="product-title"></h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p id="product-desc"></p>
-                <p id="product-url"></p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div>
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
     crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-<script>
-    $('#myModal').modal('hide');
-        $(document).ready(function() {
-          $('.detail-btn').click(function() {
-            const id = $(this).attr('data-id');
-            $.ajax({
-              url: 'search/'+id,
-              type: 'GET',
-              data: {
-                "id": id
-              },
-              success:function(data) {
-                console.log(data);
-                $('#product-title').html(data.name);
-                $('#product-desc').html(data.email);
-              }
-            })
-          });
-        });
-</script>
+
 @endsection

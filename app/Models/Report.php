@@ -16,13 +16,14 @@ class Report extends Model
         'scope_report',
         'description_report',
         'impact',
-        'category_report',
+        'category_id',
         'file',
         'date',
         'status_report',
         'status_causes',
         'point',
-        'reward'
+        'reward',
+        'status_reward'
     ];
 
     public function user()
@@ -32,6 +33,11 @@ class Report extends Model
 
     public function program()
     {
-        return $this->belongsTo(program::class);
+        return $this->belongsTo(Program::class);
+    }
+
+    public function categoryReport()
+    {
+        return $this->belongsTo(CategoryReport::class,'category_id');
     }
 }

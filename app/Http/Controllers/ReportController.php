@@ -18,7 +18,7 @@ class ReportController extends Controller
         
 
         return view('pages.report.report',[
-            'reports' => Report::all()
+            'reports' => Report::orderBy('date','desc')->get()
         ]);
     
     }
