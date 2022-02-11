@@ -134,11 +134,11 @@
 </div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script type="text/javascript">
+{{-- <script type="text/javascript">
     $(document).ready(function () {
         console.log($("#target").val());
     })
-</script>
+</script> --}}
 <script type="text/javascript">
     $(document).ready(function (e) {
         if ($("#target").val() === "Ditolak") {

@@ -235,4 +235,18 @@ class ReportController extends Controller
 
         return $bank;
     }
+
+    public function total_report($id){
+        $report = Program::where('users.id',$id)
+        ->leftJoin('reports','reports.program_id','=','programs.id')
+        ->leftJoin('users','users.id','=','programs.user_id')
+        // ->select('users.name' ,'reports.program_id',
+        // 'programs.program_name', 'programs.date_start', 'programs.date_end',
+        // 'programs.type',DB::raw('count(reports.user_id) AS count_report'))
+        // ->groupBy('programs.id')
+        ->where('status_report','Disetujui')
+        ->count('reports.id');
+        // ->get();
+        return $report;
+    }
 }

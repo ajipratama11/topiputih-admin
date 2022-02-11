@@ -34,7 +34,8 @@
                             <td>{{$payment->program_name}}</td>
                             
                             <td>{{$payment->user->name}}</td>
-                            <td>{{$payment->reward}}</td>
+                            {{-- <td>{{$payment->reward}}</td> --}}
+                            <td>@currency($payment->reward)</td>
                             <td>{{$payment->status_reward}}</td>
                             <td> {{$start_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $payment->updated_at)
                                 ->format('d-M-Y H:i:s');}}</td>

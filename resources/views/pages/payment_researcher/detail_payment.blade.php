@@ -19,7 +19,7 @@
                         <thead>
                             <tr>
                                 <th class="col-1">Nama Program</th>
-                                <th class="col-1">Nama Peneliti Keamanan</th>
+                                {{-- <th class="col-1">Nama Peneliti Keamanan</th> --}}
                                 <th class="col-1">Hadiah</th>
                                 <th class="col-1">Tanggal</th>
                                 <th class="col-1">Status</th>
@@ -29,8 +29,8 @@
                             @foreach ($payment as $payment )
 
                             <tr>
-                                <td>{{$payment->program_name}}</td>
-                                <td>{{$payment->user->name}}</td>
+                                <td>{{$payment->program->program_name}}</td>
+                                {{-- <td>{{$payment->user->name}}</td> --}}
                                 <td>@currency($payment->reward)</td>
                                 <td> {{$start_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s',
                                     $payment->updated_at)
@@ -45,42 +45,7 @@
             </div>
         </div>
     </div>
-    <div class="card mt-3">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Daftar Transaksi</h6>
-        </div>
-        <div class="card-body mt-1">
-            <div class="row">
-                <div class="table-responsive">
-                    <table class="table table-bordered display" id="" width="100%" cellspacing="0">
-                        <thead>
-                            <tr>
-                                {{-- <th class="col-1">Nama Pemilik Sistem</th> --}}
-                                <th class="col-1">Jumlah Transaksi</th>
-                                <th class="col-1">Tanggal</th>
-                                <th class="col-1">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($balance as $balance )
 
-                            <tr>
-                                {{-- <td>{{$balance->name}}</td> --}}
-                                {{-- <td>{{$balance->user}}</td> --}}
-                                <td>@currency($balance->payment_amount)</td>
-                                <td> {{$start_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s',
-                                    $balance->payment_date)
-                                    ->format('d-M-Y H:i:s');}}</td>
-                                <td>{{$balance->status}}</td>
-
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>

@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Payment;
+use App\Models\Report;
+use App\Models\User;
 use Illuminate\Http\Request;
 
-class PaymentController extends Controller
+class PaymentResearcherController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,12 +15,11 @@ class PaymentController extends Controller
      */
     public function index()
     {
-        $payment = Payment::orderBy('payment_date','desc')
-        ->get();
+        $balance = User::where('roles','researcher')->get();
         // ->join('users','users.id','=','payments.user_id')
         // ->get();
-        return view('pages.payment.payment',[
-            'payment' => $payment
+        return view('pages.payment_researcher.payment',[
+            'balance' => $balance
         ]);
     }
 
@@ -52,9 +52,13 @@ class PaymentController extends Controller
      */
     public function show($id)
     {
-        $payment = Payment::findOrFail($id);
-   
-        return view('pages.payment.detail_payment', [
+        $payment = Report::where('reports.user_id',$id)
+        // ->join('programs','programs.id','=','reports.program_id')
+        ->orderBy('reports.updated_at','desc')
+        ->where('status_report','Disetujui')
+        ->get();
+        
+        return view('pages.payment_researcher.detail_payment', [
           'payment' => $payment
         ]);
     }
@@ -79,16 +83,7 @@ class PaymentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $fields = $request->validate([
-            'payment_amount'=> 'required',
-            'status'=> ''
-        ]);
-        $payment = Payment::where('id',$id)->first();
-        $payment->payment_amount = $fields['payment_amount'];
-        $payment->status = $fields['status'];
-    
-        $payment->save();
-        return back();
+        //
     }
 
     /**

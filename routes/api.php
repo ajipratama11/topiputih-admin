@@ -85,6 +85,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/report_user/{id}', [ReportController::class, 'show_list_user']);
     Route::get('/report_program/{id}', [ReportController::class, 'show_list_program']);
     Route::get('/count_report/{id}', [ReportController::class, 'count_report_program']);
+    Route::get('/total_report/{id}', [ReportController::class, 'total_report']);
     Route::post('/status_report', [ReportController::class, 'change_status']);
     Route::get('/category_report', [ReportController::class, 'category_report']);
     Route::get('/reward_researcher/{id}', [ReportController::class, 'reward_researcher']);

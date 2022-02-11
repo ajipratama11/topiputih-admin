@@ -12,6 +12,7 @@ use App\Http\Controllers\CertificateController;
 use App\Http\Controllers\InviteUserController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PaymentProgramController;
+use App\Http\Controllers\PaymentResearcherController;
 use App\Http\Controllers\ProgramPublicController;
 use App\Http\Controllers\ProgramPrivateController;
 use App\Http\Controllers\SendEmailController;
@@ -55,6 +56,7 @@ Route::group(['middleware' => ['admin']], function() {
     Route::resource('payment', PaymentController::class);
     Route::resource('balance', BalanceCompanyController::class);
     Route::resource('payment_program', PaymentProgramController::class);
+    Route::resource('payment_researcher', PaymentResearcherController::class);
     Route::get('dashboard',[DashboardController::class,'index']);
     Route::get('search/{id}',[InviteUserController::class,'search']);
     Route::get('list/{id}',[InviteUserController::class,'list']);

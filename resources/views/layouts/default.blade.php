@@ -51,7 +51,7 @@
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
                 <a class="nav-link" href="/dashboard">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <i class="fas fa-fw fa-home-alt"></i>
                     <span>Dashboard</span></a>
             </li>
 
@@ -98,7 +98,7 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseReport"
                     aria-expanded="true" aria-controls="collapseReport">
-                    <i class="fas fa-fw fa-wrench"></i>
+                    <i class="fas fa-fw fa-file-alt"></i>
                     <span>Data Laporan</span>
                 </a>
                 <div id="collapseReport" class="collapse" aria-labelledby="headingUtilities"
@@ -112,16 +112,21 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePayment"
                     aria-expanded="true" aria-controls="collapsePayment">
-                    <i class="fas fa-fw fa-wrench"></i>
+                    <i class="fas fa-fw fa-credit-card"></i>
                     <span>Data Keuangan</span>
                 </a>
                 <div id="collapsePayment" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="/balance">Laporan Saldo <br> Pemilik Sistem</a>
-                        <a class="collapse-item" href="/payment">Laporan Transaksi <br> Pemilik Sistem</a>
+                        <a class="collapse-item {{ (request()->is('balance*')) ? 'active' : '' }}"
+                            href="/balance">Laporan Saldo <br> Pemilik Sistem</a>
+                        <a class="collapse-item {{ (request()->is('payment_researcher*')) ? 'active' : '' }}"
+                            href="/payment_researcher">Laporan Pembayaran <br> Peneliti Keamanan</a>
+                        <a class="collapse-item {{ (request()->is('payment')) ? 'active' : '' }}"
+                            href="/payment">Laporan Transaksi <br> Pemilik Sistem</a>
                         <a class="collapse-item {{ (request()->is('payment_program*')) ? 'active' : '' }}"
                             href="/payment_program">Laporan Pembayaran <br> Program</a>
+
                     </div>
                 </div>
             </li>

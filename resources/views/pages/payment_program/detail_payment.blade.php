@@ -49,12 +49,38 @@
                     </div>
                 </div>
                 <div class="col-lg-12 mt-3">
-                    <a data-toggle="modal" data-target="#change-status" class="btn btn-primary mr-3"><i
-                            class="fas fa-fw fa-edit"></i> Konfirmasi Pembayaran</a>
-                    <a data-toggle="modal" data-target="#change-status" class="btn btn-primary"><i
-                            class="fas fa-fw fa-edit"></i> Ubah Status</a>
+                    {{-- <a data-toggle="modal" data-target="#change-status" class="btn btn-primary mr-3"><i
+                            class="fas fa-fw fa-edit"></i>Konfirmasi Pembayaran</a> --}}
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="change-status" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ubah Status</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {{-- <form action="{{ route('report.update',$payment->id) }}" method="POST">
+                @csrf
+                @method('put')
+                <div class="modal-body">
+                    <input name="status_causes" type="text" class="form-control" value="{{$payment->payment_amount}}">
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </form> --}}
         </div>
     </div>
 </div>

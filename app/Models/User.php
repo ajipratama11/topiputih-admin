@@ -109,6 +109,7 @@ class User extends Authenticatable
         ->where('user_id',$user_id)
         ->sum('payments.payment_amount');
     }
+
     public function get_payment($user_id)
     {
         return  Program::where('users.id',$user_id)
@@ -117,6 +118,29 @@ class User extends Authenticatable
         ->leftJoin('users', 'users.id', '=', 'programs.user_id')
         ->sum('reports.reward');
     }
+
+    public function get_reward_process($user_id)
+    {
+        return Report::where('user_id',$user_id)
+        ->where('status_report','Disetujui')
+        ->where('status_reward','Proses')
+        ->sum('reward');
+    }
+    public function get_reward($user_id)
+    {
+        return Report::where('user_id',$user_id)
+        ->where('status_report','Disetujui')
+        ->where('status_reward','Diterima')
+        ->sum('reward');
+    }
+    public function get_reward_done($user_id)
+    {
+        return Report::where('user_id',$user_id)
+        ->where('status_report','Disetujui')
+        ->where('status_reward','Selesai')
+        ->sum('reward');
+    }
+
     public function payment_used($user_id)
     {
         $calculate = $this->get_balance($user_id) -  $this->get_payment($user_id);

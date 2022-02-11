@@ -22,7 +22,7 @@ class BalanceCompanyController extends Controller
         // ->where('payments.status','Diterima')
         // ->groupBy('users.id')
         // ->get();
-        $balance = User::all();
+        $balance = User::where('roles','company')->get();
 
         return view('pages.balance.balance',[
             'balance' => $balance
