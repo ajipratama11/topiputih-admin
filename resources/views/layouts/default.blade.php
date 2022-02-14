@@ -92,6 +92,8 @@
                             href="/program_public">Program Publik</a>
                         <a class="collapse-item {{ (request()->is('program_private*')) ? 'active' : '' }}"
                             href="/program_private">Program Privat</a>
+                            <a class="collapse-item {{ (request()->is('program_active*')) ? 'active' : '' }}"
+                                href="/program_active">Program Berjalan</a>
                     </div>
                 </div>
             </li>

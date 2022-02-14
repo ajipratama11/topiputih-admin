@@ -24,7 +24,7 @@
                             <p class="font-weight-normal">{{ $payment->account_name }}</p>
                             <span class="font-weight-bolder"> Nominal </span>
                             <p class="font-weight-normal">@currency( $payment->payment_amount )</p>
-                            <span class="font-weight-bolder"> Status Progam </span>
+                            <span class="font-weight-bolder"> Status </span>
                             <p class="font-weight-normal">{{ $payment->status }}</p>
                         </div>
                         <div class="col-lg-5">
@@ -35,7 +35,7 @@
                             <span class="font-weight-bolder">Tanggal Pembayaran </span>
                             <p class="font-weight-normal">
                                 {{$start_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $payment->payment_date)
-                                ->format('d-M-Y');}}
+                                ->format('d-M-Y H:i:s');}}
                             </p>
                         </div>
                     </div>

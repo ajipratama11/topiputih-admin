@@ -40,7 +40,7 @@
                 <div class="col-lg-4">
 
                     <span class="font-weight-bolder"> Kategori </span>
-                    <p class="font-weight-normal">{{ $report->category_report}}</p>
+                    <p class="font-weight-normal">{{ $report->categoryReport->category}} - {{ $report->categoryReport->detail}}</p>
                 </div>
                 <div class="col-lg-4">
                 </div>

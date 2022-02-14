@@ -5,15 +5,15 @@
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Program Privat</h1>
-        <a href="{{ route('program_private.create') }}" class="btn btn-primary"><i
-                class="fas fa-download fa-sm text-white-50"></i> Tambah Program Privat</a>
+        <h1 class="h3 mb-0 text-gray-800">Program Berjalan</h1>
+        <a href="{{ route('program_active.create') }}" class="btn btn-primary"><i
+                class="fas fa-download fa-sm text-white-50"></i> Tambah Program </a>
     </div>
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Daftar Program Privat</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Daftar Program Berjalan</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -23,6 +23,7 @@
                             <th class="col-1">Nama Pemilik Sistem</th>
                             <th class="col-1">Nama Program</th>
                             <th class="col-1">Tipe Program</th>
+                            <th class="col-1">Status</th>
                             <th class="col-1">Tanggal Mulai</th>
                             <th class="col-1">Tanggal Selesai</th>
                             <th class="col-1">Aksi</th>
@@ -34,6 +35,7 @@
                         <tr>
                             <td>{{$program->user->name}}</td>
                             <td>{{$program->program_name}}</td>
+                            <td>{{$program->category}}</td>
                             <td>{{$program->type}}</td>
                             <td> {{$start_date = \Carbon\Carbon::createFromFormat('Y-m-d', $program->date_start)
                                 ->format('d-M-Y');}} </td>

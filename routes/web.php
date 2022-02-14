@@ -13,6 +13,7 @@ use App\Http\Controllers\InviteUserController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PaymentProgramController;
 use App\Http\Controllers\PaymentResearcherController;
+use App\Http\Controllers\ProgramActiveController;
 use App\Http\Controllers\ProgramPublicController;
 use App\Http\Controllers\ProgramPrivateController;
 use App\Http\Controllers\SendEmailController;
@@ -50,6 +51,7 @@ Route::group(['middleware' => ['admin']], function() {
     Route::resource('program', ProgramController::class);
     Route::resource('program_public', ProgramPublicController::class);
     Route::resource('program_private', ProgramPrivateController::class);
+    Route::resource('program_active', ProgramActiveController::class);
     Route::resource('invite_user', InviteUserController::class);
     Route::resource('certificate', CertificateController::class);
     Route::resource('report', ReportController::class);

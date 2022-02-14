@@ -42,6 +42,7 @@
                                 ->format('d-M-Y');}}
                             </td>
                             <td class="text-center">
+                                @if ($program->category =="Publik")
                                 <form action="{{url('program_public', $program->id)}}" method="POST">
 
                                     <a class="btn btn-info btn-sm" href="/program_public/{{$program->id}}"><i
@@ -52,6 +53,18 @@
                                         onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')"><i
                                             class="fas fa-fw fa-trash-alt"></i></button>
                                 </form>
+                                @elseif ($program->category =="Privat")
+                                <form action="{{url('program_private', $program->id)}}" method="POST">
+
+                                    <a class="btn btn-info btn-sm" href="/program_private/{{$program->id}}"><i
+                                            class="fas fa-fw fa-info"></i></a></a>
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-sm"
+                                        onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')"><i
+                                            class="fas fa-fw fa-trash-alt"></i></button>
+                                </form>
+                                @endif
                             </td>
                         </tr>
                         @endforeach

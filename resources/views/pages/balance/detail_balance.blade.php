@@ -38,6 +38,7 @@
                                 <td>{{$payment->status_reward}}</td>
 
                             </tr>
+
                             @endforeach
                         </tbody>
                     </table>
@@ -55,24 +56,25 @@
                     <table class="table table-bordered display" id="" width="100%" cellspacing="0">
                         <thead>
                             <tr>
-                                {{-- <th class="col-1">Nama Pemilik Sistem</th> --}}
                                 <th class="col-1">Jumlah Transaksi</th>
                                 <th class="col-1">Tanggal</th>
                                 <th class="col-1">Status</th>
+                                <th class="col-1">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($balance as $balance )
 
                             <tr>
-                                {{-- <td>{{$balance->name}}</td> --}}
-                                {{-- <td>{{$balance->user}}</td> --}}
                                 <td>@currency($balance->payment_amount)</td>
                                 <td> {{$start_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s',
                                     $balance->payment_date)
                                     ->format('d-M-Y H:i:s');}}</td>
                                 <td>{{$balance->status}}</td>
-
+                                <td class="text-center">
+                                    <a class="btn btn-info btn-sm" href="/payment/{{$balance->id}}"><i
+                                            class="fas fa-fw fa-info"></i></a></a>
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>

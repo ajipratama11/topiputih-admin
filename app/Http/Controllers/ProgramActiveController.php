@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Program;
 use Illuminate\Http\Request;
 
-class ProgramController extends Controller
+class ProgramActiveController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,11 +15,14 @@ class ProgramController extends Controller
      */
     public function index()
     {
-        $program = Program::where('category','public')->get();
-        dd($program);
-        return view('pages.program.program',[
-            'program' => $program
-        ]);        
+        $program = Program::where('status','aktif')
+        ->where('date_start','<=',Carbon::now()->isoFormat('Y-MM-DD'))
+        ->where('date_end','>=',Carbon::now()->isoFormat('Y-MM-DD'))
+        ->get();
+        return view('pages.program_active.program',[
+            'program' => $program,
+
+        ]); 
     }
 
     /**
@@ -50,11 +54,7 @@ class ProgramController extends Controller
      */
     public function show($id)
     {
-        $program = Program::findOrFail($id);
-   
-        return view('pages.program.detail_program', [
-          'program' => $program
-        ]);
+        //
     }
 
     /**
@@ -88,10 +88,6 @@ class ProgramController extends Controller
      */
     public function destroy($id)
     {
-        $program = Program::find($id);
-
-        $program->delete();
-
-        return back()->with('success',' Penghapusan berhasil.');
+        //
     }
 }
