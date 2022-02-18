@@ -43,10 +43,10 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th class="col-1">Nama Pemilik Sistem</th>
+                            {{-- <th class="col-1">Nama Pemilik Sistem</th> --}}
                             <th class="col-1">Nama Program</th>
                             <th class="col-1">Tipe Program</th>
-                            <th class="col-1">Hadiah Tertinggi</th>
+                            <th class="col-1">Kategori</th>
                             <th class="col-2">Tanggal Program</th>
                             <th class="col-1">Aksi</th>
                         </tr>
@@ -55,10 +55,10 @@
                         @foreach ($program as $program )
 
                         <tr>
-                            <td>{{$program->user->name}}</td>
+                            {{-- <td>{{$program->user->name}}</td> --}}
                             <td>{{$program->program_name}}</td>
                             <td>{{$program->type}}</td>
-                            <td>@currency($program->price_5)</td>
+                            <td>{{$program->category}}</td>
                             <td>
                                 {{$start_date = \Carbon\Carbon::createFromFormat('Y-m-d', $program->date_start)
                                 ->format('d-M-Y');}} -
@@ -66,8 +66,10 @@
                                 ->format('d-M-Y');}}
                             </td>
                             <td class="text-center">
-                                <form action="{{url('program', $program->id)}}" method="POST">
-                                    <a class="btn btn-info btn-sm" href="/program/{{$program->id}}"><i
+                                @if ($program->category =="Publik")
+                                <form action="{{url('program_public', $program->id)}}" method="POST">
+
+                                    <a class="btn btn-info btn-sm" href="/program_public/{{$program->id}}"><i
                                             class="fas fa-fw fa-info"></i></a></a>
                                     @csrf
                                     @method('DELETE')
@@ -75,6 +77,18 @@
                                         onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')"><i
                                             class="fas fa-fw fa-trash-alt"></i></button>
                                 </form>
+                                @elseif ($program->category =="Privat")
+                                <form action="{{url('program_private', $program->id)}}" method="POST">
+
+                                    <a class="btn btn-info btn-sm" href="/program_private/{{$program->id}}"><i
+                                            class="fas fa-fw fa-info"></i></a></a>
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-sm"
+                                        onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')"><i
+                                            class="fas fa-fw fa-trash-alt"></i></button>
+                                </form>
+                                @endif
                             </td>
                             </td>
                         </tr>

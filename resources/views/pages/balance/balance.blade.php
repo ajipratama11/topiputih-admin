@@ -5,7 +5,7 @@
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Laporan Saldo Pemilik Sistem</h1>
+        <h1 class="h3 mb-0 text-gray-800">Saldo Pemilik Sistem</h1>
     </div>
 
     <!-- DataTales Example -->
@@ -33,9 +33,10 @@
                             {{-- <td>{{$balance->id}}</td> --}}
                             <td>@currency($balance->get_balance($balance->id))</td>
                             <td>@currency($balance->get_payment($balance->id))</td>
-                            {{-- <td> {{$start_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $balance->balance_date)
+                            {{-- <td> {{$start_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s',
+                                $balance->balance_date)
                                 ->format('d-M-Y H:i:s');}}</td> --}}
-                                <td>@currency($balance->payment_used($balance->id))</td>
+                            <td>@currency($balance->payment_used($balance->id))</td>
                             <td class="text-center">
                                 {{-- <form action="{{url('balance', $balance->id)}}" method="POST"> --}}
 

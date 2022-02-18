@@ -33,16 +33,11 @@
                         <div class="mb-3">
                             <label class="form-label">Nama Pemilik Sistem</label>
                             <select name="user_id" class="custom-select" id="inputGroupSelect01" disabled>
-                                {{-- <option value={{$program->user->id}}>{{$program->user->name}}</option> --}}
-                                @foreach ($user as $name)
-                                {{-- <option value={{$name->id}}>{{$name->name}}</option> --}}
-                                <option value="{{ $name->id }}" {{ $name->id == $program->user->id ? 'selected' : ''
-                                    }}>{{ $name->name }}</option>
-                                @endforeach
+                                <option value="{{ $program->user->id }}" >{{ $program->user->name }}</option>
                             </select>
                         </div>
                         <div class="mb-3">
-                            <label name="date_end" class="form-label">Tanggal Selesai</label>
+                            <label class="form-label">Tanggal Selesai</label>
                             <input name="date_end" type="date" class="form-control" value="{{$program->date_end}}">
                         </div>
 

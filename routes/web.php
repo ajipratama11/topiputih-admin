@@ -1,22 +1,24 @@
 <?php
 
-use App\Http\Controllers\BalanceCompanyController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PointController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\SendEmailController;
+use App\Http\Controllers\InviteUserController;
 use App\Http\Controllers\ResearcherController;
 use App\Http\Controllers\CertificateController;
-use App\Http\Controllers\InviteUserController;
-use App\Http\Controllers\PaymentController;
-use App\Http\Controllers\PaymentProgramController;
-use App\Http\Controllers\PaymentResearcherController;
 use App\Http\Controllers\ProgramActiveController;
 use App\Http\Controllers\ProgramPublicController;
+use App\Http\Controllers\BalanceCompanyController;
+use App\Http\Controllers\PaymentProgramController;
 use App\Http\Controllers\ProgramPrivateController;
-use App\Http\Controllers\SendEmailController;
+use App\Http\Controllers\PaymentResearcherController;
+use App\Http\Controllers\PointController as ControllersPointController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,6 +61,7 @@ Route::group(['middleware' => ['admin']], function() {
     Route::resource('balance', BalanceCompanyController::class);
     Route::resource('payment_program', PaymentProgramController::class);
     Route::resource('payment_researcher', PaymentResearcherController::class);
+    Route::resource('point', PointController::class);
     Route::get('dashboard',[DashboardController::class,'index']);
     Route::get('search/{id}',[InviteUserController::class,'search']);
     Route::get('list/{id}',[InviteUserController::class,'list']);

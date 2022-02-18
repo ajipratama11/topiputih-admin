@@ -92,8 +92,8 @@
                             href="/program_public">Program Publik</a>
                         <a class="collapse-item {{ (request()->is('program_private*')) ? 'active' : '' }}"
                             href="/program_private">Program Privat</a>
-                            <a class="collapse-item {{ (request()->is('program_active*')) ? 'active' : '' }}"
-                                href="/program_active">Program Berjalan</a>
+                        <a class="collapse-item {{ (request()->is('program_active*')) ? 'active' : '' }}"
+                            href="/program_active">Program Berjalan</a>
                     </div>
                 </div>
             </li>
@@ -120,15 +120,29 @@
                 <div id="collapsePayment" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item {{ (request()->is('balance*')) ? 'active' : '' }}"
-                            href="/balance">Laporan Saldo <br> Pemilik Sistem</a>
+                        <a class="collapse-item {{ (request()->is('balance*')) ? 'active' : '' }}" href="/balance">Saldo
+                            Pemilik Sistem</a>
                         <a class="collapse-item {{ (request()->is('payment_researcher*')) ? 'active' : '' }}"
-                            href="/payment_researcher">Laporan Pembayaran <br> Peneliti Keamanan</a>
+                            href="/payment_researcher">Pembayaran Peneliti <br> Keamanan</a>
                         <a class="collapse-item {{ (request()->is('payment')) ? 'active' : '' }}"
-                            href="/payment">Laporan Transaksi <br> Pemilik Sistem</a>
+                            href="/payment">Transaksi Pemilik Sistem</a>
                         <a class="collapse-item {{ (request()->is('payment_program*')) ? 'active' : '' }}"
-                            href="/payment_program">Laporan Pembayaran <br> Program</a>
+                            href="/payment_program">Pembayaran Program</a>
 
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePoint"
+                    aria-expanded="true" aria-controls="collapsePoint">
+                    <i class="fas fa-fw fa-star"></i>
+                    <span>Data Point</span>
+                </a>
+                <div id="collapsePoint" class="collapse" aria-labelledby="headingUtilities"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item {{ (request()->is('point*')) ? 'active' : '' }}" href="/point">Point
+                            Peneliti Keamanan</a>
                     </div>
                 </div>
             </li>

@@ -17,7 +17,7 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered display" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th class="col-1">Nama Peneliti Keamanan</th>
@@ -51,7 +51,7 @@
                             </td>
                         </tr>
                         @endforeach
-                       
+
                     </tbody>
                 </table>
             </div>
@@ -59,4 +59,14 @@
     </div>
 
 </div>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('table.display').DataTable({
+            "order": []
+        });
+    });
+</script>
 @endsection

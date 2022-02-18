@@ -105,6 +105,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/point', [PointController::class, 'index']);
     Route::get('/point_user/{id}', [PointController::class, 'point_user']);
     Route::get('/get_rank/{id}', [PointController::class, 'get_rank']);
+    Route::get('/list_point', [PointController::class, 'list_point']);
 
     //payment
     Route::post('/payment',[PaymentController::class, 'create']);
