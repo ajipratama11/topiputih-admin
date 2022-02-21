@@ -64,30 +64,39 @@ class ReportController extends Controller
         ->select('price_1','price_2','price_3','price_4','price_5')
         ->first();
 
-        if ($cat->category == 'Sangat Rendah' ){
-             $input['reward']= $program->price_1;
-             $input['point'] = '12.5';
-        }elseif($cat->category == 'Rendah' ){
-            $input['reward']= $program->price_2;
-            $input['point'] = '25';
-        }
-        elseif($cat->category == 'Sedang' ){
-            $input['reward']= $program->price_3;
-            $input['point'] = '37.5';
-        }
-        elseif($cat->category == 'Tinggi' ){
-            $input['reward']= $program->price_4;
-            $input['point'] = '62.5';
-        }
-        elseif($cat->category == 'Sangat Tinggi' ){
-            $input['reward']= $program->price_5;
-            $input['point'] = '100';
-        }
+        $program_type = Program::where('id',$input['program_id'])
+        ->select('type')
+        ->first();
+
+        if($program_type->type == 'Bug Bounty'){
+            if ($cat->category == 'Sangat Rendah' ){
+                $input['reward']= $program->price_1;
+                $input['point'] = '12.5';
+            }
+            elseif($cat->category == 'Rendah' ){
+                $input['reward']= $program->price_2;
+                $input['point'] = '25';
+            }
+            elseif($cat->category == 'Sedang' ){
+                $input['reward']= $program->price_3;
+                $input['point'] = '37.5';
+            }
+            elseif($cat->category == 'Tinggi' ){
+                $input['reward']= $program->price_4;
+                $input['point'] = '62.5';
+            }
+            elseif($cat->category == 'Sangat Tinggi' ){
+                $input['reward']= $program->price_5;
+                $input['point'] = '100';
+            }
+        }else{}
+
         $input['status_reward']= 'Proses';
         Report::create($input);
         return[
-            'message' => ' Berhasil Tambah Data',
-            // 'program' => $cat->category,
+            'message' => 'Berhasil Tambah Data',
+            'type'=>$program_type,
+            'program' => $cat->category,
             // 'price' => $input['reward']
 
         ];
