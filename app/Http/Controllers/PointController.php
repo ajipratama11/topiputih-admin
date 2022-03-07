@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Report;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PointController extends Controller
 {
@@ -14,12 +15,20 @@ class PointController extends Controller
      */
     public function index()
     {
-        $point = Report::selectRaw('user_id, sum(point) as points')
-        ->groupBy('user_id')
-        ->with(['user' => function ($query) {
-            $query->select('id','users.name','users.email');}])
-        ->orderBy('points','desc')
-        ->get('user.name','user.email');
+        // $point = Report::selectRaw('user_id, sum(point) as points')
+        // ->groupBy('user_id')
+        // ->with(['user' => function ($query) {
+        //     $query->select('id','users.name','users.email');}])
+        // ->orderBy('points','desc')
+        // ->get('user.name','user.email');
+
+        $point = DB::table('users')
+        ->leftJoin('reports','reports.user_id','=','users.id')
+        ->where('roles','researcher')
+        // ->where('reports.status_report','Disetujui')
+        ->select('users.id as id','users.name as name',DB::raw('SUM(reports.point) AS points'))
+        ->groupBy('users.id')
+        ->get();
         
         return view('pages.point.point',[
             'point' => $point,

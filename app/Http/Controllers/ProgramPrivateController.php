@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Program;
 use Illuminate\Http\Request;
+use phpDocumentor\Reflection\Types\Null_;
 use SebastianBergmann\Environment\Console;
 
 class ProgramPrivateController extends Controller
@@ -171,11 +172,6 @@ class ProgramPrivateController extends Controller
         }
         // $program-> user_id = $fields['user_id'];
         $program-> program_name = $fields['program_name'];
-        $program-> price_1 = $fields['price_1'];
-        $program-> price_2 = $fields['price_2'];
-        $program-> price_3 = $fields['price_3'];
-        $program-> price_4 = $fields['price_4'];
-        $program-> price_5 = $fields['price_5'];
         $program-> date_start = $fields['date_start'];
         $program-> date_end = $fields['date_end'];
         $program-> description = $fields['description'];
@@ -183,7 +179,19 @@ class ProgramPrivateController extends Controller
         $program-> status = $fields['status'];
         $program-> category = $fields['category'];
         $program-> type = $fields['type'];
-
+        if($fields['type'] == 'Vulnerability Disclosure'){
+            $program-> price_1 = NULL;
+            $program-> price_2 = NULL;
+            $program-> price_3 = NULL;
+            $program-> price_4 = NULL;
+            $program-> price_5 = NULL;
+        }else{
+        $program-> price_1 = $fields['price_1'];
+        $program-> price_2 = $fields['price_2'];
+        $program-> price_3 = $fields['price_3'];
+        $program-> price_4 = $fields['price_4'];
+        $program-> price_5 = $fields['price_5'];
+        }
         $program->save();
 
         if ($program) {

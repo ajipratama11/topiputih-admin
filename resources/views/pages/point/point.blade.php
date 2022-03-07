@@ -20,20 +20,20 @@
                         <tr>
                             <th class="col-1">Nama Peneliti Keamanan</th>
                             <th class="col-1">Jumlah Point</th>
-                            <th class="col-1">Aksi</th>
+                            {{-- <th class="col-1">Aksi</th> --}}
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($point as $point )
 
                         <tr>
-                            <td>{{$point->user->name}}</td>
-                            <td>{{$point->points}}</td>
+                            <td>{{$point->name}}</td>
+                            <td>{{$point->points ?? 0}} Point</td>
 
-                            <td class="text-center">
+                            {{-- <td class="text-center">
                                 <a class="btn btn-info btn-sm" href="/program_private/{{$point->id}}"><i
                                         class="fas fa-fw fa-info"></i></a></a>
-                            </td>
+                            </td> --}}
                         </tr>
                         @endforeach
                     </tbody>
