@@ -12,6 +12,31 @@ use Illuminate\Support\Facades\Validator;
 
 class ReportController extends Controller
 {
+    public function encodeing($sourcestr)  
+    {
+        
+        $pathToPublicKey = app_path('Http/Controllers/api/client_pubkey.php');
+        $key_content = file_get_contents($pathToPublicKey);  
+        $pubkeyid    = openssl_get_publickey($key_content);  
+          
+        if (openssl_public_encrypt($sourcestr, $crypttext, $pubkeyid))  
+        {
+            return base64_encode("".$crypttext);  
+        }
+    }
+
+    public function decodeing($crypttext)
+    {
+        $pathToPrivateKey = app_path('Http/Controllers/privkey.php');
+        $prikeyid    = file_get_contents($pathToPrivateKey);
+        $crypttext   = base64_decode($crypttext);
+
+        if (openssl_private_decrypt($crypttext, $sourcestr, $prikeyid, OPENSSL_PKCS1_PADDING))
+        {
+            return "".$sourcestr;
+        }
+        return ;
+    }
     public function index()
     {   
         $report = DB::table('programs')
@@ -33,7 +58,7 @@ class ReportController extends Controller
             'program_id' => 'required',
             'summary' => 'required',
             'scope_report' => 'required',
-            'category_id' => 'required',
+            'category_id' => '',
             'description_report' => 'required',
             'impact' => 'required',
             'file' => 'mimes:pdf|max:20000|without_spaces',
@@ -48,6 +73,16 @@ class ReportController extends Controller
             'file.without_spaces' => 'Berkas tidak boleh menggunakan spasi'
         ]);
         
+        $input['user_id']= $this->decodeing($input['user_id']);
+        $input['program_id']= $this->decodeing($input['program_id']);
+        $input['summary']= $this->decodeing($input['summary']);
+        $input['scope_report']= $this->decodeing($input['scope_report']);
+        $input['impact']= $this->decodeing($input['impact']);
+        $input['date']= $this->decodeing($input['date']);
+        $input['status_report']= $this->decodeing($input['status_report']);
+
+
+
         if ($file = $request->file('file')) {
             $destinationPath = 'file/report/';
             $reportFile = date('YmdHis') . "." . $file->getClientOriginalName();
@@ -95,8 +130,8 @@ class ReportController extends Controller
         Report::create($input);
         return[
             'message' => 'Berhasil Tambah Data',
-            'type'=>$program_type,
-            'program' => $cat->category,
+            // 'type'=>$program_type,
+            // 'program' => $cat->category,
             // 'price' => $input['reward']
 
         ];
@@ -112,9 +147,30 @@ class ReportController extends Controller
         ->join('category_reports','category_reports.id','=','reports.category_id')
         ->where('reports.id',$id)
         // ->select('reports.*','programs.program_name','programs.date_start','programs.date_end')
-        ->get();
-
-        return $report;
+        ->first();
+       
+        return [
+            // $report,
+        'id' => $this->encodeing($report->id),
+        'user_id'=>$this->encodeing($report->user_id),
+        'program_id' => $this->encodeing($report->program_id),
+        'summary' => $this->encodeing($report->summary),
+        'scope_report' => $this->encodeing($report->scope_report),
+        'category_id' => $report->category_id,
+        'description_report' => $report->description_report,
+        'impact' => $this->encodeing($report->impact),
+        'file' => $report->file,
+        'date' => $this->encodeing($report->date),
+        'date_start' => $this->encodeing($report->date_start),
+        'date_end' => $this->encodeing($report->date_end),
+        'status_report' => $this->encodeing($report->status_report),
+        'point' => $report->file,
+        'reward'=> $this->encodeing($report->reward),
+        'status_reward'=> $this->encodeing($report->status_reward),
+        'program_name'=> $this->encodeing($report->program_name),
+        'category'=> $this->encodeing($report->category),
+        'detail'=> $this->encodeing($report->detail),
+    ];
     }
 
     public function show_list_user($id)

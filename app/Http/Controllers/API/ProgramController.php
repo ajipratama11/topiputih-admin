@@ -18,6 +18,31 @@ use Illuminate\Support\Facades\Route;
 
 class ProgramController extends Controller
 {
+    public function encodeing($sourcestr)  
+    {
+        
+        $pathToPublicKey = app_path('Http/Controllers/api/client_pubkey.php');
+        $key_content = file_get_contents($pathToPublicKey);  
+        $pubkeyid    = openssl_get_publickey($key_content);  
+          
+        if (openssl_public_encrypt($sourcestr, $crypttext, $pubkeyid))  
+        {
+            return base64_encode("".$crypttext);  
+        }
+    }
+
+    public function decodeing($crypttext)
+    {
+        $pathToPrivateKey = app_path('Http/Controllers/privkey.php');
+        $prikeyid    = file_get_contents($pathToPrivateKey);
+        $crypttext   = base64_decode($crypttext);
+
+        if (openssl_private_decrypt($crypttext, $sourcestr, $prikeyid, OPENSSL_PKCS1_PADDING))
+        {
+            return "".$sourcestr;
+        }
+        return ;
+    }
 
     public function index_bb()
     {   
@@ -78,6 +103,20 @@ class ProgramController extends Controller
             $image->move($destinationPath, $profileImage);
             $input['program_image'] = "$profileImage";
             }
+            $input['user_id']= $this->decodeing($input['user_id']);
+            $input['program_name']= $this->decodeing($input['program_name']);
+            // $input['price_1']= $this->decodeing($input['price_1']);
+            // $input['price_2']= $this->decodeing($input['price_2']);
+            // $input['price_3']= $this->decodeing($input['price_3']);
+            // $input['price_4']= $this->decodeing($input['price_4']);
+            // $input['price_5']= $this->decodeing($input['price_5']);
+            $input['date_start']= $this->decodeing($input['date_start']);
+            $input['date_end']= $this->decodeing($input['date_end']);
+            $input['description']= $this->decodeing($input['description']);
+            $input['scope']= $this->decodeing($input['scope']);
+            $input['status']= $this->decodeing($input['status']);
+            $input['type']= $this->decodeing($input['type']);
+            $input['category']= $this->decodeing($input['category']);
         Program::create($input);
 
         return[
@@ -121,7 +160,26 @@ class ProgramController extends Controller
         ->where('programs.id','=',$id)
         ->first(['programs.*','users.name']);
 
-        return $program;
+        // return $program;
+        return [
+
+        'id' => $this->encodeing($program->id),
+        'user_id' => $this->encodeing($program->user_id),
+        'program_name' => $this->encodeing($program->program_name),
+        'program_image' => $program->program_image,
+        'date_start' => $this->encodeing($program->date_start),
+        'date_end' => $this->encodeing($program->date_end),
+        'description' => $program->scope,
+        'scope' => $this->encodeing($program->scope),
+        'price_1' => $this->encodeing($program->price_1),
+        'price_2' => $this->encodeing($program->price_2),
+        'price_3' => $this->encodeing($program->price_3),
+        'price_4' => $this->encodeing($program->price_4),
+        'price_5' => $this->encodeing($program->price_5),
+        'status' => $this->encodeing($program->status),
+        'type' => $this->encodeing($program->type),
+        'category' => $this->encodeing($program->category),
+        'name' => $this->encodeing($program->name)];
     }
 
     public function show_list($id)
@@ -152,25 +210,25 @@ class ProgramController extends Controller
             'type' => 'required',
         ]);
 
-        $program = Program::where('id', $fields['id'])->first();
+        $program = Program::where('id', $this->decodeing($fields['id']))->first();
         // if ($image = $request->file('program_image')) {
         //     $destinationPath = 'img/program_image';
         //     $profileImage = date('YmdHis') . "." . $image->getClientOriginalName();
         //     $image->move($destinationPath, $profileImage);
         //     $program-> program_image = "$profileImage";
         // }
-        $program-> program_name = $fields['program_name'];
+        $program-> program_name = $this->decodeing($fields['program_name']);
         // $program-> company_name = $fields['company_name'];
         
-        $program-> date_start = $fields['date_start'];
-        $program-> date_end = $fields['date_end'];
+        $program-> date_start = $this->decodeing($fields['date_start']);
+        $program-> date_end = $this->decodeing($fields['date_end']);
         $program-> description = $fields['description'];
-        $program-> scope = $fields['scope'];
-        $program-> status = $fields['status'];
-        $program-> category = $fields['category'];
-        $program-> type = $fields['type'];
-
-        if($fields['type'] == 'Vulnerability Disclosure'){
+        $program-> scope = $this->decodeing($fields['scope']);
+        $program-> status = $this->decodeing($fields['status']);
+        $program-> category = $this->decodeing($fields['category']);
+        $program-> type = $this->decodeing($fields['type']);
+        
+        if($this->decodeing($fields['type']) == 'Vulnerability Disclosure'){
             $program-> price_1 = NULL;
             $program-> price_2 = NULL;
             $program-> price_3 = NULL;
