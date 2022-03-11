@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CategoryReport;
 use App\Models\Report;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -53,9 +54,11 @@ class ReportController extends Controller
     public function show($id)
     {
         $report = Report::findOrFail($id);
-   
+        $category = CategoryReport::all();
+
         return view('pages.report.detail_report', [
           'report' => $report,
+          'category' => $category
         ]);
     }
 
@@ -80,13 +83,18 @@ class ReportController extends Controller
     public function update(Request $request, $id)
     {
         $fields = $request->validate([
-            'status_report'=> 'required',
-            'status_causes'=> ''
+            'note'=>'nullable',
+            'status_report'=> 'nullable',
+            'status_causes'=> 'nullable',
+            'category_id'=> 'nullable'
+
         ]);
         $report = Report::where('id',$id)->first();
+        $report->category_id = $fields['category_id'];
+        $report->note = $fields['note'];
         $report->status_report = $fields['status_report'];
         $report->status_causes = $fields['status_causes'];
-    
+
         $report->save();
         return back();
     }

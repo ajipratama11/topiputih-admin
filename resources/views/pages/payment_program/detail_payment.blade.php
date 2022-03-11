@@ -18,17 +18,17 @@
                 <div class="col-lg-12">
                     <div class="row">
                         <div class="col-lg-5">
-                            <span class="font-weight-bolder"> Nama Pemilik Sistem </span>
+                            <span class="font-weight-bolder"> Nama Peneliti Keamanan </span>
                             <p class="font-weight-normal">{{ $payment->user->name }}</p>
-                            <span class="font-weight-bolder"> Nama Rekening </span>
-                            <p class="font-weight-normal">{{ $payment->account_name }}</p>
-                            <span class="font-weight-bolder"> Status Progam </span>
-                            <p class="font-weight-normal">@currency( $payment->payment_amount )</p>
-                            <span class="font-weight-bolder"> Status Progam </span>
-                            <p class="font-weight-normal">{{ $payment->status }}</p>
+                            <span class="font-weight-bolder"> Nominal Pembayaran </span>
+                            <p class="font-weight-normal">@currency( $payment->reward )</p>
+                            <span class="font-weight-bolder"> Status Laporan </span>
+                            <p class="font-weight-normal">{{ $payment->status_report }}</p>
+                            <span class="font-weight-bolder"> Status Pembayaran </span>
+                            <p class="font-weight-normal">{{ $payment->status_reward }}</p>
                         </div>
                         <div class="col-lg-5">
-                            <span class="font-weight-bolder"> Nama Bank </span>
+                            {{-- <span class="font-weight-bolder"> Nama Bank </span>
                             <p class="font-weight-normal">{{ $payment->bank_name }}</p>
                             <span class="font-weight-bolder"> No Rekening </span>
                             <p class="font-weight-normal">{{ $payment->account_number }}</p>
@@ -36,27 +36,30 @@
                             <p class="font-weight-normal">
                                 {{$start_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $payment->payment_date)
                                 ->format('d-M-Y');}}
-                            </p>
+                            </p> --}}
                         </div>
                     </div>
 
                 </div>
-                <div class="col-lg-12">
+                {{-- <div class="col-lg-12">
                     <span class="font-weight-bolder">Bukti Transfer </span>
                     <div class=" mt-2">
                         <img class="img-fluid align-middle" style="max-height: 300px"
                             src="{{'/img/payment/'}}{{$payment->image_transfer}}">
                     </div>
-                </div>
+                </div> --}}
+
                 <div class="col-lg-12 mt-3">
-                    {{-- <a data-toggle="modal" data-target="#change-status" class="btn btn-primary mr-3"><i
-                            class="fas fa-fw fa-edit"></i>Konfirmasi Pembayaran</a> --}}
+                    @if ($payment->status_reward =="Belum Dibayarkan")
+                    <a data-toggle="modal" data-target="#change-status" class="btn btn-primary mr-3"><i
+                            class="fas fa-fw fa-edit"></i>Ubah Status</a>
+                    @endif
                 </div>
+
             </div>
         </div>
     </div>
 </div>
-
 
 <div class="modal fade" id="change-status" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
@@ -68,19 +71,26 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            {{-- <form action="{{ route('report.update',$payment->id) }}" method="POST">
+            <form action="{{ route('payment_program.update',$payment->id) }}" method="POST">
                 @csrf
                 @method('put')
                 <div class="modal-body">
-                    <input name="status_causes" type="text" class="form-control" value="{{$payment->payment_amount}}">
-
+                    <span class="font-weight-bolder">Status</span>
+                    <select name="status_reward" class="custom-select" id="status_reward">
+                        <option value="Belum Dibayarkan" {{ $payment->status_reward == 'Belum Dibayarkan' ? 'selected'
+                            :'' }}> Belum Dibayarkan
+                        </option>
+                        <option value="Sudah Dibayarkan" {{ $payment->status_reward == 'Sudah Dibayarkan' ? 'selected'
+                            :'' }}> Sudah Dibayarkan
+                        </option>
+                    </select>
                 </div>
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                     <button type="submit" class="btn btn-primary">Simpan</button>
                 </div>
-            </form> --}}
+            </form>
         </div>
     </div>
 </div>

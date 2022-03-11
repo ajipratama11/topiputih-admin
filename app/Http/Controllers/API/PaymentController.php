@@ -11,6 +11,32 @@ use Illuminate\Support\Facades\Validator;
 
 class PaymentController extends Controller
 {
+    public function encodeing($sourcestr)  
+    {
+        
+        $pathToPublicKey = app_path('Http/Controllers/api/client_pubkey.php');
+        $key_content = file_get_contents($pathToPublicKey);  
+        $pubkeyid    = openssl_get_publickey($key_content);  
+          
+        if (openssl_public_encrypt($sourcestr, $crypttext, $pubkeyid))  
+        {
+            return base64_encode("".$crypttext);  
+        }
+    }
+
+    public function decodeing($crypttext)
+    {
+        $pathToPrivateKey = app_path('Http/Controllers/privkey.php');
+        $prikeyid    = file_get_contents($pathToPrivateKey);
+        $crypttext   = base64_decode($crypttext);
+
+        if (openssl_private_decrypt($crypttext, $sourcestr, $prikeyid, OPENSSL_PKCS1_PADDING))
+        {
+            return "".$sourcestr;
+        }
+        return ;
+    }
+
     public function show($user_id)
     {
         $bank =  Payment::where('user_id',$user_id)
@@ -52,17 +78,18 @@ class PaymentController extends Controller
             $bank-> image_transfer = $fields['image_transfer'] = "$profileImage";
             }
             // $bank-> image_transfer = $fields['image_tra']
-            $bank-> user_id = $fields['user_id'];
-            $bank-> bank_name = $fields['bank_name'];
-            $bank-> account_number =$fields['account_number'];
-            $bank-> account_name = $fields['account_name'];
+            // $this->decodeing($fields['status_report']);
+            $bank-> user_id =  $this->decodeing($fields['user_id']);
+            $bank-> bank_name =  $this->decodeing($fields['bank_name']);
+            $bank-> account_number = $this->decodeing($fields['account_number']);
+            $bank-> account_name =  $this->decodeing($fields['account_name']);
             $bank-> status ='Proses';
-            $bank-> payment_amount =$fields['payment_amount'];
+            $bank-> payment_amount = $this->decodeing($fields['payment_amount']);
             $bank-> payment_date =date('Y-m-d H:i:s');
             $bank->save();
             return[
                 'message' => ' Berhasil Menambahkan Data',
-                'bank' => $bank,
+                'bank' => $bank
             ];
     }
 
@@ -72,7 +99,7 @@ class PaymentController extends Controller
         ->sum('payment_amount');
 
         $used =  Program::where('users.id',$user_id)
-        ->where('reports.status_reward','Selesai')
+        ->where('reports.status_reward','Sudah Dibayarkan')
         ->rightJoin('reports', 'reports.program_id', '=', 'programs.id')
         ->leftJoin('users', 'users.id', '=', 'programs.user_id')
         ->sum('reports.reward');
@@ -116,7 +143,7 @@ class PaymentController extends Controller
         $bank =  Report::where('reports.user_id',$user_id)
         // 
         ->where('reports.status_report','Disetujui')
-        ->where('reports.status_reward','Selesai')
+        ->where('reports.status_reward','Sudah Dibayarkan')
         ->sum('reports.reward');
 
         return $bank;

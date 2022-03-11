@@ -16,7 +16,7 @@ class PaymentProgramController extends Controller
      */
     public function index()
     {
-        $payment=  Program::select('users.id','users.name','reports.user_id','programs.program_name','reports.reward','reports.status_reward','reports.updated_at')
+        $payment=  Program::select('users.id','reports.id as rid','users.name','reports.user_id','programs.program_name','reports.reward','reports.status_reward','reports.updated_at')
         ->rightJoin('reports', 'reports.program_id', '=', 'programs.id')
         ->leftJoin('users', 'users.id', '=', 'programs.user_id')
         ->where('reports.status_report','Disetujui')
@@ -59,8 +59,8 @@ class PaymentProgramController extends Controller
     {
         $payment = Report::findOrFail($id);
    
-        return view('pages.payment_program.detail_payment', [
-          'payment' => $payment
+        return view('pages.payment_program.detail_payment',[
+            'payment' => $payment
         ]);
     }
 
@@ -84,7 +84,15 @@ class PaymentProgramController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $fields = $request->validate([
+            'status_reward'=> ''
+        ]);
+        $payment = Report::where('id',$id)->first();
+
+        $payment->status_reward = $fields['status_reward'];
+    
+        $payment->save();
+        return back();
     }
 
     /**

@@ -22,8 +22,9 @@
                             <th class="col-1">Nama Program</th>
                             <th class="col-1">Nama Peneliti Keamanan</th>
                             <th class="col-1">Jumlah Hadiah</th>
-                            <th class="col-1">Status</th>
+                            <th class="col-1">Status Pembayaran</th>
                             <th class="col-1">Tanggal</th>
+                            <th class="col-1">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -32,18 +33,18 @@
                         <tr>
                             <td>{{$payment->name}}</td>
                             <td>{{$payment->program_name}}</td>
-                            
+
                             <td>{{$payment->user->name}}</td>
                             {{-- <td>{{$payment->reward}}</td> --}}
                             <td>@currency($payment->reward)</td>
                             <td>{{$payment->status_reward}}</td>
                             <td> {{$start_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $payment->updated_at)
                                 ->format('d-M-Y H:i:s');}}</td>
-                            {{-- <td class="text-center">
-                                    <a class="btn btn-info btn-sm" href="/payment/{{$payment->id}}"><i
-                                            class="fas fa-fw fa-info"></i></a></a>
-                              
-                            </td> --}}
+                            <td class="text-center">
+                                <a class="btn btn-info btn-sm" href="/payment_program/{{$payment->rid}}"><i
+                                        class="fas fa-fw fa-info"></i></a></a>
+
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>

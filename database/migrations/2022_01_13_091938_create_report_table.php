@@ -29,6 +29,7 @@ class CreateReportTable extends Migration
             $table->decimal('point',8,2)->nullable();
             $table->integer('reward')->nullable();
             $table->string('status_reward')->nullable();
+            $table->string('note')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

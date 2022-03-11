@@ -23,7 +23,8 @@ class Report extends Model
         'status_causes',
         'point',
         'reward',
-        'status_reward'
+        'status_reward',
+        'note'
     ];
 
     public function user()

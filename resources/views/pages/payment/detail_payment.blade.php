@@ -44,13 +44,16 @@
                 <div class="col-lg-12 mt-3">
                     <a data-toggle="modal" data-target="#image" class="btn btn-primary"><i
                             class="fas fa-fw fa-edit"></i> Lihat Bukti Transfer</a>
+                    @if ($payment->status !="Diterima")
                     <a data-toggle="modal" data-target="#change-status" class="btn btn-primary ml-3"><i
                             class="fas fa-fw fa-edit"></i> Konfirmasi Pembayaran</a>
+                    @endif
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 <div class="modal fade" id="image" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">

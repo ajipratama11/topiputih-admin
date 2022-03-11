@@ -130,14 +130,14 @@ class User extends Authenticatable
     {
         return Report::where('user_id',$user_id)
         ->where('status_report','Disetujui')
-        ->where('status_reward','Diterima')
+        ->where('status_reward','Belum Dibayarkan')
         ->sum('reward');
     }
     public function get_reward_done($user_id)
     {
         return Report::where('user_id',$user_id)
         ->where('status_report','Disetujui')
-        ->where('status_reward','Selesai')
+        ->where('status_reward','Sudah Dibayarkan')
         ->sum('reward');
     }
 
