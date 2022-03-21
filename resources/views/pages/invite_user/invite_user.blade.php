@@ -10,7 +10,7 @@
         </div>
         <div class="card-body">
             <div class="container">
-                <form action="{{ route('invite_user.store') }}" method="POST">
+                <form action="{{ route('undang-peneliti.store') }}" method="POST">
                     <div class="table-responsive">
                         <table class="table table-bordered" id="dynamicAddRemove">
                             <span class="font-weight-bolder"> Nama Pemilik Sistem </span>
@@ -77,7 +77,7 @@
                                 <td>{{$invited->user->name}}</td>
                                 <td>{{$invited->created_at}}</td>
                                 <td class="text-center">
-                                    <form action="{{url('invite_user', $invited->id)}}" method="POST">
+                                    <form action="{{url('undang-peneliti', $invited->id)}}" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-sm"

@@ -14,13 +14,14 @@
         </div>
         <div class="card-body">
             <div class="row">
+                
                 <div class="col-lg-3">
                     <div class="text-center">
                         <img class="img-fluid align-middle" style="max-height: 175px"
                             src="{{'/img/program_image/'}}{{$program->program_image}}">
                     </div>
                     <div class="text-center">
-                        <a href="{{ route('program_public.edit',$program->id)}}" class="btn btn-primary mt-5"><i
+                        <a href="{{ route('program-publik.edit',$program->slug)}}" class="btn btn-primary mt-5"><i
                                 class="fas fa-edit fa-sm text-white-50"></i> Ubah Data</a>
                     </div>
                 </div>

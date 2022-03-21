@@ -78,12 +78,12 @@
             <div class="row mt-3">
                 <div class="col-lg-3">
                     <div class="text-center">
-                        <a href="{{ route('program_private.edit',$program->id)}}" class="btn btn-primary mr-5"><i
+                        <a href="{{ route('program-privat.edit',$program->slug)}}" class="btn btn-primary mr-5"><i
                                 class="fas fa-edit fa-sm text-white-50"></i> Ubah Data</a>
                     </div>
                 </div>
                 <div class="col-lg-9">
-                    <a href="{{ route('invite_user.edit',$program->id)}}" class="btn btn-primary"><i
+                    <a href="{{ route('undang-peneliti.edit',$program->slug)}}" class="btn btn-primary"><i
                             class="fas fa-envelope fa-sm text-white-50"></i> Undang Peneliti Keamanan</a>
                 </div>
             </div>

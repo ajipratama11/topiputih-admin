@@ -41,11 +41,11 @@
                             <td>{{$researcher->cert_count_2($researcher->id)}} Sertifikat</td>
                             <td>{{$researcher->report_count($researcher->id)}} Laporan</td>
                             <td class="text-center">
-                                <form action="{{url('researcher', $researcher->id)}}" method="POST">
+                                <form action="{{url('peneliti-keamanan', $researcher->id)}}" method="POST">
                                     {{-- <a class="btn btn-info btn-sm" href="/researcher/{{$researcher->id}}/edit"><i
                                             class="fas fa-fw fa-edit"></i></a> --}}
                                     <a class="btn btn-info btn-sm"
-                                        href="{{ route('researcher.show', $researcher->id)}}"><i
+                                        href="{{ route('peneliti-keamanan.show', $researcher->slug)}}"><i
                                             class="fas fa-fw fa-info"></i></a></a>
                                     @csrf
                                     @method('DELETE')

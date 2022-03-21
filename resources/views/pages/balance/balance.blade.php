@@ -40,7 +40,7 @@
                             <td class="text-center">
                                 {{-- <form action="{{url('balance', $balance->id)}}" method="POST"> --}}
 
-                                    <a class="btn btn-info btn-sm" href="/balance/{{$balance->id}}"><i
+                                    <a class="btn btn-info btn-sm" href="/keuangan-pemilik-sistem/{{$balance->id}}"><i
                                             class="fas fa-fw fa-info"></i></a></a>
                                     {{-- @csrf
                                     @method('DELETE')

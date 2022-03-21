@@ -6,7 +6,7 @@
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Program Berjalan</h1>
-        <a href="{{ route('program_active.create') }}" class="btn btn-primary"><i
+        <a href="{{ route('program-publik.create') }}" class="btn btn-primary"><i
                 class="fas fa-download fa-sm text-white-50"></i> Tambah Program </a>
     </div>
 
@@ -45,9 +45,9 @@
                             </td>
                             <td class="text-center">
                                 @if ($program->category =="Publik")
-                                <form action="{{url('program_public', $program->id)}}" method="POST">
+                                <form action="{{url('program-publik', $program->id)}}" method="POST">
 
-                                    <a class="btn btn-info btn-sm" href="/program_public/{{$program->id}}"><i
+                                    <a class="btn btn-info btn-sm" href="/program-publik/{{$program->slug}}"><i
                                             class="fas fa-fw fa-info"></i></a></a>
                                     @csrf
                                     @method('DELETE')
@@ -56,9 +56,9 @@
                                             class="fas fa-fw fa-trash-alt"></i></button>
                                 </form>
                                 @elseif ($program->category =="Privat")
-                                <form action="{{url('program_private', $program->id)}}" method="POST">
+                                <form action="{{url('program-privat', $program->id)}}" method="POST">
 
-                                    <a class="btn btn-info btn-sm" href="/program_private/{{$program->id}}"><i
+                                    <a class="btn btn-info btn-sm" href="/program-privat/{{$program->slug}}"><i
                                             class="fas fa-fw fa-info"></i></a></a>
                                     @csrf
                                     @method('DELETE')

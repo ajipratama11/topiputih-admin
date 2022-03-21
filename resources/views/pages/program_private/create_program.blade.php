@@ -13,7 +13,7 @@
         </div>
         <div class="card-body">
             <form method="POST" enctype="multipart/form-data" id="upload-image"
-                action="{{ route('program_private.store') }}">
+                action="{{ route('program-privat.store') }}">
                 <div class="row">
                     @csrf
                     <div class="col-lg-6">

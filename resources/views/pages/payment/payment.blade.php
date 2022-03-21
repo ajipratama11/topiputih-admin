@@ -15,7 +15,7 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered display" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th class="col-1">Nama Pemilik Sistem</th>
@@ -31,13 +31,13 @@
                         <tr>
                             <td>{{$payment->user->name}}</td>
                             <td>@currency($payment->payment_amount)</td>
-                            <td> {{$start_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $payment->payment_date)
-                                ->format('d-M-Y H:i:s');}}</td>
+                            <td>{{$start_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $payment->payment_date)
+                            ->format('Y-M-d H:i:s');}}</td>
                             <td>{{$payment->status}}</td>
                             <td class="text-center">
                                 {{-- <form action="{{url('payment', $payment->id)}}" method="POST"> --}}
 
-                                    <a class="btn btn-info btn-sm" href="/payment/{{$payment->id}}"><i
+                                    <a class="btn btn-info btn-sm" href="/pembayaran-pemilik-sistem/{{$payment->id}}"><i
                                             class="fas fa-fw fa-info"></i></a></a>
                                     {{-- @csrf
                                     @method('DELETE')
@@ -56,4 +56,14 @@
     </div>
 
 </div>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('table.display').DataTable({
+            "order": []
+        });
+    });
+</script>
 @endsection

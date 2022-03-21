@@ -15,7 +15,7 @@
         <div class="card-body">
             <div class="row">
                 <div class="table-responsive">
-                    <table class="table table-bordered " id="dataTable" width="100%" cellspacing="0">
+                    <table class="table table-bordered display" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
                                 <th class="col-1">Nama Program</th>
@@ -34,7 +34,7 @@
                                 <td>@currency($payment->reward)</td>
                                 <td> {{$start_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s',
                                     $payment->updated_at)
-                                    ->format('d-M-Y H:i:s');}}</td>
+                                    ->format('Y-M-d H:i:s');}}</td>
                                 <td>{{$payment->status_reward}}</td>
 
                             </tr>
@@ -69,10 +69,10 @@
                                 <td>@currency($balance->payment_amount)</td>
                                 <td> {{$start_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s',
                                     $balance->payment_date)
-                                    ->format('d-M-Y H:i:s');}}</td>
+                                    ->format('Y-M-d H:i:s');}}</td>
                                 <td>{{$balance->status}}</td>
                                 <td class="text-center">
-                                    <a class="btn btn-info btn-sm" href="/payment/{{$balance->id}}"><i
+                                    <a class="btn btn-info btn-sm" href="/pembayaran-pemilik-sistem/{{$balance->id}}"><i
                                             class="fas fa-fw fa-info"></i></a></a>
                                 </td>
                             </tr>
@@ -89,7 +89,13 @@
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
-        $('table.display').DataTable();
+        $('table.display').DataTable({
+            "order": []
+        });
+
+        $('table.show').DataTable({
+            "order": []
+        });
     });
 </script>
 @endsection

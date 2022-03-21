@@ -4,7 +4,7 @@
 <div class="container-fluid">
 
     <!-- Page Heading -->
-    <a href="/payment" class=" mb-4 text-gray-1000"><i class="fas fa-fw fa-arrow-left"></i>Kembali</a>
+    <a href="/pembayaran-pemilik-sistem" class=" mb-4 text-gray-1000"><i class="fas fa-fw fa-arrow-left"></i>Kembali</a>
     <div class="d-sm-flex align-items-center justify-content-between mb-2 mt-3">
         <h1 class="h3 mb-0 text-gray-800">Pembayaran</h1>
     </div>
@@ -91,7 +91,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="{{ route('payment.update',$payment->id) }}" method="POST">
+            <form action="{{ route('pembayaran-pemilik-sistem.update',$payment->id) }}" method="POST">
                 @csrf
                 @method('put')
                 <div class="modal-body">

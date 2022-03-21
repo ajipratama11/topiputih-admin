@@ -4,7 +4,7 @@
 <div class="container-fluid">
 
     <!-- Page Heading -->
-    <a href="/researcher" class=" mb-4 text-gray-1000"><i class="fas fa-fw fa-arrow-left"></i>Kembali</a>
+    <a href="/peneliti-keamanan" class=" mb-4 text-gray-1000"><i class="fas fa-fw fa-arrow-left"></i>Kembali</a>
     <div class="d-sm-flex align-items-center justify-content-between mb-2 mt-3">
         <h1 class="h3 mb-0 text-gray-800">Peneliti Keamanan</h1>
     </div>
@@ -63,10 +63,10 @@
                             <td>{{$certificate->cert_date}}</td>
                             <td>{{$certificate->cert_type}}</td>
                             <td class="text-center">
-                                <form action="{{url('certificate', $certificate->id)}}" method="POST">
+                                <form action="{{url('sertifikat', $certificate->id)}}" method="POST">
 
                                     <a class="btn btn-info btn-sm"
-                                        href="{{ route('certificate.show', $certificate->id)}}"><i
+                                        href="{{ route('sertifikat.show', $certificate->id)}}"><i
                                             class="fas fa-fw fa-info"></i></a></a>
                                     @csrf
                                     @method('DELETE')

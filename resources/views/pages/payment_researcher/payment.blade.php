@@ -38,7 +38,7 @@
                                 ->format('d-M-Y H:i:s');}}</td> --}}
                             
                             <td class="text-center">
-                                    <a class="btn btn-info btn-sm" href="/payment_researcher/{{$balance->id}}"><i
+                                    <a class="btn btn-info btn-sm" href="/keuangan-peneliti-keamanan/{{$balance->id}}"><i
                                             class="fas fa-fw fa-info"></i></a></a>
                                    
                             </td>

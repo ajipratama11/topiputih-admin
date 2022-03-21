@@ -71,7 +71,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="{{ route('payment_program.update',$payment->id) }}" method="POST">
+            <form action="{{ route('pembayaran-peneliti-keamanan.update',$payment->id) }}" method="POST">
                 @csrf
                 @method('put')
                 <div class="modal-body">

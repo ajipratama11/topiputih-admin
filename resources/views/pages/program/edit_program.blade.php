@@ -13,7 +13,7 @@
         </div>
         <div class="card-body">
             <form method="POST" enctype="multipart/form-data" id="upload-image"
-                action="{{ route('program_public.update',$program->id) }}">
+                action="{{ route('program-publik.update',$program->id) }}">
                 <div class="row">
                     @csrf
                     @method('put')

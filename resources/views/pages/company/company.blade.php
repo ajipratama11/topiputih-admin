@@ -36,15 +36,14 @@
                             <td>{{$company->phone_number}}</td>
                             <td>{{$company->email}}</td>
                             <td>{{$company->program_count($company->companyProgram->user_id ?? 0)}}</td>
-                           
+
                             {{-- <td>{{$company->companyProgram->id}}</td> --}}
                             <td class="text-center">
-                                <form action="{{url('company', $company->id)}}" method="POST">
-                                        {{-- <a class="btn btn-info btn-sm " href="/company/{{$company->id}}/edit"><i
-                                                class="fas fa-fw fa-edit"></i></a> --}}
-                                    <a class="btn btn-info btn-sm"
-                                        href="/company/{{$company->id}}"><i
-                                            class="fas fa-fw fa-info"></i></a></a>
+                                <form action="{{url('pemilik-sistem', $company->id)}}" method="POST">
+                                    <a class="btn btn-info btn-sm" href="/pemilik-sistem/{{$company->slug}}"><i
+                                        class="fas fa-fw fa-info"></i></a></a>
+                                    {{-- <a class="btn btn-info btn-sm" href="/company/{{$company->id}}"><i
+                                            class="fas fa-fw fa-info"></i></a></a> --}}
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm"

@@ -39,7 +39,7 @@
                             </td>
                             <td class="text-center">
                                 <form action="{{url('report', $report->id)}}" method="POST">
-                                    <a class="btn btn-info btn-sm" href="/laporan/{{$report->slug}}"><i
+                                    <a class="btn btn-info btn-sm" href="/laporan-menunggu/{{$report->slug}}"><i
                                             class="fas fa-fw fa-info"></i></a></a>
                                     @csrf
                                     @method('DELETE')

@@ -15,7 +15,7 @@
         <div class="card-body">
             <div class="row">
                 <div class="table-responsive">
-                    <table class="table table-bordered " id="dataTable" width="100%" cellspacing="0">
+                    <table class="table table-bordered display" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
                                 <th class="col-1">Nama Program</th>
@@ -52,7 +52,9 @@
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
-        $('table.display').DataTable();
+        $('table.display').DataTable({
+            "order": []
+        });
     });
 </script>
 @endsection

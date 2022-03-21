@@ -13,19 +13,24 @@
                             <div class="text-center">
                                 <h1 class="h4 text-gray-900 mb-4">Selamat Datang</h1>
                             </div>
-                            <form class="user" action='\login' method="post">
+                            @section('content')
+                            @if ($alert = Session::get('error'))
+                            <div class="alert alert-warning">
+                                {{ $alert }}
+                            </div>
+                            @endif
+                            <form class="user" action='\masuk' method="post">
                                 @csrf
                                 <div class="form-group">
-                                    <input type="email" name="email" class="form-control form-control-user"
-                                        id="email" aria-describedby="emailHelp"
-                                        placeholder="Email" required>
+                                    <input type="email" name="email" class="form-control form-control-user" id="email"
+                                        aria-describedby="emailHelp" placeholder="Email" required>
                                 </div>
                                 <div class="form-group">
                                     <input type="password" name="password" class="form-control form-control-user"
                                         id="exampleInputPassword" placeholder="Password" required>
                                 </div>
                                 <hr>
-                                <button  type="submit" class="btn btn-primary btn-user btn-block">
+                                <button type="submit" class="btn btn-primary btn-user btn-block">
                                     Login
                                 </button>
                             </form>
@@ -37,4 +42,3 @@
     </div>
 </div>
 @endsection
-
