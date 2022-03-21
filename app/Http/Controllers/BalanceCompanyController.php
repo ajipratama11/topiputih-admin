@@ -22,7 +22,7 @@ class BalanceCompanyController extends Controller
         // ->where('payments.status','Diterima')
         // ->groupBy('users.id')
         // ->get();
-        $balance = User::where('roles','company')->get();
+        $balance = User::where('roles','pemilik-sistem')->get();
 
         return view('pages.balance.balance',[
             'balance' => $balance
@@ -61,7 +61,7 @@ class BalanceCompanyController extends Controller
         $payment=  Program::select('users.id','users.name','reports.user_id','programs.program_name','reports.reward','reports.status_reward','reports.updated_at')
         ->rightJoin('reports', 'reports.program_id', '=', 'programs.id')
         ->leftJoin('users', 'users.id', '=', 'programs.user_id')
-        ->where('reports.status_reward','Selesai')
+        ->where('reports.status_reward','Sudah Dibayarkan')
         ->where('users.id',$id)
         ->orderBy('date','desc')
         ->get();

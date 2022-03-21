@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Report;
-use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\CategoryReport;
 
-class PaymentResearcherController extends Controller
+class ReportDelayController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,11 +15,8 @@ class PaymentResearcherController extends Controller
      */
     public function index()
     {
-        $balance = User::where('roles','peneliti-keamanan')->get();
-        // ->join('users','users.id','=','payments.user_id')
-        // ->get();
-        return view('pages.payment_researcher.payment',[
-            'balance' => $balance
+        return view('pages.report_delay.report_delay',[
+            'reports' => Report::orderBy('date','desc')->where('status_report','Diterima')->get()
         ]);
     }
 
@@ -52,14 +49,12 @@ class PaymentResearcherController extends Controller
      */
     public function show($id)
     {
-        $payment = Report::where('reports.user_id',$id)
-        // ->join('programs','programs.id','=','reports.program_id')
-        ->orderBy('reports.updated_at','desc')
-        ->where('status_report','Disetujui')
-        ->get();
-        
-        return view('pages.payment_researcher.detail_payment', [
-          'payment' => $payment
+        $report = Report::where('slug',$id)->first();
+        $category = CategoryReport::all();
+
+        return view('pages.report.detail_report', [
+          'report' => $report,
+          'category' => $category
         ]);
     }
 

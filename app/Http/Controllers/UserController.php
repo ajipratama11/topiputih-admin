@@ -44,6 +44,7 @@ class UserController extends Controller
             'email' => ['required', 'string', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'max:255'],
         ]);
+        // $input['nama']= 'administrator';
         $input['roles']= 'administrator';
         $input['phone_number']= '000000000000';
         $input['profile_picture']= 'topiputih.png';

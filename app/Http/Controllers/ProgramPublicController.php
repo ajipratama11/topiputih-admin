@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Program;
 use App\Models\InvitedUser;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\ResearcherCertificate;
 use Symfony\Component\Console\Input\Input;
 
@@ -25,7 +27,7 @@ class ProgramPublicController extends Controller
      */
     public function create()
     {
-        $user = User::where('roles','company')->get([
+        $user = User::where('roles','pemlik-sistem')->get([
             'id','name'
         ]);
         
@@ -99,13 +101,15 @@ class ProgramPublicController extends Controller
             $image->move($destinationPath, $profileImage);
             $input['program_image'] = "$profileImage";
             }
+            $input['slug']=Str::slug($input['program_name']);
+            
         $program = Program::create($input);
 
 
 
         if ($program) {
             return redirect()
-                ->route('program_public.index')
+                ->route('program-publik.index')
                 ->with([
                     'success' => 'New post has been created successfully'
                 ]);
@@ -127,10 +131,13 @@ class ProgramPublicController extends Controller
      */
     public function show($id)
     {
-        $program = Program::findOrFail($id);
-   
+        $program = Program::where('slug',$id)
+        ->first();
+        // $program = Program::findOrFail($id);
+        $idnya = $program->id;
         return view('pages.program.detail_program', [
-          'program' => $program,
+            
+            'program' => $program,
         ]);
     }
 
@@ -142,8 +149,10 @@ class ProgramPublicController extends Controller
      */
     public function edit($id)
     {
-        $program = Program::findOrFail($id);
-        $user = User::where('roles','company')->get([
+        // $program = Program::findOrFail($id);
+        $program = Program::where('slug',$id)
+        ->first();
+        $user = User::where('roles','pemilik-sistem')->get([
             'id','name'
         ]);
         return view('pages.program.edit_program', compact('user'), [
@@ -214,7 +223,7 @@ class ProgramPublicController extends Controller
 
         if ($program) {
             return redirect()
-                ->route('program_public.index')
+                ->route('program-publik.index')
                 ->with([
                     'success' => 'New post has been created successfully'
                 ]);

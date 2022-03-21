@@ -17,7 +17,6 @@ class ReportController extends Controller
     public function index()
     {
         
-
         return view('pages.report.report',[
             'reports' => Report::orderBy('date','desc')->get()
         ]);
@@ -53,7 +52,7 @@ class ReportController extends Controller
      */
     public function show($id)
     {
-        $report = Report::findOrFail($id);
+        $report = Report::where('slug',$id)->first();
         $category = CategoryReport::all();
 
         return view('pages.report.detail_report', [

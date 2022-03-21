@@ -158,6 +158,7 @@ class ProgramController extends Controller
         $program = DB::table('programs')
         ->rightJoin('users', 'users.id', '=', 'programs.user_id')
         ->where('programs.id','=',$id)
+        // ->where('programs.slug','=',$id)
         ->first(['programs.*','users.name']);
 
         // return $program;
@@ -311,7 +312,7 @@ class ProgramController extends Controller
     public function get_researcher($id){
         $notin = InvitedUser::where('invited_users.program_id',$id)->select('invited_users.user_id');
 
-        $user = User::where('roles','researcher') 
+        $user = User::where('roles','peneliti-keamanan') 
         // ->join('reports','reports.user_id','=','users.id')
         ->whereNotIn('users.id',$notin)
         // ->groupBy('reports.user_id')
@@ -334,7 +335,7 @@ class ProgramController extends Controller
 
         $user = DB::table('users')
         ->leftJoin('reports','reports.user_id','=','users.id')
-        ->where('roles','researcher')
+        ->where('roles','peneliti-keamanan')
         ->select('users.id as user_id','users.name as name','users.email',DB::raw('SUM(reports.point) AS points'))
         ->groupBy('reports.user_id')
         ->get();

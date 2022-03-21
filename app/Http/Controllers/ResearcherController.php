@@ -21,7 +21,7 @@ class ResearcherController extends Controller
 
 
         return view('pages.researcher.researcher',[
-            'researchers' => User::where('roles','researcher')->get()
+            'researchers' => User::where('roles','peneliti-keamanan')->get()
         ]);
     }
 
@@ -62,11 +62,12 @@ class ResearcherController extends Controller
      */
     public function show($id)
     {
-        $researcher = User::findOrFail($id);
-   
+        // $researcher = User::findOrFail($id);
+        $researcher = User::where('slug',$id)
+        ->first();
         return view('pages.researcher.detail_researcher', [
           'researcher' => $researcher,
-          'certificate' => ResearcherCertificate::where('user_id',$id)->get()
+          'certificate' => ResearcherCertificate::where('user_id',$researcher->id)->get()
         ]);
     }
 

@@ -13,6 +13,7 @@ class Program extends Model
     protected $fillable = [
         'user_id',
         'program_name',
+        'slug',
         'program_image',
         'company_name',
         'price_1',
@@ -28,7 +29,10 @@ class Program extends Model
         'category',
         'type'
     ];
-
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -36,14 +40,14 @@ class Program extends Model
 
     public function researcher(){
         
-        return User::where('roles','researcher')->get([
+        return User::where('roles','peneliti-keamanan')->get([
             'id','name'
         ]);
     }
 
     public function company(){
         
-        return User::where('roles','company')->get([
+        return User::where('roles','pemilik-sistem')->get([
             'id','name'
         ]);
     }

@@ -192,9 +192,10 @@ class ReportController extends Controller
         ->rightJoin('users', 'users.id', '=', 'reports.user_id')
         ->rightJoin('programs', 'programs.id', '=', 'reports.program_id')
         ->rightJoin('category_reports','category_reports.id','=','reports.category_id')
-        ->where('reports.program_id',$id)
+        // ->where('reports.program_id',$id)
+        ->where('programs.user_id',$id)
         ->where('status_report','Disetujui')
-        ->select('reports.*','users.name','category_reports.detail','category_reports.category')
+        ->select('reports.*','users.name','category_reports.detail','category_reports.category','programs.program_name')
         ->get();
 
         return $report;

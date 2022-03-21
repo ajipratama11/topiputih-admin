@@ -20,6 +20,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'slug',
         'email',
         'contact_name',
         'username',
@@ -113,7 +114,7 @@ class User extends Authenticatable
     public function get_payment($user_id)
     {
         return  Program::where('users.id',$user_id)
-        ->where('reports.status_reward','Selesai')
+        ->where('reports.status_reward','Sudah Dibayarkan')
         ->rightJoin('reports', 'reports.program_id', '=', 'programs.id')
         ->leftJoin('users', 'users.id', '=', 'programs.user_id')
         ->sum('reports.reward');

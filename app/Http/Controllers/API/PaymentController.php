@@ -41,6 +41,7 @@ class PaymentController extends Controller
     {
         $bank =  Payment::where('user_id',$user_id)
         ->select('payment_amount','status','payment_date')
+        ->orderBy('id','desc')
         ->get();
         return[
 
@@ -108,9 +109,9 @@ class PaymentController extends Controller
 
         
         return[
-            'balance' => $balance,
-            'total' => $total,
-            'used' => $used,
+            'balance' => $this->encodeing($balance),
+            'total' => $this->encodeing($total),
+            'used' => $this->encodeing($used),
         ];
     }
 
@@ -120,6 +121,7 @@ class PaymentController extends Controller
         ->leftJoin('users', 'users.id', '=', 'programs.user_id')
         ->where('users.id',$user_id)
         ->where('reports.status_report','Disetujui')
+        ->orderBy('reports.updated_at','desc')
         ->get();
 
         return 
@@ -133,8 +135,7 @@ class PaymentController extends Controller
         ->where('reports.id',$user_id)
         ->get();
 
-        return 
-        $bank;
+        return $this->encodeing($bank);
     }
 
 
@@ -146,7 +147,7 @@ class PaymentController extends Controller
         ->where('reports.status_reward','Sudah Dibayarkan')
         ->sum('reports.reward');
 
-        return $bank;
+        return $this->encodeing($bank);
     }
 
     public function payment_researcher_process($user_id){
@@ -159,7 +160,8 @@ class PaymentController extends Controller
         ->orderBy('reports.updated_at','desc')
         ->get();
 
-        return $bank;
+        return 
+            $bank;
 
     }
 

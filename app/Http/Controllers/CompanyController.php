@@ -13,7 +13,7 @@ class CompanyController extends Controller
     public function index()
     {
         return view('pages.company.company',[
-            'companies' => User::where('roles','company')->get()
+            'companies' => User::where('roles','pemilik-sistem')->get()
         ]);
     }
 
@@ -38,11 +38,12 @@ class CompanyController extends Controller
   
     public function show($id)
     {
-        $company = User::findOrFail($id);
-   
+        // $company = User::findOrFail($id);
+        $company = User::where('slug',$id)
+        ->first();
         return view('pages.company.detail_company', [
           'company' => $company,
-          'program' => Program::where('user_id',$id)->get()
+          'program' => Program::where('user_id',$company->id)->get()
         ]);
     }
 

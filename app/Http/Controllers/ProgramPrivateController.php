@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Program;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use phpDocumentor\Reflection\Types\Null_;
 use SebastianBergmann\Environment\Console;
@@ -29,7 +30,7 @@ class ProgramPrivateController extends Controller
      */
     public function create()
     {
-        $user = User::where('roles','company')->get([
+        $user = User::where('roles','pemilik-sistem')->get([
             'id','name'
         ]);
         return view('pages.program_private.create_program',compact('user'));
@@ -68,6 +69,7 @@ class ProgramPrivateController extends Controller
             $image->move($destinationPath, $profileImage);
             $input['program_image'] = "$profileImage";
             }
+            $input['slug']=Str::slug($input['program_name']);
         $program = Program::create($input);
 
         // $input = $request->validate([
@@ -93,7 +95,7 @@ class ProgramPrivateController extends Controller
 
         if ($program) {
             return redirect()
-                ->route('program_private.index')
+                ->route('program-privat.index')
                 ->with([
                     'success' => 'New post has been created successfully'
                 ]);
@@ -115,8 +117,8 @@ class ProgramPrivateController extends Controller
      */
     public function show($id)
     {
-        $program = Program::findOrFail($id);
-   
+        $program = Program::where('slug',$id)
+        ->first();
         return view('pages.program_private.detail_program', [
           'program' => $program
         ]);
@@ -130,7 +132,8 @@ class ProgramPrivateController extends Controller
      */
     public function edit($id)
     {
-        $program = Program::findOrFail($id);
+        $program = Program::where('slug',$id)
+        ->first();
         return view('pages.program_private.edit_program',[
             'program' => $program
           ] );
@@ -196,7 +199,7 @@ class ProgramPrivateController extends Controller
 
         if ($program) {
             return redirect()
-                ->route('program_private.index')
+                ->route('program-privat.index')
                 ->with([
                     'success' => 'New post has been created successfully'
                 ]);

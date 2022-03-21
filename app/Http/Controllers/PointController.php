@@ -24,7 +24,7 @@ class PointController extends Controller
 
         $point = DB::table('users')
         ->leftJoin('reports','reports.user_id','=','users.id')
-        ->where('roles','researcher')
+        ->where('roles','peneliti-keamanan')
         // ->where('reports.status_report','Disetujui')
         ->select('users.id as id','users.name as name',DB::raw('SUM(reports.point) AS points'))
         ->groupBy('users.id')

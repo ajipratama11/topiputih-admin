@@ -13,6 +13,7 @@ class Report extends Model
         'user_id',
         'program_id',
         'summary',
+        'slug',
         'scope_report',
         'description_report',
         'impact',

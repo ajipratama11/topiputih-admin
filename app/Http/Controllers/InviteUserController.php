@@ -78,7 +78,7 @@ class InviteUserController extends Controller
      */
     public function show($id)
     {
-        $researcher = User::findOrFail($id);
+        $researcher = User::where('slug',$id)->first();
 
         $point = DB::table('reports')
         ->where('user_id',$id)
@@ -99,12 +99,12 @@ class InviteUserController extends Controller
      */
     public function edit($id)
     {
-        $program = Program::findOrFail($id);
+        $program = Program::where('slug',$id)->first();
         
-        $invited = InvitedUser::where('program_id',$id)->get();
+        $invited = InvitedUser::where('program_id',$program->id)->get();
 
-        $notin = InvitedUser::where('invited_users.program_id',$id)->select('invited_users.user_id');
-        $user = User::where('roles','researcher') 
+        $notin = InvitedUser::where('invited_users.program_id',$program->id)->select('invited_users.user_id');
+        $user = User::where('roles','peneliti-keamanan') 
                 ->whereNotIn('users.id',$notin)
                 ->get(['id','name']);
 
