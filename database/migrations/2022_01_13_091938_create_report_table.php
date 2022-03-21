@@ -18,6 +18,7 @@ class CreateReportTable extends Migration
             $table->bigInteger('user_id')->unsigned();
             $table->bigInteger('program_id')->unsigned();
             $table->string('summary');
+            $table->string('slug')->unique();
             $table->string('scope_report');
             $table->bigInteger('category_id')->unsigned();
             $table->text('description_report');

@@ -17,6 +17,7 @@ class CreateProgramsTable extends Migration
             $table->id();
             $table->bigInteger('user_id')->unsigned();;
             $table->string('program_name');
+            $table->string('slug')->unique();
             $table->string('program_image')->nullable();
             $table->string('company_name')->nullable();
             $table->integer('price_1')->nullable();
