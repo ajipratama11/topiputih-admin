@@ -19,6 +19,8 @@ use App\Http\Controllers\PaymentProgramController;
 use App\Http\Controllers\ProgramPrivateController;
 use App\Http\Controllers\PaymentResearcherController;
 use App\Http\Controllers\PointController as ControllersPointController;
+use App\Http\Controllers\ReportDelayController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,34 +39,36 @@ use App\Http\Controllers\PointController as ControllersPointController;
 
 
 
-Route::post('/login', [LoginController::class, 'authenticate']);
-Route::post('/logout', [LoginController::class, 'logout']);
+Route::post('/masuk', [LoginController::class, 'authenticate']);
+Route::post('/keluar', [LoginController::class, 'logout']);
 
-Route::get('login', [LoginController::class, 'index'])->name('login');
+Route::get('masuk', [LoginController::class, 'index'])->name('masuk');
 // Route::get('/company', [CompanyController::class, 'index'])->middleware('auth');
 // Route::get('/company/edit', [CompanyController::class, 'edit'])->middleware('auth');
-Route::get('send_email',[SendEmailController::class,'index']);
+Route::get('kirim_email',[SendEmailController::class,'index']);
 
 Route::group(['middleware' => ['admin']], function() {
     Route::get('/', [DashboardController::class,'index']);
-    Route::get('dashboard',[DashboardController::class,'index']);
-    Route::resource('researcher', ResearcherController::class);
-    Route::resource('company', CompanyController::class);
+    Route::get('halaman-utama',[DashboardController::class,'index']);
+    Route::resource('pengguna', UserController::class);
+    Route::resource('peneliti-keamanan', ResearcherController::class);
+    Route::resource('pemilik-sistem', CompanyController::class);
     Route::resource('program', ProgramController::class);
-    Route::resource('program_public', ProgramPublicController::class);
-    Route::resource('program_private', ProgramPrivateController::class);
-    Route::resource('program_active', ProgramActiveController::class);
-    Route::resource('invite_user', InviteUserController::class);
-    Route::resource('certificate', CertificateController::class);
-    Route::resource('report', ReportController::class);
-    Route::resource('payment', PaymentController::class);
-    Route::resource('balance', BalanceCompanyController::class);
-    Route::resource('payment_program', PaymentProgramController::class);
-    Route::resource('payment_researcher', PaymentResearcherController::class);
-    Route::resource('point', PointController::class);
-    Route::get('dashboard',[DashboardController::class,'index']);
-    Route::get('search/{id}',[InviteUserController::class,'search']);
-    Route::get('list/{id}',[InviteUserController::class,'list']);
+    Route::resource('program-publik', ProgramPublicController::class);
+    Route::resource('program-privat', ProgramPrivateController::class);
+    Route::resource('program-berjalan', ProgramActiveController::class);
+    Route::resource('undang-peneliti', InviteUserController::class);
+    Route::resource('sertifikat', CertificateController::class);
+    Route::resource('laporan', ReportController::class);
+    Route::resource('laporan-menunggu', ReportDelayController::class);
+    Route::resource('pembayaran-pemilik-sistem', PaymentController::class);
+    Route::resource('keuangan-pemilik-sistem', BalanceCompanyController::class);
+    Route::resource('pembayaran-peneliti-keamanan', PaymentProgramController::class);
+    Route::resource('keuangan-peneliti-keamanan', PaymentResearcherController::class);
+    Route::resource('skor', PointController::class);
+    // Route::get('dashboard',[DashboardController::class,'index']);
+    Route::get('pencarian/{id}',[InviteUserController::class,'search']);
+    Route::get('daftar/{id}',[InviteUserController::class,'list']);
 });
 // Route::resource('/company/edit', CompanyController::class)->middleware('auth');
 // Route::get('/researcher', [ResearcherController::class,'index'])->middleware('auth');;
