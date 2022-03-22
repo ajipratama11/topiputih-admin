@@ -11,10 +11,10 @@ class ResearcherCertificate extends Model
 
     protected $fillable = [
         'user_id',
-        'cert_name',
-        'cert_file',
-        'cert_date',
-        'cert_type'
+        'nama_sertifikat',
+        'berkas_sertifikat',
+        'tagggal_sertifikat',
+        'tipe_sertifikat'
         
     ];
 
@@ -22,14 +22,14 @@ class ResearcherCertificate extends Model
     {
         return ResearcherCertificate::where([
             'user_id'=> $user_id,
-            'cert_type' => 'keahlian'])->get();
+            'tipe_sertifikat' => 'keahlian'])->get();
     }
 
     public function show_2($user_id)
     {
         return ResearcherCertificate::where([
             'user_id'=> $user_id,
-            'cert_type' => 'penghargaan'])->get();
+            'tipe_sertifikat' => 'penghargaan'])->get();
     }
 
     public function user()

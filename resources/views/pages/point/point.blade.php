@@ -27,7 +27,7 @@
                         @foreach ($point as $point )
 
                         <tr>
-                            <td>{{$point->name}}</td>
+                            <td>{{$point->nama}}</td>
                             <td>{{$point->points ?? 0}} Point</td>
 
                             {{-- <td class="text-center">

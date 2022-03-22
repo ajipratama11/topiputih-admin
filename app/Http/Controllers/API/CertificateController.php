@@ -29,19 +29,19 @@ class CertificateController extends Controller
     {
         $request->validate([
             'user_id' => 'required',
-            'cert_name' => 'required',
-            'cert_file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'cert_date' => 'required',
-            'cert_type' => 'required',
+            'nama_sertifikat' => 'required',
+            'berkas_sertifikat' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'tanggal_sertifikat' => 'required',
+            'tipe_sertifikat' => 'required',
         ]);
   
         $input = $request->all();
   
-        if ($image = $request->file('cert_file')) {
+        if ($image = $request->file('berkas_sertifikat')) {
             $destinationPath = 'img/certificate/';
             $profileImage = date('YmdHis') . "." . $image->getClientOriginalName();
             $image->move($destinationPath, $profileImage);
-            $input['cert_file'] = "$profileImage";
+            $input['berkas_sertifikat'] = "$profileImage";
         }
     
         ResearcherCertificate::create($input);
@@ -56,22 +56,22 @@ class CertificateController extends Controller
     {
         $fields = $request->validate([
             'id' => 'required',
-            'cert_name' => 'required',
-            'cert_file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'cert_date' => 'required',
-            'cert_type' => 'required',
+            'nama_sertifikat' => 'required',
+            'berkas_sertifikat' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'tanggal_sertifikat' => 'required',
+            'tipe_sertifikat' => 'required',
         ]);
   
         $cert = ResearcherCertificate::where('id', $fields['id'])->first();
-        if ($image = $request->file('cert_file')) {
+        if ($image = $request->file('berkas_sertifikat')) {
             $destinationPath = 'img/';
             $profileImage = date('YmdHis') . "." . $image->getClientOriginalName();
             $image->move($destinationPath, $profileImage);
-            $cert-> cert_file = "$profileImage";
+            $cert-> berkas_sertifikat = "$profileImage";
         }
-        $cert-> cert_name = $fields['cert_name'];
-        $cert-> cert_date = $fields['cert_date'];
-        $cert-> cert_type = $fields['cert_type'];
+        $cert-> nama_sertifikat = $fields['nama_sertifikat'];
+        $cert-> tanggal_sertifikat = $fields['tanggal_sertifikat'];
+        $cert-> tipe_sertifikat = $fields['tipe_sertifikat'];
     
         $cert->save();
 
@@ -93,13 +93,13 @@ class CertificateController extends Controller
     {
         return ResearcherCertificate::where([
             'user_id'=> $user_id,
-            'cert_type' => 'keahlian'])->get();
+            'tipe_sertifikat' => 'keahlian'])->get();
     }
 
     public function show_2($user_id)
     {
         return ResearcherCertificate::where([
             'user_id'=> $user_id,
-            'cert_type' => 'penghargaan'])->get();
+            'tipe_sertifikat' => 'penghargaan'])->get();
     }
 }

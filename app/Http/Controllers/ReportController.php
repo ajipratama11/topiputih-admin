@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CategoryReport;
 use App\Models\Report;
+use App\Models\Program;
 use Illuminate\Http\Request;
+use App\Models\CategoryReport;
 use Illuminate\Support\Facades\DB;
 
 class ReportController extends Controller
@@ -89,10 +90,31 @@ class ReportController extends Controller
 
         ]);
         $report = Report::where('id',$id)->first();
+        
+        $program = Program::where('id',$report->program_id)->first();
+
         $report->category_id = $fields['category_id'];
         $report->note = $fields['note'];
         $report->status_report = $fields['status_report'];
         $report->status_causes = $fields['status_causes'];
+
+        $cat = CategoryReport::where('id',$report->category_id)->first();
+        if($cat->category == 'Sangat Rendah'){
+        $report->point= '12.5';
+        $report->reward = $program->price_1;
+        }elseif($cat->category == 'Rendah'){
+            $report->point= '25';
+            $report->reward = $program->price_2;
+        }elseif($cat->category == 'Sedang'){
+            $report->point= '37.5';
+            $report->reward = $program->price_3;
+        }elseif($cat->category == 'Tinggi'){
+            $report->point= '62.5';
+            $report->reward = $program->price_4;
+        }elseif($cat->category == 'Sangat Tinggi'){
+            $report->point= '100';
+            $report->reward = $program->price_5;
+        }
 
         $report->save();
         return back();
@@ -113,5 +135,36 @@ class ReportController extends Controller
 
         return back()->with('success',' Penghapusan berhasil.');
     
+    }
+
+    public function change_category(Request $request, $id){
+        $fields = $request->validate([
+            'category_id'=> 'required'
+
+        ]);
+        $report = Report::where('id',$id)->first();
+        $program = Program::where('id',$report->program_id)->first();
+
+        $report->category_id = $fields['category_id'];
+        $cat = CategoryReport::where('id',$report->category_id)->first();
+        if($cat->category == 'Rendah'){
+        $report->point= '12.5';
+        $report->reward = $program->price_1;
+        }elseif($cat->category == 'Sangat Rendah'){
+            $report->point= '25';
+            $report->reward = $program->price_2;
+        }elseif($cat->category == 'Sedang'){
+            $report->point= '37.5';
+            $report->reward = $program->price_3;
+        }elseif($cat->category == 'Tinggi'){
+            $report->point= '62.5';
+            $report->reward = $program->price_4;
+        }elseif($cat->category == 'Sangat Tinggi'){
+            $report->point= '100';
+            $report->reward = $program->price_5;
+        }
+
+        $report->save();
+        return back();
     }
 }

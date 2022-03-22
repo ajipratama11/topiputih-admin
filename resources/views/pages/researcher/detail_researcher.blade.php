@@ -15,15 +15,15 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-lg-3 border-right ">
-                    <img class="img-fluid align-middle" src="{{'/img/profile_user/'}}{{$researcher->profile_picture}}">
+                    <img class="img-fluid align-middle" src="{{'/img/profile_user/'}}{{$researcher->foto_pengguna}}">
                 </div>
                 <div class="col-lg-9">
                     <span class="font-weight-bolder"> Nama Peneliti Keamanan </span>
-                    <p class="font-weight-normal">{{ $researcher->name }}</p>
+                    <p class="font-weight-normal">{{ $researcher->nama }}</p>
                     {{-- <span class="font-weight-bolder"> Nama Pengguna </span>
                     <p class="font-weight-normal">{{ $researcher->username }}</p> --}}
                     <span class="font-weight-bolder"> Nomor HP Kontak </span>
-                    <p class="font-weight-normal">{{ $researcher->phone_number }}</p>
+                    <p class="font-weight-normal">{{ $researcher->nomor_telepon }}</p>
                     <span class="font-weight-bolder">Alamat Surat Elektronik </span>
                     <p class="font-weight-normal">{{ $researcher->email }}</p>
                     <span class="font-weight-bolder">Nama Bank </span>
@@ -58,10 +58,10 @@
                         @foreach ($certificate as $certificate )
 
                         <tr>
-                            <td>{{$certificate->user->name}}</td>
-                            <td>{{$certificate->cert_name}}</td>
-                            <td>{{$certificate->cert_date}}</td>
-                            <td>{{$certificate->cert_type}}</td>
+                            <td>{{$certificate->user->nama}}</td>
+                            <td>{{$certificate->nama_sertifikat}}</td>
+                            <td>{{$certificate->tanggal_sertifikat}}</td>
+                            <td>{{$certificate->tipe_sertifikat}}</td>
                             <td class="text-center">
                                 <form action="{{url('sertifikat', $certificate->id)}}" method="POST">
 

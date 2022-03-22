@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -40,19 +41,20 @@ class UserController extends Controller
     {
         $input = $request->validate([
             
-            'name' => ['required', 'string', 'max:255'],
+            'nama' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'max:255'],
         ]);
         // $input['nama']= 'administrator';
         $input['roles']= 'administrator';
-        $input['phone_number']= '000000000000';
-        $input['profile_picture']= 'topiputih.png';
+        $input['slug']= Str::slug($input['nama']);
+        $input['nomor_telepon']= '000000000000';
+        $input['foto_pengguna']= 'topiputih.png';
         $input['password']= Hash::make($input['password']);
         $user = User::create($input);
 
         if ($user) {
-            return redirect()->intended('/dashboard')
+            return redirect()->intended('/halaman-utama')
                 ->with([
                     'success' => 'New post has been created successfully'
                 ]);

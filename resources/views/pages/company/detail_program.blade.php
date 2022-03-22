@@ -21,7 +21,7 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <span class="font-weight-bolder"> Nama Pemilik Sistem </span>
-                            <p class="font-weight-normal">{{ $program->user->name }}</p>
+                            <p class="font-weight-normal">{{ $program->user->nama }}</p>
 
                             <span class="font-weight-bolder"> Nama Perusahaan </span>
                             <p class="font-weight-normal">{{ $program->company_name }}</p>

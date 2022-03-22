@@ -31,9 +31,9 @@
                     <tbody>
                         @foreach ($companies as $company)
                         <tr>
-                            <td>{{$company->name}}</td>
-                            <td>{{$company->contact_name}}</td>
-                            <td>{{$company->phone_number}}</td>
+                            <td>{{$company->nama}}</td>
+                            <td>{{$company->nama_pengguna}}</td>
+                            <td>{{$company->nomor_telepon}}</td>
                             <td>{{$company->email}}</td>
                             <td>{{$company->program_count($company->companyProgram->user_id ?? 0)}}</td>
 

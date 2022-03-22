@@ -58,7 +58,7 @@ class BalanceCompanyController extends Controller
      */
     public function show($id)
     {
-        $payment=  Program::select('users.id','users.name','reports.user_id','programs.program_name','reports.reward','reports.status_reward','reports.updated_at')
+        $payment=  Program::select('users.id','users.nama','reports.user_id','programs.program_name','reports.reward','reports.status_reward','reports.updated_at')
         ->rightJoin('reports', 'reports.program_id', '=', 'programs.id')
         ->leftJoin('users', 'users.id', '=', 'programs.user_id')
         ->where('reports.status_reward','Sudah Dibayarkan')

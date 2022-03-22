@@ -15,15 +15,15 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-lg-3 border-right ">
-                    <img class="img-fluid align-middle" src="{{'/img/profile_user/'}}{{$company->profile_picture}}">
+                    <img class="img-fluid align-middle" src="{{'/img/profile_user/'}}{{$company->foto_pengguna}}">
                 </div>
                 <div class="col-lg-9">
                     <span class="font-weight-bolder"> Nama Pemilik Sistem </span>
-                    <p class="font-weight-normal">{{ $company->name }}</p>
+                    <p class="font-weight-normal">{{ $company->nama }}</p>
                     <span class="font-weight-bolder"> Nama Kontak </span>
-                    <p class="font-weight-normal">{{ $company->contact_name }}</p>
+                    <p class="font-weight-normal">{{ $company->nama_pengguna }}</p>
                     <span class="font-weight-bolder"> Nomor HP Kontak </span>
-                    <p class="font-weight-normal">{{ $company->phone_number }}</p>
+                    <p class="font-weight-normal">{{ $company->nomor_telepon }}</p>
                     <span class="font-weight-bolder">Alamat Surat Elektronik </span>
                     <p class="font-weight-normal">{{ $company->email }}</p>
                     <span class="font-weight-bolder">Total Program </span>

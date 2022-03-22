@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\API;
 
 use App\Models\Report;
+use App\Models\Program;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\CategoryReport;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Models\CategoryReport;
-use App\Models\Program;
 use Illuminate\Support\Facades\Validator;
 
 class ReportController extends Controller
@@ -82,7 +83,6 @@ class ReportController extends Controller
         $input['status_report']= $this->decodeing($input['status_report']);
 
 
-
         if ($file = $request->file('file')) {
             $destinationPath = 'file/report/';
             $reportFile = date('YmdHis') . "." . $file->getClientOriginalName();
@@ -125,7 +125,8 @@ class ReportController extends Controller
                 $input['point'] = '100';
             }
         }else{}
-
+        
+        $input['slug']= Str::slug($input['summary']);
         $input['status_reward']= 'Proses';
         Report::create($input);
         return[
@@ -195,7 +196,7 @@ class ReportController extends Controller
         // ->where('reports.program_id',$id)
         ->where('programs.user_id',$id)
         ->where('status_report','Disetujui')
-        ->select('reports.*','users.name','category_reports.detail','category_reports.category','programs.program_name')
+        ->select('reports.*','users.nama','category_reports.detail','category_reports.category','programs.program_name')
         ->get();
 
         return $report;
@@ -249,7 +250,7 @@ class ReportController extends Controller
     public function count_report_program($id)
     {
    
-        // $report = DB::select("SELECT users.name ,reports.program_id,
+        // $report = DB::select("SELECT users.nama ,reports.program_id,
         // programs.program_name, programs.date_start, programs.date_end,
         // programs.type,
         // count(reports.program_id) as count_report FROM `reports`
@@ -262,7 +263,7 @@ class ReportController extends Controller
         $report = Program::where('users.id',$id)
         ->leftJoin('reports','reports.program_id','=','programs.id')
         ->leftJoin('users','users.id','=','programs.user_id')
-        ->select('users.name' ,'reports.program_id',
+        ->select('users.nama' ,'reports.program_id',
         'programs.program_name', 'programs.date_start', 'programs.date_end',
         'programs.type',DB::raw('count(reports.user_id) AS count_report'))
         ->groupBy('programs.id')
@@ -306,7 +307,7 @@ class ReportController extends Controller
         $report = Program::where('users.id',$id)
         ->leftJoin('reports','reports.program_id','=','programs.id')
         ->leftJoin('users','users.id','=','programs.user_id')
-        // ->select('users.name' ,'reports.program_id',
+        // ->select('users.nama' ,'reports.program_id',
         // 'programs.program_name', 'programs.date_start', 'programs.date_end',
         // 'programs.type',DB::raw('count(reports.user_id) AS count_report'))
         // ->groupBy('programs.id')

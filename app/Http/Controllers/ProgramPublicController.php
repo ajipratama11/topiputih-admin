@@ -27,8 +27,8 @@ class ProgramPublicController extends Controller
      */
     public function create()
     {
-        $user = User::where('roles','pemlik-sistem')->get([
-            'id','name'
+        $user = User::where('roles','pemilik-sistem')->get([
+            'id','nama'
         ]);
         
         return view('pages.program.create_program', compact('user'));
@@ -153,7 +153,7 @@ class ProgramPublicController extends Controller
         $program = Program::where('slug',$id)
         ->first();
         $user = User::where('roles','pemilik-sistem')->get([
-            'id','name'
+            'id','nama'
         ]);
         return view('pages.program.edit_program', compact('user'), [
           'program' => $program
@@ -197,7 +197,7 @@ class ProgramPublicController extends Controller
         }
         // $program-> user_id = $fields['user_id'];
         $program-> program_name = $fields['program_name'];
-        // $program-> company_name = $fields['company_name'];
+        $program-> slug = Str::slug($fields['program_name']);
         
         $program-> date_start = $fields['date_start'];
         $program-> date_end = $fields['date_end'];

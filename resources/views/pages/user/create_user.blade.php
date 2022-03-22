@@ -19,7 +19,7 @@
                     <div class="col-lg-6">
                         <div class="mb-3">
                             <label class="form-label">Nama</label>
-                            <input name="name" type="text" class="form-control">
+                            <input name="nama" type="text" class="form-control">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Email</label>

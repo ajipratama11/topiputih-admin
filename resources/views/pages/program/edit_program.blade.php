@@ -36,7 +36,7 @@
                                 @foreach ($user as $name)
                                 {{-- <option value={{$name->id}}>{{$name->name}}</option> --}}
                                 <option value="{{ $name->id }}" {{ $name->id == $program->user->id ? 'selected' : ''
-                                    }}>{{ $name->name }}</option>
+                                    }}>{{ $name->nama }}</option>
                                 @endforeach
                             </select>
                         </div>

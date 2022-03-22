@@ -31,10 +31,10 @@
                         @foreach ($payment as $payment )
 
                         <tr>
-                            <td>{{$payment->name}}</td>
+                            <td>{{$payment->nama}}</td>
                             <td>{{$payment->program_name}}</td>
 
-                            <td>{{$payment->user->name}}</td>
+                            <td>{{$payment->user->nama}}</td>
                             {{-- <td>{{$payment->reward}}</td> --}}
                             <td>@currency($payment->reward)</td>
                             <td>{{$payment->status_reward}}</td>

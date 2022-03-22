@@ -32,7 +32,7 @@
                         @foreach ($program as $program )
 
                         <tr>
-                            <td>{{$program->user->name}}</td>
+                            <td>{{$program->user->nama}}</td>
                             <td>{{$program->program_name}}</td>
                             <td>{{$program->type}}</td>
                             <td> {{$start_date = \Carbon\Carbon::createFromFormat('Y-m-d', $program->date_start)

@@ -69,6 +69,7 @@ Route::group(['middleware' => ['admin']], function() {
     // Route::get('dashboard',[DashboardController::class,'index']);
     Route::get('pencarian/{id}',[InviteUserController::class,'search']);
     Route::get('daftar/{id}',[InviteUserController::class,'list']);
+    Route::post('ubah-category/{$id}', [ReportController::class, 'change_category']);
 });
 // Route::resource('/company/edit', CompanyController::class)->middleware('auth');
 // Route::get('/researcher', [ResearcherController::class,'index'])->middleware('auth');;

@@ -31,7 +31,7 @@
                     <tbody>
                         @foreach ($reports as $report)
                         <tr>
-                            <td>{{$report->user->name}}</td>
+                            <td>{{$report->user->nama}}</td>
                             <td>{{$report->program->program_name}}</td>
                             <td>{{$report->categoryReport->category}} - {{$report->categoryReport->detail}}</td>
                             <td>{{$report->status_report}}</td>

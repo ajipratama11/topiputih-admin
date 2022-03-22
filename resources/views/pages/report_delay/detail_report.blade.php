@@ -186,11 +186,7 @@
                             $category->detail}}</option>
                         @endforeach
                     </select>
-                    <input name="note" type="hidden" class="form-control mb-3" value="{{$report->note}}">
-                    <input name="status_report" type="hidden" class="form-control mb-3"
-                        value="{{$report->status_report}}">
-                    <input name="status_causes" type="hidden" class="form-control mb-3"
-                        value="{{$report->status_causes}}">
+                 
                 </div>
 
                 <div class="modal-footer">

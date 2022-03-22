@@ -22,7 +22,7 @@
                     <div class="row">
                         <div class="col-lg-5">
                             <span class="font-weight-bolder"> Nama Pemilik Sistem </span>
-                            <p class="font-weight-normal">{{ $program->user->name }}</p>
+                            <p class="font-weight-normal">{{ $program->user->nama }}</p>
                             <span class="font-weight-bolder"> Tipe Program </span>
                             <p class="font-weight-normal">{{ $program->type }}</p>
                             <span class="font-weight-bolder"> Status Progam </span>

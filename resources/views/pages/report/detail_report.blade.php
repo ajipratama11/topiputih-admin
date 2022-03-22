@@ -109,16 +109,18 @@
                         </div>
                     </div>
                 </div>
+                @if ($report->status_report !="Disetujui")
                 <div class="col-lg-5 mt-3">
                     <a data-toggle="modal" data-target="#change-category" class="btn btn-primary"><i
                             class="fas fa-fw fa-edit"></i> Sesuaikan Kategori</a>
                 </div>
                 <div class="col-lg-4 mt-3">
-                    @if ($report->status_report !="Disetujui")
+
                     <a data-toggle="modal" data-target="#change-status" class="btn btn-primary"><i
                             class="fas fa-fw fa-edit"></i> Ubah Status</a>
-                    @endif
+
                 </div>
+                @endif
             </div>
         </div>
     </div>

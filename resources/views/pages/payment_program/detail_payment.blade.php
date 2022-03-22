@@ -19,7 +19,7 @@
                     <div class="row">
                         <div class="col-lg-5">
                             <span class="font-weight-bolder"> Nama Peneliti Keamanan </span>
-                            <p class="font-weight-normal">{{ $payment->user->name }}</p>
+                            <p class="font-weight-normal">{{ $payment->user->nama }}</p>
                             <span class="font-weight-bolder"> Nominal Pembayaran </span>
                             <p class="font-weight-normal">@currency( $payment->reward )</p>
                             <span class="font-weight-bolder"> Status Laporan </span>

@@ -106,7 +106,7 @@ class InviteUserController extends Controller
         $notin = InvitedUser::where('invited_users.program_id',$program->id)->select('invited_users.user_id');
         $user = User::where('roles','peneliti-keamanan') 
                 ->whereNotIn('users.id',$notin)
-                ->get(['id','name']);
+                ->get(['id','nama']);
 
         // $choice = User::findOrFail($id);
         return view('pages.invite_user.invite_user',compact('user'),
@@ -149,6 +149,7 @@ class InviteUserController extends Controller
         $user = User::find($id);
         $point = DB::table('reports')
         ->where('user_id',$id)
+        ->where('status_report','Disetujui')
         ->sum('point');
         $report = DB::table('reports')
         ->where('user_id',$id)

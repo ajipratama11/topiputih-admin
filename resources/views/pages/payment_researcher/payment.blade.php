@@ -29,7 +29,7 @@
                         @foreach ($balance as $balance )
 
                         <tr>
-                            <td>{{$balance->name}}</td>
+                            <td>{{$balance->nama}}</td>
                             {{-- <td>{{$balance->id}}</td> --}}
                             <td>@currency($balance->get_reward_process($balance->id))</td>
                             <td>@currency($balance->get_reward($balance->id))</td>

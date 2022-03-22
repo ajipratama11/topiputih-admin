@@ -8,6 +8,7 @@ use App\Models\Report;
 use App\Models\Program;
 use App\Mail\MailInvite;
 use App\Models\InvitedUser;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Mail\InviteProgramMail;
@@ -55,7 +56,7 @@ class ProgramController extends Controller
             'category' => 'publik',
             // 'type' => 'Bug Bounty'
         ])
-        ->get(['programs.*','users.name']);
+        ->get(['programs.*','users.nama']);
 
         return $program;
     }
@@ -71,7 +72,7 @@ class ProgramController extends Controller
             'category' => 'publik',
             'type' => 'Vulnerability Disclosure'
         ])
-        ->get(['programs.*','users.name']);
+        ->get(['programs.*','users.nama']);
 
         return $program;
     }
@@ -105,6 +106,7 @@ class ProgramController extends Controller
             }
             $input['user_id']= $this->decodeing($input['user_id']);
             $input['program_name']= $this->decodeing($input['program_name']);
+            $input['slug'] = Str::slug($input['program_name']);
             // $input['price_1']= $this->decodeing($input['price_1']);
             // $input['price_2']= $this->decodeing($input['price_2']);
             // $input['price_3']= $this->decodeing($input['price_3']);
@@ -133,14 +135,14 @@ class ProgramController extends Controller
                 ->where('users.id',$user_id)
                 ->where('programs.id',$id)
                 ->whereIn('users.id',$notin)
-                ->get(['users.id','users.name','programs.program_name']);
+                ->get(['users.id','users.nama','programs.program_name']);
 
         
 
         // $program = DB::table('programs')
         // ->rightJoin('users', 'users.id', '=', 'programs.user_id')
         // ->where('programs.id','=',$id)
-        // ->first(['programs.*','users.name']);
+        // ->first(['programs.*','users.nama']);
 
         return $user;
     }
@@ -153,13 +155,13 @@ class ProgramController extends Controller
         // $user = DB::table('users')
         //         ->where('users.id',$user_id)
         //         ->whereIn('users.id',$notin)
-        //         ->get(['id as user_id','name']);
+        //         ->get(['id as user_id','nama']);
 
         $program = DB::table('programs')
         ->rightJoin('users', 'users.id', '=', 'programs.user_id')
         ->where('programs.id','=',$id)
         // ->where('programs.slug','=',$id)
-        ->first(['programs.*','users.name']);
+        ->first(['programs.*','users.nama']);
 
         // return $program;
         return [
@@ -180,7 +182,7 @@ class ProgramController extends Controller
         'status' => $this->encodeing($program->status),
         'type' => $this->encodeing($program->type),
         'category' => $this->encodeing($program->category),
-        'name' => $this->encodeing($program->name)];
+        'nama' => $this->encodeing($program->nama)];
     }
 
     public function show_list($id)
@@ -220,7 +222,7 @@ class ProgramController extends Controller
         // }
         $program-> program_name = $this->decodeing($fields['program_name']);
         // $program-> company_name = $fields['company_name'];
-        
+        $program-> slug =  Str::slug($program->program_name);
         $program-> date_start = $this->decodeing($fields['date_start']);
         $program-> date_end = $this->decodeing($fields['date_end']);
         $program-> description = $fields['description'];
@@ -261,10 +263,9 @@ class ProgramController extends Controller
 
     public function update_image(Request $request)
     {
-         try {
+        
             $fields = $request->validate([
                 'id' => 'required',
-                'program_image' => 'required',
             ]);
 
             $program = Program::where('id', $fields['id'])->first();
@@ -283,12 +284,7 @@ class ProgramController extends Controller
                 // 'image' => "$profileImage"
 
             ];
-        } catch (Exception $error) {
-            return [
-                'message' => 'gagal',
-                'error' => $error
-            ];
-        }
+        
 
     }
 
@@ -317,13 +313,13 @@ class ProgramController extends Controller
         ->whereNotIn('users.id',$notin)
         // ->groupBy('reports.user_id')
         // ->sum('reports.point')
-        ->get(['users.id as user_id','name']);
+        ->get(['users.id as user_id','nama']);
 
         // $user = DB::table('users')
         //     ->leftJoin('reports','reports.user_id','=','users.id')
         //     ->where('roles','researcher')
         //     ->WhereNotIn('users.id',$notin)
-        //     ->select('users.id as user_id','users.name as name',DB::raw('SUM(reports.point) AS points'))
+        //     ->select('users.id as user_id','users.nama as nama',DB::raw('SUM(reports.point) AS points'))
         //     ->groupBy('reports.user_id')
         //     ->get();
             // ->toSql();
@@ -333,14 +329,26 @@ class ProgramController extends Controller
     
     public function no_researcher(){
 
-        $user = DB::table('users')
-        ->leftJoin('reports','reports.user_id','=','users.id')
-        ->where('roles','peneliti-keamanan')
-        ->select('users.id as user_id','users.name as name','users.email',DB::raw('SUM(reports.point) AS points'))
-        ->groupBy('reports.user_id')
-        ->get();
+        $query = DB::select(" SELECT  users.id as user_id,users.nama as nama, users.email , ifnull(r.points,0) as points FROM `users` 
+        left JOIN(SELECT reports.user_id,sum(reports.point) as points FROM reports WHERE reports.status_report = 'disetujui'  GROUP BY(reports.user_id)) r
+        on ( users.id = r.user_id)
+        WHERE users.roles = 'peneliti-keamanan'");
 
-        return $user;
+        return $query;
+
+        // SELECT  users.id as id,users.nama , ifnull(r.points,0) as points FROM `users` 
+        // left JOIN(SELECT reports.user_id,sum(reports.point) as points FROM reports WHERE reports.status_report = 'disetujui'  GROUP BY(reports.user_id)) r
+        // on ( users.id = r.user_id)
+        // WHERE users.roles = 'peneliti-keamanan';
+
+        // $user = DB::table('users')
+        // ->leftJoin('reports','reports.user_id','=','users.id')
+        // ->where('roles','peneliti-keamanan')
+        // ->select('users.id as user_id','users.nama as nama','users.email',DB::raw('SUM(reports.point) AS points'))
+        // ->groupBy('reports.user_id')
+        // ->get();
+
+        // return $user;
     }
 
     public function researcher_program(Request $request){
@@ -358,7 +366,7 @@ class ProgramController extends Controller
         // $user = DB::table('users')
         //         ->where('roles','researcher')
         //         ->whereIn('users.id',$notin)
-        //         ->get('id as user_id','name');
+        //         ->get('id as user_id','nama');
 
         return $notin;
 
@@ -407,7 +415,7 @@ class ProgramController extends Controller
         ->join('users', 'users.id', '=', 'invited_users.user_id')
         ->join('programs', 'programs.id', '=', 'invited_users.program_id')
         ->where('programs.id',$id)
-        ->select('invited_users.*','users.name')
+        ->select('invited_users.*','users.nama')
         ->get();
 
         return $invite;

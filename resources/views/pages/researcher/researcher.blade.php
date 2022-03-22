@@ -35,7 +35,7 @@
                     <tbody>
                         @foreach ($researchers as $researcher)
                         <tr>
-                            <td>{{$researcher->name}}</td>
+                            <td>{{$researcher->nama}}</td>
                             <td>{{$researcher->email}}</td>
                             <td>{{$researcher->cert_count_1($researcher->id)}} Sertifikat</td>
                             <td>{{$researcher->cert_count_2($researcher->id)}} Sertifikat</td>

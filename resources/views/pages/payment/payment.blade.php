@@ -29,7 +29,7 @@
                         @foreach ($payment as $payment )
 
                         <tr>
-                            <td>{{$payment->user->name}}</td>
+                            <td>{{$payment->user->nama}}</td>
                             <td>@currency($payment->payment_amount)</td>
                             <td>{{$start_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $payment->payment_date)
                             ->format('Y-M-d H:i:s');}}</td>

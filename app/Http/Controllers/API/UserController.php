@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use Exception;
 use App\Models\User;
 use App\Models\Company;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
@@ -22,11 +23,11 @@ class UserController extends Controller
         return [
             
             'message' => ' Berhasil Mengubah Data',
-            'name' =>$this->encodeing( $user-> name),
-            'contact_name' =>$this->encodeing( $user-> contact_name) ,
+            'nama' =>$this->encodeing( $user-> nama),
+            'nama_pengguna' =>$this->encodeing( $user-> nama_pengguna) ,
             'email'=>$this->encodeing($user-> email),
-            'phone_number'=>$this->encodeing($user-> phone_number) ,
-            'profile_picture' => $user->profile_picture,
+            'nomor_telepon'=>$this->encodeing($user-> nomor_telepon) ,
+            'foto_pengguna' => $user->foto_pengguna,
             'roles'=>$this->encodeing($user->roles)
         ];
     }
@@ -36,11 +37,11 @@ class UserController extends Controller
         $user = User::where('id', $id)->first();
         return [
             'message' => ' Berhasil Mengubah Data',
-            'name' =>$this->encodeing( $user-> name),
-            'contact_name' =>$this->encodeing( $user-> contact_name) ,
+            'nama' =>$this->encodeing( $user-> nama),
+            'nama_pengguna' =>$this->encodeing( $user-> nama_pengguna) ,
             'email'=>$this->encodeing($user-> email),
-            'phone_number'=>$this->encodeing($user-> phone_number) ,
-            'profile_picture' => $user->profile_picture,
+            'nomor_telepon'=>$this->encodeing($user-> nomor_telepon) ,
+            'foto_pengguna' => $user->foto_pengguna,
             'roles'=>$this->encodeing($user->roles)
         ];
     }
@@ -49,21 +50,22 @@ class UserController extends Controller
     {
         try {
             $request->validate([
-                'name' => ['required', 'string', 'max:255'],
-                'contact_name' => ['required', 'string', 'max:255'],
-                'profile_picture' => ['required', 'string', 'max:255'],
+                'nama' => ['required', 'string', 'max:255'],
+                'nama_pengguna' => ['required', 'string', 'max:255'],
+                'foto_profil' => ['required', 'string', 'max:255'],
                 'email' => ['required', 'string', 'max:255', 'unique:users'],
-                'phone_number' => ['required', 'string', 'max:255'],
+                'nomor_telepon' => ['required', 'string', 'max:255'],
                 'password' => ['required', 'string', 'max:255'],
                 'roles' => ['required', 'string', 'max:255'],
             ]);
 
             User::create([
-                'name' => $request->name,
-                'contact_name' => $request->contact_name,
-                'profile_picture' =>$request->profile_picture,
+                'nama' => $request->nama,
+                'slug' =>  Str::slug($request->nama),
+                'nama_pengguna' => $request->nama_pengguna,
+                'foto_profil' =>$request->foto_profil,
                 'email' => $this->decodeing($request->email),
-                'phone_number' => $request->phone_number,
+                'nomor_telepon' => $request->nomor_telepon,
                 'password' => Hash::make($this->decodeing( $request->password)),
                 // 'password' => Hash::make( $request->password),   
                 'roles' => $this->decodeing($request->roles)
@@ -178,17 +180,18 @@ class UserController extends Controller
     public function edit_user (Request $request){
         $fields = $request->validate([
                             'id' => ['required', 'string', 'max:255'],
-                            'name' => ['required', 'string', 'max:255'],
-                            'contact_name' => [  'max:255'],
+                            'nama' => ['required', 'string', 'max:255'],
+                            'nama_pengguna' => [  'max:255'],
                             'email' => ['required', 'string', 'max:255'],
-                            'phone_number' => ['required', 'string', 'max:255']
+                            'nomor_telepon' => ['required', 'string', 'max:255']
                         ]);
         // $user = User::where('id', $fields['id'])->first();
         $user = User::find( $this->decodeing($fields['id']));
-        $user-> name =  $this->decodeing($fields['name']);
-        $user-> contact_name =  $this->decodeing($fields['contact_name']);
+        $user-> nama =  $this->decodeing($fields['nama']);
+        $user-> slug = Str::slug($this->decodeing($fields['nama']));
+        $user-> nama_pengguna =  $this->decodeing($fields['nama_pengguna']);
         $user-> email =  $this->decodeing($fields['email']);
-        $user-> phone_number =  $this->decodeing($fields['phone_number']);
+        $user-> nomor_telepon =  $this->decodeing($fields['nomor_telepon']);
         $user->save();
         
         return[
@@ -209,11 +212,11 @@ class UserController extends Controller
         ]);
   
         $user = User::where('id', $fields['id'])->first();
-        if ($image = $request->file('profile_picture')) {
+        if ($image = $request->file('foto_pengguna')) {
             $destinationPath = 'img/profile_user';
             $profileImage = date('YmdHis') . "." . $image->getClientOriginalName();
             $image->move($destinationPath, $profileImage);
-            $user-> profile_picture = "$profileImage";
+            $user-> foto_pengguna = "$profileImage";
         }
         $user->save();
 

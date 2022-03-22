@@ -17,10 +17,10 @@ class PointController extends Controller
        $point = Report::selectRaw('user_id, sum(point) as points')
         ->groupBy('user_id')
         ->with(['user' => function ($query) {
-            $query->select('id','users.name','users.email');}])
+            $query->select('id','users.nama','users.email');}])
         ->orderBy('points','desc')
         ->limit(10)
-        ->get('user.name','user.email');
+        ->get('user.nama','user.email');
 
         return$point;
     }
@@ -29,12 +29,12 @@ class PointController extends Controller
         $point = Report::selectRaw('user_id, sum(point) as points')
         ->groupBy('user_id')
         ->with(['user' => function ($query) {
-            $query->select('id','users.name','users.email');}])
+            $query->select('id','users.nama','users.email');}])
         ->orderBy('points','desc')
         ->where('date','<=',Carbon::now()->isoFormat('Y-MM-DD'))
         ->where('date','>=',Carbon::now()->subMonths(6)->isoFormat('Y-MM-DD'))
         ->limit(10)
-        ->get('user.name','user.email');
+        ->get('user.nama','user.email');
 
         return $point;
     }
@@ -45,7 +45,7 @@ class PointController extends Controller
         ->groupBy('reports.user_id')
         ->where('reports.program_id',$id)
         ->with(['user' => function ($query) {
-            $query->select('id','users.name','users.profile_picture');}])
+            $query->select('id','users.nama','users.profile_picture');}])
         ->orderBy('points','desc')
         ->get();
     

@@ -31,7 +31,7 @@ class ProgramPrivateController extends Controller
     public function create()
     {
         $user = User::where('roles','pemilik-sistem')->get([
-            'id','name'
+            'id','nama'
         ]);
         return view('pages.program_private.create_program',compact('user'));
     }
@@ -175,6 +175,7 @@ class ProgramPrivateController extends Controller
         }
         // $program-> user_id = $fields['user_id'];
         $program-> program_name = $fields['program_name'];
+        $program-> slug = Str::slug($fields['program_name']);
         $program-> date_start = $fields['date_start'];
         $program-> date_end = $fields['date_end'];
         $program-> description = $fields['description'];

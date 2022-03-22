@@ -34,7 +34,7 @@
     <div class="row">
         <div class="col-lg-9">
             <span class="font-weight-bolder"> Nama Peneliti Keamanan </span>
-            <p class="font-weight-normal">{{ $researcher->name }}</p>
+            <p class="font-weight-normal">{{ $researcher->nama }}</p>
             <span class="font-weight-bolder"> Point </span>
             {{-- <p class="font-weight-normal">{{ $point ?? 'Belum Memiliki Point'}}</p>
             <span class="font-weight-bolder">Sertifikat Keahlian</span>

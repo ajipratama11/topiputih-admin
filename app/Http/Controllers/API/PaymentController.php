@@ -116,7 +116,7 @@ class PaymentController extends Controller
     }
 
     public function payment_program_company($user_id){
-        $bank =  Program::select('programs.id as program_id','programs.program_name','reports.id as report_userid','users.name','reports.reward','reports.status_reward','reports.updated_at')
+        $bank =  Program::select('programs.id as program_id','programs.program_name','reports.id as report_userid','users.nama','reports.reward','reports.status_reward','reports.updated_at')
         ->rightJoin('reports', 'reports.program_id', '=', 'programs.id')
         ->leftJoin('users', 'users.id', '=', 'programs.user_id')
         ->where('users.id',$user_id)
@@ -129,7 +129,7 @@ class PaymentController extends Controller
     }
 
     public function payment_program_report($user_id){
-        $bank =  Report::select('programs.program_name','users.name','reports.reward','reports.status_reward','reports.updated_at')
+        $bank =  Report::select('programs.program_name','users.nama','reports.reward','reports.status_reward','reports.updated_at')
         ->rightJoin('programs', 'programs.id', '=', 'reports.program_id')
         ->leftJoin('users', 'users.id', '=', 'reports.user_id')
         ->where('reports.id',$user_id)

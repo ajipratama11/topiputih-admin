@@ -33,7 +33,7 @@
                         @foreach ($program as $program )
 
                         <tr>
-                            <td>{{$program->user->name}}</td>
+                            <td>{{$program->user->nama}}</td>
                             <td>{{$program->program_name}}</td>
                             <td>{{$program->category}}</td>
                             <td>{{$program->type}}</td>

@@ -19,13 +19,12 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'nama',
         'slug',
         'email',
-        'contact_name',
-        'username',
-        'profile_picture',
-        'phone_number',
+        'nama_pengguna',
+        'foto_pengguna',
+        'nomor_telepon',
         'password',
         'roles'
     ];
@@ -55,14 +54,14 @@ class User extends Authenticatable
     {
         return ResearcherCertificate::where([
             'user_id'=> $user_id,
-            'cert_type'=> 'keahlian'])->count();
+            'tipe_sertifikat'=> 'keahlian'])->count();
     }
     
     public function cert_count_2($user_id)
     {
         return ResearcherCertificate::where([
             'user_id'=> $user_id,
-            'cert_type'=> 'penghargaan'])->count();
+            'tipe_sertifikat'=> 'penghargaan'])->count();
     }
 
     public function report_count($user_id)

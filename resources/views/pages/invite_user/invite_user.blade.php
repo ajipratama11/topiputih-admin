@@ -14,7 +14,7 @@
                     <div class="table-responsive">
                         <table class="table table-bordered" id="dynamicAddRemove">
                             <span class="font-weight-bolder"> Nama Pemilik Sistem </span>
-                            <p class="font-weight-normal">{{ $program->user->name }}</p>
+                            <p class="font-weight-normal">{{ $program->user->nama }}</p>
                             <span class="font-weight-bolder"> Nama Program </span>
                             <p class="font-weight-normal">{{ $program->program_name }}</p>
                             <input type="hidden" name="program_id" class="form-control" value="{{ $program->id }}" />
@@ -28,7 +28,7 @@
                                     <select name="input[0][user_id]" class="custom-select select2">
                                         <option value=""></option>
                                         @foreach ($user as $name)
-                                        <option data-id={{$name->id}} value={{$name->id}}>{{$name->name}}</option>
+                                        <option data-id={{$name->id}} value={{$name->id}}>{{$name->nama}}</option>
                                         @endforeach
                                     </select>
                                     {{-- <select name="input[1][user_id]" class="custom-select select2">
@@ -74,7 +74,7 @@
                         <tbody>
                             @foreach ($users as $invited )
                             <tr>
-                                <td>{{$invited->user->name}}</td>
+                                <td>{{$invited->user->nama}}</td>
                                 <td>{{$invited->created_at}}</td>
                                 <td class="text-center">
                                     <form action="{{url('undang-peneliti', $invited->id)}}" method="POST">
@@ -138,7 +138,7 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <span class="font-weight-bolder">Nama</span>
-                        <p id="name"></p>
+                        <p id="nama"></p>
                         <span class="font-weight-bolder">Point</span>
                         <p id="point"></p>
                     </div>
@@ -209,8 +209,6 @@
     var i = 0;
     $("#dynamic-ar").click(function () {
         ++i;
-        // $("#dynamicAddRemove").append('<tr><td><input type="text" name="input[' + i +'][cert_name]" placeholder="Enter subject" class="form-control" /></td><td><button type="button" class="btn btn-outline-danger remove-input-field">Delete</button></td></tr>'
-        //     );
         $("#dynamicAddRemove").append('<tr><td><select name="input[' + i +'][user_id]" class="custom-select select2" >@foreach ($user as $name)<option value={{$name->id}}>{{$name->name}}</option>@endforeach</select></td><td><button type="button" class="btn btn-outline-primary remove-input-field">Hapus</button></td></tr>'
         );
       
@@ -221,14 +219,7 @@
 </script>
 <script>
     $('#myModal').modal('hide');
-    // function myFunction(e) {
-    // // document.getElementById("myText").value = e.target.value
-    
-    // // console.log($(this).find(':selected').attr('data-id'))
-    // // document.getElementById("smallButton").value = e.target.value
-    // // var key = e.target.value
-    // }
-    
+   
     $(document).ready(function() {
         
         $('select').change(function(){
@@ -236,17 +227,15 @@
            console.log(id)
         
             $('.detail-btn').click(function() {
-                // var id = $(this).find(':selected').attr('data-id');
-                // consol.log(id+id)
                 $.ajax({
-                url: '/search/'+id,
+                url: '/pencarian/'+id,
                 type: 'GET',
                 data: {
                     "id": id
                 },
                 success:function(data) {
                     console.log(data);
-                    $('#name').html(data.user.name);
+                    $('#nama').html(data.user.nama);
                     $('#email').html(data.user.email);
                     $('#point').html(data.point);
                     $('#report').html(data.report);
@@ -264,7 +253,7 @@
                     ordering: false,
                     info:false,
                         type : "get",
-                    ajax: '{{ url("list")}}'+'/'+id,
+                    ajax: '{{ url("daftar")}}'+'/'+id,
                     columns: [
                         { data:'cert_name', name: 'cert_name'},
                         { data:'cert_date', name: 'cert_date'},
@@ -280,13 +269,7 @@
 <script>
     $(document).ready(function(){
         $('.select2').select2();
-        
-        // $('#myselect').change(function() { //jQuery Change Function
-        // var opval = $(this).val(); //Get value from select element
-        // if(opval=="secondoption"){ //Compare it and if true
-        //     $('#info').modal("show"); //Open Modal
-        // }
-        // });
+    
     });    
 </script>
 

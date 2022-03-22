@@ -33,7 +33,7 @@
                             <select name="user_id" class="custom-select" id="inputGroupSelect01">
                                 <option value="12">Nama Perusahaan</option>
                                 @foreach ($user as $name)
-                                <option value={{$name->id}}>{{$name->name}}</option>
+                                <option value={{$name->id}}>{{$name->nama}}</option>
                                 @endforeach
                             </select>
                         </div>

@@ -15,7 +15,7 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-lg-12">
-                    <img class="img-fluid align-middle" src="{{'/img/certificate/'}}{{$certificate->cert_file}}">
+                    <img class="img-fluid align-middle" src="{{'/img/certificate/'}}{{$certificate->berkas_sertifikat}}">
                 </div>
             </div>
         </div>
