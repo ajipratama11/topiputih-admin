@@ -20,9 +20,9 @@ class ResearcherBankController extends Controller
             'message' => 'berhasil',
             'id' => $this->encodeing($bank -> id),
             'user_id' => $this->encodeing( $bank -> user_id),
-            'bank_name' => $bank -> bank_name,
-            'account_number' => $this->encodeing($bank -> account_number),
-            'account_name' => $this->encodeing($bank -> account_name),
+            'nama_bank' => $bank -> nama_bank,
+            'nomor_rekening' => $this->encodeing($bank -> nomor_rekening),
+            'nama_rekening' => $this->encodeing($bank -> nama_rekening),
         ];
         
     }
@@ -31,15 +31,15 @@ class ResearcherBankController extends Controller
     {
         $fields = $request->validate([
             'user_id' => 'required',
-            'bank_name' => 'required',
-            'account_number' => 'required',
-            'account_name' => 'required',
+            'nama_bank' => 'required',
+            'nomor_rekening' => 'required',
+            'nama_rekening' => 'required',
         ]);
             $bank = new ResearcherBank;
             $bank-> user_id = $this->decodeing($fields['user_id']);
-            $bank-> bank_name = $fields['bank_name'];
-            $bank-> account_number = $this->decodeing($fields['account_number']);
-            $bank-> account_name = $this->decodeing($fields['account_name']);
+            $bank-> nama_bank = $fields['nama_bank'];
+            $bank-> nomor_rekening = $this->decodeing($fields['nomor_rekening']);
+            $bank-> nama_rekening = $this->decodeing($fields['nama_rekening']);
             $bank->save();
             return[
                 'message' => ' Berhasil Menambahkan Data',
@@ -52,19 +52,19 @@ class ResearcherBankController extends Controller
         
         $fields = $request->validate([
             'user_id' => 'required',
-            'bank_name' => 'required',
-            'account_number' => 'required',
-            'account_name' => 'required',
+            'nama_bank' => 'required',
+            'nomor_rekening' => 'required',
+            'nama_rekening' => 'required',
         ]);
         
             $bank = ResearcherBank::where('user_id', $this->decodeing($fields['user_id']))->first();
             // $bank = ResearcherBank::find( 1);
             // $bank-> user_id = $fields['user_id'];
-            $bank-> bank_name = $fields['bank_name'];
-            // $bank-> account_number = $fields['account_number'];
-            // $bank-> account_name = $fields['account_name'];
-            $bank-> account_number = $this->decodeing($fields['account_number']);
-            $bank-> account_name = $this->decodeing($fields['account_name']);
+            $bank-> nama_bank = $fields['nama_bank'];
+            // $bank-> nomor_rekening = $fields['nomor_rekening'];
+            // $bank-> nama_rekening = $fields['nama_rekening'];
+            $bank-> nomor_rekening = $this->decodeing($fields['nomor_rekening']);
+            $bank-> nama_rekening = $this->decodeing($fields['nama_rekening']);
             $bank->save();
             return[
                 'message' => ' Berhasil Update Data',

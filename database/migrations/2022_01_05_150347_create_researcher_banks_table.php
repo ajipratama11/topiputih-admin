@@ -16,9 +16,9 @@ class CreateResearcherBanksTable extends Migration
         Schema::create('researcher_banks', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id')->unsigned();
-            $table->string('bank_name');
-            $table->string('account_number');
-            $table->string('account_name');
+            $table->string('nama_bank');
+            $table->string('nomor_rekening');
+            $table->string('nama_rekening');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

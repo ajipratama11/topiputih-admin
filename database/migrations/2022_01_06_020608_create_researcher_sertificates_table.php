@@ -16,11 +16,10 @@ class CreateResearcherSertificatesTable extends Migration
         Schema::create('researcher_certificates', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id')->unsigned();
-            $table->string('cert_name');
-            $table->string('cert_file')->nullable();
-            $table->string('cert_date')->nullable();
-            $table->string('cert_type');
-            $table->enum('cert_type', ['Keahlian', 'Penghargaan'])->nullable();
+            $table->string('nama_sertifikat');
+            $table->string('berkas_sertifikat')->nullable();
+            $table->string('tanggal_sertifikat')->nullable();
+            $table->enum('tipe_sertifikat', ['Keahlian', 'Penghargaan'])->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

@@ -27,12 +27,12 @@
                     <span class="font-weight-bolder">Alamat Surat Elektronik </span>
                     <p class="font-weight-normal">{{ $researcher->email }}</p>
                     <span class="font-weight-bolder">Nama Bank </span>
-                    <p class="font-weight-normal">{{ $researcher->researcherBank->bank_name ?? 'Belum Mengisi'}}</p>
+                    <p class="font-weight-normal">{{ $researcher->researcherBank->nama_bank ?? 'Belum Mengisi'}}</p>
                     <span class="font-weight-bolder">Nomor Rekening</span>
-                    <p class="font-weight-normal">{{ $researcher->researcherBank->account_number ?? 'Belum Mengisi'}}
+                    <p class="font-weight-normal">{{ $researcher->researcherBank->nomor_rekening ?? 'Belum Mengisi'}}
                     </p>
                     <span class="font-weight-bolder">Nama Rekening Bank </span>
-                    <p class="font-weight-normal">{{ $researcher->researcherBank->account_name ?? 'Belum Mengisi'}}</p>
+                    <p class="font-weight-normal">{{ $researcher->researcherBank->nama_rekening ?? 'Belum Mengisi'}}</p>
                     {{-- <a class="btn btn-primary " href="/researcher/{{$researcher->id}}/edit">Edit</a> --}}
                 </div>
             </div>
