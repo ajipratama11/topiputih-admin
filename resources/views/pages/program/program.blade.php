@@ -42,24 +42,36 @@
                                 ->format('d-M-Y');}}
                             </td>
                             <td class="text-center">
-                                @if ($program->category =="Publik")
-                                <form action="{{url('program-publik', $program->id)}}" method="POST">
+                                <div class="col-lg-12">
+                                    <div class="row">
+                                        @if ($program->category =="Publik")
+                                        <div class="col-lg-6">
+                                            <form method="POST" action="program-publik/detail-program">
+                                                @csrf
+                                                <input type="hidden" id="slug" name="slug" value="{{$program->slug}}"
+                                                    readonly>
+                                                <button class="btn btn-info btn-sm" type="submit"><i
+                                                        class="fas fa-fw fa-info"></i></button>
+                                            </form>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <form action="{{url('program-publik', $program->id)}}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger btn-sm"
+                                                    onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')"><i
+                                                        class="fas fa-fw fa-trash-alt"></i></button>
 
-                                    {{-- <a class="btn btn-info btn-sm" href="/program-publik/{{$program->id}}"><i
-                                            class="fas fa-fw fa-info"></i></a></a> --}}
-                                    <a class="btn btn-info btn-sm" href="/program-publik/{{$program->slug}}"><i
-                                            class="fas fa-fw fa-info"></i></a></a>
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm"
-                                        onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')"><i
-                                            class="fas fa-fw fa-trash-alt"></i></button>
-                                </form>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                                 @elseif ($program->category =="Privat")
                                 <form action="{{url('program-privat', $program->id)}}" method="POST">
 
                                     <a class="btn btn-info btn-sm" href="/program-privat/{{$program->slug}}"><i
                                             class="fas fa-fw fa-info"></i></a></a>
+
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm"
@@ -76,5 +88,32 @@
         </div>
     </div>
 
+
 </div>
+{{-- <script>
+    var btn = document.querySelector('#tombol');
+ btn.onclick = function(){
+  alert('Halo, ini adalah pesan ketika anda klik tombol');
+ }
+    $(document).ready(function () 
+	{	
+        // let slug = document.querySelector('#slug');
+        // var idnya = 'vulnerable-disclosure-bpd-bali-jawa-timur'
+        // document.cookie = "username="+slug;
+    });
+    function send()
+	{		
+        
+
+		let slug = document.querySelector('#slug');
+		// localStorage.setItem('slug',slugs.value);
+        // var slugs =localStorage.getItem('slug');
+        // setCookie('cookieName', slug, 7);
+        // var idnya = 'vulnerable-disclosure-bpd-bali-jawa-timur'
+        document.cookie = "username="+slug;
+        var idnya = 'vulnerable-disclosure-bpd-bali-jawa-timur'
+        document.cookie = "isi="+idnya;
+        // document.cookie = "username=John Doe";
+	};
+</script> --}}
 @endsection

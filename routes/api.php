@@ -38,7 +38,7 @@ Route::post('reset_password', [ResetPasswordController::class, 'reset']);
 //point
 Route::get('/point_program/{id}', [PointController::class, 'show_point_program']);
 
-
+Route::get('/tes_tes', [PointController::class, 'tes_tes']);
 // Protected routes
 Route::group(['middleware' => ['auth:sanctum']], function () {
     //program

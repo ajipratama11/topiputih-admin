@@ -14,7 +14,7 @@ class PaymentController extends Controller
      */
     public function index()
     {
-        $payment = Payment::orderBy('payment_date','desc')
+        $payment = Payment::orderBy('tanggal_pembayaran','desc')
         ->get();
         // ->join('users','users.id','=','payments.user_id')
         // ->get();
@@ -80,11 +80,11 @@ class PaymentController extends Controller
     public function update(Request $request, $id)
     {
         $fields = $request->validate([
-            'payment_amount'=> 'required',
+            'total_bayar'=> 'required',
             'status'=> ''
         ]);
         $payment = Payment::where('id',$id)->first();
-        $payment->payment_amount = $fields['payment_amount'];
+        $payment->total_bayar = $fields['total_bayar'];
         $payment->status = $fields['status'];
     
         $payment->save();

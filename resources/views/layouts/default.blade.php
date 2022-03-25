@@ -125,13 +125,17 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item {{ (request()->is('keuangan-pemilik-sistem*')) ? 'active' : '' }}"
-                            href="/keuangan-pemilik-sistem">Saldo Pemilik Sistem</a>
+                            href="/keuangan-pemilik-sistem">Data Keuangan <br> Pemilik Sistem</a>
                         <a class="collapse-item {{ (request()->is('keuangan-peneliti-keamanan*')) ? 'active' : '' }}"
-                            href="/keuangan-peneliti-keamanan">Pembayaran Peneliti <br> Keamanan</a>
+                            href="/keuangan-peneliti-keamanan">Data Keuangan <br> Peneliti Keamanan</a>
                         <a class="collapse-item {{ (request()->is('pembayaran-pemilik-sistem')) ? 'active' : '' }}"
-                            href="/pembayaran-pemilik-sistem">Transaksi Pemilik Sistem</a>
+                            href="/pembayaran-pemilik-sistem">Transaksi <br> Pemilik Sistem</a>
                         <a class="collapse-item {{ (request()->is('pembayaran-peneliti-keamanan*')) ? 'active' : '' }}"
-                            href="/pembayaran-peneliti-keamanan">Pembayaran Program</a>
+                            href="/pembayaran-peneliti-keamanan">Transaksi <br> Peneliti Keamanan</a>
+                        {{-- <a class="collapse-item {{ (request()->is('pembayaran-peneliti-keamanan*')) ? 'active' : '' }}"
+                            href="/pembayaran-peneliti-keamanan">Pembayaran <br> Pemilik Sistem <br> Belum Disetujui</a>
+                        <a class="collapse-item {{ (request()->is('pembayaran-peneliti-keamanan*')) ? 'active' : '' }}"
+                            href="/pembayaran-peneliti-keamanan">Hadiah <br> Peneliti Keamanan <br> Belum Dibayarkan</a> --}}
 
                     </div>
                 </div>

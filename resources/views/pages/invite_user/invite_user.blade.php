@@ -255,9 +255,9 @@
                         type : "get",
                     ajax: '{{ url("daftar")}}'+'/'+id,
                     columns: [
-                        { data:'cert_name', name: 'cert_name'},
-                        { data:'cert_date', name: 'cert_date'},
-                        { data:'cert_type', name: 'cert_type'}
+                        { data:'nama_sertifikat', name: 'nama_sertifikat'},
+                        { data:'tanggal_sertifikat', name: 'tanggal_sertifikat'},
+                        { data:'tipe_sertifikat', name: 'tipe_sertifikat'}
                     ]
                 });
             });

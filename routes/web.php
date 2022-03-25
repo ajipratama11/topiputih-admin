@@ -66,10 +66,11 @@ Route::group(['middleware' => ['admin']], function() {
     Route::resource('pembayaran-peneliti-keamanan', PaymentProgramController::class);
     Route::resource('keuangan-peneliti-keamanan', PaymentResearcherController::class);
     Route::resource('skor', PointController::class);
-    // Route::get('dashboard',[DashboardController::class,'index']);
     Route::get('pencarian/{id}',[InviteUserController::class,'search']);
     Route::get('daftar/{id}',[InviteUserController::class,'list']);
     Route::post('ubah-category/{$id}', [ReportController::class, 'change_category']);
+    Route::get('programnya/{id}',[ProgramPublicController::class,'data']);
+    Route::post('program-publik/detail-program',[ProgramPublicController::class,'kirim']);
 });
 // Route::resource('/company/edit', CompanyController::class)->middleware('auth');
 // Route::get('/researcher', [ResearcherController::class,'index'])->middleware('auth');;

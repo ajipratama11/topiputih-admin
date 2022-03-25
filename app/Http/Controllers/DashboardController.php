@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Payment;
 use App\Models\Program;
 use App\Models\Report;
 use App\Models\User;
@@ -22,8 +23,16 @@ class DashboardController extends Controller
         $count_researcher = User::where('roles','peneliti-keamanan')->get()->count();
         $count_program = Program::count();
         $count_report = Report::all()->count();
+        $count_reward = Report::where('status_reward','Sudah Dibayarkan')->get()->sum('reward');
+        $count_report_waiting = Report::where('status_report','Diterima')->get()->count();
+        $count_payment_waiting = Payment::where('status','Proses')->get()->count();
+        $count_reward_waiting = Report::where('status_reward','Belum Dibayarkan')->get()->count();
         
-        return view('pages.dashboard',compact('count_company','count_researcher','count_program','count_report'));
+        return view('pages.dashboard',compact(
+        'count_company','count_researcher',
+        'count_program','count_report',
+        'count_reward','count_report_waiting',
+        'count_payment_waiting','count_reward_waiting'));
     }
 
     public function encodeing($sourcestr)  

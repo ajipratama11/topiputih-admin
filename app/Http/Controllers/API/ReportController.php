@@ -124,7 +124,23 @@ class ReportController extends Controller
                 $input['reward']= $program->price_5;
                 $input['point'] = '100';
             }
-        }else{}
+        }elseif($program_type->type == 'Vulnerability Disclosure'){ 
+            if ($cat->category == 'Sangat Rendah' ){
+                $input['point'] = '12.5';
+            }
+            elseif($cat->category == 'Rendah' ){
+                $input['point'] = '25';
+            }
+            elseif($cat->category == 'Sedang' ){
+                $input['point'] = '37.5';
+            }
+            elseif($cat->category == 'Tinggi' ){
+                $input['point'] = '62.5';
+            }
+            elseif($cat->category == 'Sangat Tinggi' ){
+                $input['point'] = '100';
+            }
+        }
         
         $input['slug']= Str::slug($input['summary']);
         $input['status_reward']= 'Proses';
@@ -297,7 +313,7 @@ class ReportController extends Controller
     public function reward_researcher($id){
         $bank =  Report::where('reports.user_id',$id)
         ->where('reports.status_report','Disetujui')
-        ->where('reports.status_reward','Selesai')
+        ->where('reports.status_reward','Sudah Dibayarkan')
         ->sum('reports.reward');
 
         return $bank;

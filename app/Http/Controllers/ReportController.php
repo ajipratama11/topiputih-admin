@@ -98,22 +98,47 @@ class ReportController extends Controller
         $report->status_report = $fields['status_report'];
         $report->status_causes = $fields['status_causes'];
 
+        if($report->status_report == 'Disetujui'){
+            $report->status_reward = 'Belum Dibayarkan';
+        }elseif($report->status_report == 'Ditolak'){
+            $report->status_reward  == 'Ditolak';
+        }
+
         $cat = CategoryReport::where('id',$report->category_id)->first();
-        if($cat->category == 'Sangat Rendah'){
-        $report->point= '12.5';
-        $report->reward = $program->price_1;
-        }elseif($cat->category == 'Rendah'){
-            $report->point= '25';
-            $report->reward = $program->price_2;
-        }elseif($cat->category == 'Sedang'){
-            $report->point= '37.5';
-            $report->reward = $program->price_3;
-        }elseif($cat->category == 'Tinggi'){
-            $report->point= '62.5';
-            $report->reward = $program->price_4;
-        }elseif($cat->category == 'Sangat Tinggi'){
-            $report->point= '100';
-            $report->reward = $program->price_5;
+
+        if($program->type == 'Bug Bounty'){
+            if($cat->category == 'Sangat Rendah'){
+                $report->point = '12.5';
+                $report->reward = $program->price_1;
+            }elseif($cat->category == 'Rendah'){
+                $report->point= '25';
+                $report->reward = $program->price_2;
+            }elseif($cat->category == 'Sedang'){
+                $report->point= '37.5';
+                $report->reward = $program->price_3;
+            }elseif($cat->category == 'Tinggi'){
+                $report->point= '62.5';
+                $report->reward = $program->price_4;
+            }elseif($cat->category == 'Sangat Tinggi'){
+                $report->point= '100';
+                $report->reward = $program->price_5;
+            }
+        }elseif($program->type == 'Vulnerability Disclosure'){ 
+            if ($cat->category == 'Sangat Rendah' ){
+                $report->point = '12.5';
+            }
+            elseif($cat->category == 'Rendah' ){
+                $report->point= '25';
+            }
+            elseif($cat->category == 'Sedang' ){
+                $report->point= '37.5';
+            }
+            elseif($cat->category == 'Tinggi' ){
+                $report->point= '62.5';
+            }
+            elseif($cat->category == 'Sangat Tinggi' ){
+                $report->point= '100';
+            }
         }
 
         $report->save();

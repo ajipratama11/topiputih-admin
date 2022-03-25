@@ -67,7 +67,7 @@ class BalanceCompanyController extends Controller
         ->get();
 
         $balance = Payment::where('user_id',$id)
-        ->orderBy('payment_date','desc')
+        ->orderBy('tanggal_pembayaran','desc')
         ->get();
         
         return view('pages.balance.detail_balance', [

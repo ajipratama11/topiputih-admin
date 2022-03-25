@@ -66,9 +66,9 @@
                             @foreach ($balance as $balance )
 
                             <tr>
-                                <td>@currency($balance->payment_amount)</td>
+                                <td>@currency($balance->total_bayar)</td>
                                 <td> {{$start_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s',
-                                    $balance->payment_date)
+                                    $balance->tanggal_pembayaran)
                                     ->format('Y-M-d H:i:s');}}</td>
                                 <td>{{$balance->status}}</td>
                                 <td class="text-center">

@@ -11,7 +11,7 @@ class CategoryReport extends Model
 
     protected $fillable = [
         
-        'category',
+        'kategori',
         'detail'
         
     ];

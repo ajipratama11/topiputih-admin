@@ -21,20 +21,20 @@
                             <span class="font-weight-bolder"> Nama Pemilik Sistem </span>
                             <p class="font-weight-normal">{{ $payment->user->nama }}</p>
                             <span class="font-weight-bolder"> Nama Rekening </span>
-                            <p class="font-weight-normal">{{ $payment->account_name }}</p>
+                            <p class="font-weight-normal">{{ $payment->nama_rekening }}</p>
                             <span class="font-weight-bolder"> Nominal </span>
-                            <p class="font-weight-normal">@currency( $payment->payment_amount )</p>
+                            <p class="font-weight-normal">@currency( $payment->total_bayar )</p>
                             <span class="font-weight-bolder"> Status </span>
                             <p class="font-weight-normal">{{ $payment->status }}</p>
                         </div>
                         <div class="col-lg-5">
                             <span class="font-weight-bolder"> Nama Bank </span>
-                            <p class="font-weight-normal">{{ $payment->bank_name }}</p>
+                            <p class="font-weight-normal">{{ $payment->nama_bank }}</p>
                             <span class="font-weight-bolder"> No Rekening </span>
-                            <p class="font-weight-normal">{{ $payment->account_number }}</p>
+                            <p class="font-weight-normal">{{ $payment->nomor_rekening }}</p>
                             <span class="font-weight-bolder">Tanggal Pembayaran </span>
                             <p class="font-weight-normal">
-                                {{$start_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $payment->payment_date)
+                                {{$start_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $payment->tanggal_pembayaran)
                                 ->format('d-M-Y H:i:s');}}
                             </p>
                         </div>
@@ -67,7 +67,7 @@
                 <div class="col-lg-12">
                     <div class=" mt-2">
                         <img class="img-fluid align-middle" style="max-height: 300px"
-                            src="{{'/img/payment/'}}{{$payment->image_transfer}}">
+                            src="{{'/img/payment/'}}{{$payment->bukti_transfer}}">
                     </div>
                 </div>
             </div>

@@ -156,7 +156,7 @@ class ProgramController extends Controller
         //         ->where('users.id',$user_id)
         //         ->whereIn('users.id',$notin)
         //         ->get(['id as user_id','nama']);
-
+        // $idnya = $this->decodeing($id);
         $program = DB::table('programs')
         ->rightJoin('users', 'users.id', '=', 'programs.user_id')
         ->where('programs.id','=',$id)

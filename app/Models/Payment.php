@@ -11,13 +11,13 @@ class Payment extends Model
 
     protected $fillable = [
         'user_id',
-        'bank_name',
-        'account_number',
-        'account_name',
-        'payment_amount',
+        'nama_bank',
+        'nomor_rekening',
+        'nama_rekening',
+        'total_bayar',
         'status',
-        'payment_date',
-        'image_transfer'
+        'tanggal_pembayaran',
+        'bukti_transfer'
     ];
 
     public function user()
@@ -29,6 +29,6 @@ class Payment extends Model
     {
         return Payment::where('status','Diterima')
         ->where('user_id',$user_id)
-        ->sum('payments.payment_amount');
+        ->sum('payments.total_bayar');
     }
 }

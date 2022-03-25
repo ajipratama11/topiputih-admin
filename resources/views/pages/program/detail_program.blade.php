@@ -14,10 +14,11 @@
         </div>
         <div class="card-body">
             <div class="row">
-                
+
                 <div class="col-lg-3">
                     <div class="text-center">
-                        <img class="img-fluid align-middle" style="max-height: 175px"
+                        <input type="text" id="slug" value="{{$program}}" readonly>
+                        <img class="img-fluid align-middle" style="max-height: 175px" 
                             src="{{'/img/program_image/'}}{{$program->program_image}}">
                     </div>
                     <div class="text-center">
@@ -90,9 +91,35 @@
                             <p class="font-weight-normal">{!! $program->scope !!}</p>
                         </div>
                     </div>
+                    <span class="font-weight-bolder">Nama</span>
+                    <p id="nama"></p>
+                    <span class="font-weight-bolder">Point</span>
+                    <p id="point"></p>
                 </div>
+
             </div>
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function () 
+	{		
+		let slug = localStorage.getItem('slug');
+		document.querySelector('#slug').innerHTML = slug;
+
+        $.ajax({
+            url: '/programnya/'+slug,
+            type: 'GET',
+            // data: {
+            //     "id": slug
+            // },
+            success:function(data) {
+                console.log(data);
+                $('#nama').html(data.program.program_name);
+                // $('#email').html(data.user.email);
+                // $('#point').html(data.point);
+            },
+        })
+	});
+</script>
 @endsection

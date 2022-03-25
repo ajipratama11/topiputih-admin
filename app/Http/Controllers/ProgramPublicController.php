@@ -7,9 +7,7 @@ use App\Models\Program;
 use App\Models\InvitedUser;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use App\Models\ResearcherCertificate;
-use Symfony\Component\Console\Input\Input;
+use Illuminate\Support\Facades\Cookie;
 
 class ProgramPublicController extends Controller
 {
@@ -129,16 +127,28 @@ class ProgramPublicController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request )
     {
-        $program = Program::where('slug',$id)
-        ->first();
-        // $program = Program::findOrFail($id);
-        $idnya = $program->id;
-        return view('pages.program.detail_program', [
-            
-            'program' => $program,
+        $request ->validate([
+            'slug'=>'required'
         ]);
+        $program = Program::where('slug',$request['slug'] )
+        ->first();
+        $articleName = 'artikel';
+        // return redirect('masuk')->with('error', 'Email atau password salah');
+        return view('pages.program.detail_program')->with('program', $program);
+
+        // $val = Cookie::get('username');
+
+        // $program = Program::where('slug',$id)
+        // ->first();
+        
+        // // $program = Program::findOrFail($id);
+        // // $idnya = $program->id;
+        // return view('pages.program.detail_program', [
+            
+        //     'program' => $program,
+        // ]);
     }
 
     /**
@@ -250,5 +260,26 @@ class ProgramPublicController extends Controller
         $program->delete();
 
         return back()->with('success',' Penghapusan berhasil.');
+    }
+
+    public function data($id)
+    {
+        $program = Program::where('slug',$id)
+        ->first();
+        
+        return [
+            'program'=>$program,
+        ];
+    }
+
+    public function kirim(Request $request){
+        $request ->validate([
+            'slug'=>'required'
+        ]);
+        $program = Program::where('slug',$request['slug'] )
+        ->first();
+        $articleName = 'artikel';
+        // return redirect('masuk')->with('error', 'Email atau password salah');
+        return view('pages.program.detail_program')->with('program', $program);
     }
 }

@@ -40,7 +40,7 @@ class PaymentController extends Controller
     public function show($user_id)
     {
         $bank =  Payment::where('user_id',$user_id)
-        ->select('payment_amount','status','payment_date')
+        ->select('total_bayar','status','tanggal_pembayaran')
         ->orderBy('id','desc')
         ->get();
         return[
@@ -59,34 +59,34 @@ class PaymentController extends Controller
 
         $fields = $request->validate([
             'user_id' => 'required',
-            'bank_name' => 'required',
-            'account_number' => 'required',
-            'account_name' => 'required',
+            'nama_bank' => 'required',
+            'nomor_rekening' => 'required',
+            'nama_rekening' => 'required',
             'status'=> '',
-            'payment_amount'=>'',
-            'payment_date' => '',
-            'image_transfer' => 'required|max:20000|without_spaces'
+            'total_bayar'=>'',
+            'tanggal_pembayaran' => '',
+            'bukti_transfer' => 'required|max:20000|without_spaces'
         ],
         [
-            'image_transfer.without_spaces' => 'Berkas tidak boleh menggunakan spasi'
+            'bukti_transfer.without_spaces' => 'Berkas tidak boleh menggunakan spasi'
         ]);
             $bank = new Payment();
              
-        if ($image = $request->file('image_transfer')) {
+        if ($image = $request->file('bukti_transfer')) {
             $destinationPath = 'img/payment/';
             $profileImage = date('YmdHis') . "." . $image->getClientOriginalName();
             $image->move($destinationPath, $profileImage);
-            $bank-> image_transfer = $fields['image_transfer'] = "$profileImage";
+            $bank-> bukti_transfer = $fields['bukti_transfer'] = "$profileImage";
             }
-            // $bank-> image_transfer = $fields['image_tra']
+            // $bank-> bukti_transfer = $fields['image_tra']
             // $this->decodeing($fields['status_report']);
             $bank-> user_id =  $this->decodeing($fields['user_id']);
-            $bank-> bank_name =  $this->decodeing($fields['bank_name']);
-            $bank-> account_number = $this->decodeing($fields['account_number']);
-            $bank-> account_name =  $this->decodeing($fields['account_name']);
+            $bank-> nama_bank =  $this->decodeing($fields['nama_bank']);
+            $bank-> nomor_rekening = $this->decodeing($fields['nomor_rekening']);
+            $bank-> nama_rekening =  $this->decodeing($fields['nama_rekening']);
             $bank-> status ='Proses';
-            $bank-> payment_amount = $this->decodeing($fields['payment_amount']);
-            $bank-> payment_date =date('Y-m-d H:i:s');
+            $bank-> total_bayar = $this->decodeing($fields['total_bayar']);
+            $bank-> tanggal_pembayaran =date('Y-m-d H:i:s');
             $bank->save();
             return[
                 'message' => ' Berhasil Menambahkan Data',
@@ -97,7 +97,7 @@ class PaymentController extends Controller
     public function total($user_id){
         $total = Payment::where('user_id',$user_id)
         ->where('status','Diterima')
-        ->sum('payment_amount');
+        ->sum('total_bayar');
 
         $used =  Program::where('users.id',$user_id)
         ->where('reports.status_reward','Sudah Dibayarkan')

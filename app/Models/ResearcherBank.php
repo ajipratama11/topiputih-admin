@@ -11,9 +11,9 @@ class ResearcherBank extends Model
 
     protected $fillable = [
         'user_id',
-        'bank_name',
-        'account_number',
-        'account_name'
+        'nama_bank',
+        'nomor_rekening',
+        'nama_rekening'
         
     ];
 

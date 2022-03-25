@@ -4,17 +4,21 @@ namespace App\Http\Controllers\API;
 
 use App\Models\User;
 use App\Models\Report;
+use App\Models\Program;
 use App\Models\InvitedUser;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\App;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Cookie;
 
 class PointController extends Controller
 {
     public function index()
     {
        $point = Report::selectRaw('user_id, sum(point) as points')
+        ->where('status_report','Disetujui')
         ->groupBy('user_id')
         ->with(['user' => function ($query) {
             $query->select('id','users.nama','users.email');}])
@@ -56,6 +60,7 @@ class PointController extends Controller
     public function point_user($id){
         $point = DB::table('reports')
         ->where('user_id',$id)
+        ->where('status_report','Disetujui')
         ->sum('point');
         
         return $point;
@@ -69,5 +74,15 @@ class PointController extends Controller
         WHERE user_id = $id");
 
         return $query;
+    }
+
+    public function tes_tes(){
+        $val = Cookie::get('username');
+        $program = Program::where('slug',$val)->first();
+        return
+        [
+            'slug'=> $val,
+            'program'=> $program->program_name
+        ];
     }
 }

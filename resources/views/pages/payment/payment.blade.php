@@ -30,8 +30,8 @@
 
                         <tr>
                             <td>{{$payment->user->nama}}</td>
-                            <td>@currency($payment->payment_amount)</td>
-                            <td>{{$start_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $payment->payment_date)
+                            <td>@currency($payment->total_bayar)</td>
+                            <td>{{$start_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $payment->tanggal_pembayaran)
                             ->format('Y-M-d H:i:s');}}</td>
                             <td>{{$payment->status}}</td>
                             <td class="text-center">
