@@ -98,7 +98,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/no_researcher',  [ProgramController::class, 'no_researcher']);
     Route::get('/get_invite/{id}',  [ProgramController::class, 'get_user_invited']);
    
-    
+    Route::get('/get_program/{id}',  [ProgramController::class, 'get_user_program']);
     Route::get('send_email/{email}',[SendEmailController::class,'index']);
 
     //point
@@ -118,4 +118,3 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 });
 
 
-Route::get('/get_program/{id}',  [ProgramController::class, 'get_user_program']);

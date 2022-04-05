@@ -16,6 +16,21 @@
             <h6 class="m-0 font-weight-bold text-primary">Daftar Program Publik</h6>
         </div>
         <div class="card-body">
+            <div class="row mb-2">
+                <div class="col-lg-2">
+                    <label for="">Filter Data Tipe</label>
+                </div>
+                <div class="col-lg-3">
+                    <select id="table-filter" class="custom-select">
+                        <option value="">Semua</option>
+                        <option>Bug Bounty</option>
+                        <option>Vulnerability Disclosure</option>
+                        <option>Penetration Testing</option>
+                    </select>
+                </div>
+                <div class="col-lg-7"></div>
+                <div class="col-lg-12"></div>
+            </div>
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
@@ -97,30 +112,26 @@
 
 
 </div>
-{{-- <script>
-    var btn = document.querySelector('#tombol');
- btn.onclick = function(){
-  alert('Halo, ini adalah pesan ketika anda klik tombol');
- }
-    $(document).ready(function () 
-	{	
-        // let slug = document.querySelector('#slug');
-        // var idnya = 'vulnerable-disclosure-bpd-bali-jawa-timur'
-        // document.cookie = "username="+slug;
-    });
-    function send()
-	{		
-        
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script type="text/javascript">
+    // $(document).ready(function() {
+    //     $('table.display').DataTable({
+    //         "order": []
+    //     });
+    // });
 
-		let slug = document.querySelector('#slug');
-		// localStorage.setItem('slug',slugs.value);
-        // var slugs =localStorage.getItem('slug');
-        // setCookie('cookieName', slug, 7);
-        // var idnya = 'vulnerable-disclosure-bpd-bali-jawa-timur'
-        document.cookie = "username="+slug;
-        var idnya = 'vulnerable-disclosure-bpd-bali-jawa-timur'
-        document.cookie = "isi="+idnya;
-        // document.cookie = "username=John Doe";
-	};
-</script> --}}
+    $(document).ready(function (){
+    var table = $('#dataTable').DataTable({
+        "order": [],
+    //    dom: 'lfrtip'
+    });
+    
+    $('#table-filter').on('change', function(){
+       table.columns(2).search(this.value).draw();   
+    });
+
+});
+</script>
 @endsection

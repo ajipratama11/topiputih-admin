@@ -93,7 +93,7 @@ class ProgramController extends Controller
             'date_end' => 'required',
             'description' => 'required',
             'scope' => 'required',
-            'status' => 'required',
+            // 'status' => 'required',
             'type' => 'required',
             'category' => 'required',
         ]);
@@ -116,7 +116,7 @@ class ProgramController extends Controller
             $input['date_end']= $this->decodeing($input['date_end']);
             $input['description']= $this->decodeing($input['description']);
             $input['scope']= $this->decodeing($input['scope']);
-            $input['status']= $this->decodeing($input['status']);
+            $input['status']= 'Tidak Aktif';
             $input['type']= $this->decodeing($input['type']);
             $input['category']= $this->decodeing($input['category']);
         Program::create($input);
@@ -427,6 +427,7 @@ class ProgramController extends Controller
         $invite = DB::table('invited_users')
         ->join('users', 'users.id', '=', 'invited_users.user_id')
         ->join('programs', 'programs.id', '=', 'invited_users.program_id')
+        ->where('status','Aktif')
         ->where('invited_users.user_id',$id)
         ->where('date_start','<=',Carbon::now()->isoFormat('Y-MM-DD'))
         ->where('date_end','>=',Carbon::now()->isoFormat('Y-MM-DD'))

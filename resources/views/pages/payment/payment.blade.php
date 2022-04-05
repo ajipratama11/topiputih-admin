@@ -14,6 +14,18 @@
             <h6 class="m-0 font-weight-bold text-primary">Daftar Transaksi</h6>
         </div>
         <div class="card-body">
+            <div class="row mb-3">
+                <div class="col-lg-2">
+                    <label for="">Filter Data Tipe</label>
+                </div>
+                <div class="col-lg-3">
+                    <select id="table-filter" class="custom-select">
+                        <option value="">Semua</option>
+                        <option>Proses</option>
+                        <option>Diterima</option>
+                    </select>
+                </div>
+            </div>
             <div class="table-responsive">
                 <table class="table table-bordered display" id="dataTable" width="100%" cellspacing="0">
                     <thead>
@@ -27,7 +39,6 @@
                     </thead>
                     <tbody>
                         @foreach ($payment as $payment )
-
                         <tr>
                             <td>{{$payment->user->nama}}</td>
                             <td>@currency($payment->total_bayar)</td>
@@ -64,14 +75,27 @@
     </div>
 
 </div>
+
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script type="text/javascript">
-    $(document).ready(function() {
-        $('table.display').DataTable({
-            "order": []
-        });
+    // $(document).ready(function() {
+    //     $('table.display').DataTable({
+    //         "order": []
+    //     });
+    // });
+
+    $(document).ready(function (){
+    var table = $('#dataTable').DataTable({
+        "order": [],
+    //    dom: 'lfrtip'
     });
+    
+    $('#table-filter').on('change', function(){
+       table.search(this.value).draw();   
+    });
+
+});
 </script>
 @endsection

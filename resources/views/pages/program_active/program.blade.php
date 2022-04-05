@@ -16,6 +16,26 @@
             <h6 class="m-0 font-weight-bold text-primary">Daftar Program Berjalan</h6>
         </div>
         <div class="card-body">
+            <div class="row mb-3">
+                <div class="col-lg-2">
+                    <label for="">Filter Data</label>
+                </div>
+                <div class="col-lg-3">
+                    <select id="table-filter" class="custom-select">
+                        <option value="">Semua Tipe</option>
+                        <option>Bug Bounty</option>
+                        <option>Vulnerability Disclosure</option>
+                        <option>Penetration Testing</option>
+                    </select>
+                </div>
+                <div class="col-lg-3">
+                    <select id="table-filter2" class="custom-select">
+                        <option value="">Semua Kategori</option>
+                        <option>Publik</option>
+                        <option>Privat</option>
+                    </select>
+                </div>
+            </div>
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
@@ -98,4 +118,30 @@
     </div>
 
 </div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script type="text/javascript">
+    // $(document).ready(function() {
+    //     $('table.display').DataTable({
+    //         "order": []
+    //     });
+    // });
+
+    $(document).ready(function (){
+    var table = $('#dataTable').DataTable({
+        "order": [],
+    //    dom: 'lfrtip'
+    });
+    
+    $('#table-filter').on('change', function(){
+       table.columns(3).search(this.value).draw();   
+    });
+    $('#table-filter2').on('change', function(){
+       table.columns(2).search(this.value).draw();   
+    });
+
+});
+</script>
 @endsection

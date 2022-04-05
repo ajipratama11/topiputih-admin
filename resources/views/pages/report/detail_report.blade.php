@@ -16,7 +16,7 @@
             <div class="row">
                 <div class="col-lg-4">
                     <span class="font-weight-bolder"> Nama Program </span>
-                    {{-- <p class="font-weight-normal">{{ $report->program->program_name }}</p> --}}
+                    <p class="font-weight-normal">{{ $report->program->program_name }}</p>
                     <span class="font-weight-bolder"> Tanggal Laporan </span>
                     <p class="font-weight-normal"> {{$date = \Carbon\Carbon::createFromFormat('Y-m-d',
                         $report->date)->format('d-M-Y');}} </p>
@@ -87,14 +87,23 @@
                         @csrf
                         @method('put')
                         <span class="font-weight-bolder">Catatan</span>
-                        <input name="note" type="text" class="form-control mb-3" value="{{$report->note}}">
                         <input name="category_id" type="hidden" class="form-control mb-3"
                             value="{{$report->category_id}}">
                         <input name="status_report" type="hidden" class="form-control mb-3"
                             value="{{$report->status_report}}">
                         <input name="status_causes" type="hidden" class="form-control mb-3"
                             value="{{$report->status_causes}}">
+
+                        @if ($report->status_report =="Disetujui")
+                        <input name="note" type="text" class="form-control note mb-3" value="{{$report->note}}"
+                            disabled>
+                        @elseif ($report->status_report =="Ditolak")
+                        <input name="note" type="text" class="form-control note mb-3" value="{{$report->note}}"
+                            disabled>
+                        @else
+                        <input name="note" type="text" class="form-control note mb-3" value="{{$report->note}}">
                         <button type="submit" class="btn btn-primary">Simpan Catatan</button>
+                        @endif
                     </form>
                 </div>
                 <div class="col-lg-12 mt-3">
@@ -109,7 +118,9 @@
                         </div>
                     </div>
                 </div>
-                @if ($report->status_report !="Disetujui")
+                @if ($report->status_report =="Disetujui" )
+                @elseif($report->status_report =="Ditolak")
+                @else
                 <div class="col-lg-5 mt-3">
                     <a data-toggle="modal" data-target="#change-category" class="btn btn-primary"><i
                             class="fas fa-fw fa-edit"></i> Sesuaikan Kategori</a>
@@ -138,6 +149,7 @@
                 @csrf
                 @method('put')
                 <div class="modal-body">
+                    @if ($report->status_report == 'Diterima')
                     <select name="status_report" class="custom-select" id="target">
                         <option value="Diterima" {{ $report->status_report == 'Diterima' ? 'selected' :'' }}> Diterima
                         </option>
@@ -148,13 +160,24 @@
                         <option value="Disetujui" {{ $report->status_report == 'Disetujui' ? 'selected' :'' }}>Disetujui
                         </option>
                     </select>
+                    @else
+                    <select name="status_report" class="custom-select" id="target">
+                        <option value="Ditinjau" {{ $report->status_report == 'Ditinjau' ? 'selected' :'' }}> Ditinjau
+                        </option>
+                        <option value="Ditolak" {{ $report->status_report == 'Ditolak' ? 'selected' :'' }}> Ditolak
+                        </option>
+                        <option value="Disetujui" {{ $report->status_report == 'Disetujui' ? 'selected' :'' }}>Disetujui
+                        </option>
+                    </select>
+                    @endif
+
 
                     <div class=" mt-3" id="causes">
                         <label for="exampleInputEmail1" class="form-label">Alasan Penolakan</label>
                         <input name="status_causes" type="text" class="form-control" value="{{$report->status_causes}}">
                     </div>
                     <input name="category_id" type="hidden" class="form-control mb-3" value="{{$report->category_id}}">
-                    <input name="note" type="hidden" class="form-control mb-3" value="{{$report->note}}">
+                    <input name="note" type="hidden" class="form-control mb-3 note" value="{{$report->note}}">
                 </div>
 
                 <div class="modal-footer">
@@ -212,6 +235,10 @@
     })
 </script> --}}
 <script type="text/javascript">
+    $(document).on('change','.note', function(){
+		$('.note').val($(this).val());
+    });
+
     $(document).ready(function (e) {
         if ($("#target").val() === "Ditolak") {
         $("#causes").show();

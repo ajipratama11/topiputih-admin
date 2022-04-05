@@ -98,8 +98,8 @@
 
     $(document).ready(function (){
     var table = $('#dataTable').DataTable({
-        // "order": [],
-       dom: 'lrtip'
+        "order": [],
+    //    dom: 'lrtip'
     });
     
     $('#table-filter').on('change', function(){

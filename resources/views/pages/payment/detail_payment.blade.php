@@ -95,7 +95,7 @@
                 @csrf
                 @method('put')
                 <div class="modal-body">
-                    <span class="font-weight-bolder">Nominal{{$payment->id}}</span>
+                    <span class="font-weight-bolder">Nominal</span>
                     <input name="total_bayar" type="text" class="form-control mb-3"
                         value="{{$payment->total_bayar}}">
                     <span class="font-weight-bolder">Status</span>

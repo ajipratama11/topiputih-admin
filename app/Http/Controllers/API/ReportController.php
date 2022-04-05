@@ -142,7 +142,7 @@ class ReportController extends Controller
             }
         }
         
-        $input['slug']= Str::slug($input['summary']);
+        $input['slug']= Str::slug($input['summary']+$input['scope_report']);
         $input['status_reward']= 'Proses';
         Report::create($input);
         return[
