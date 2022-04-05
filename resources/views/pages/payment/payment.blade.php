@@ -31,14 +31,22 @@
                         <tr>
                             <td>{{$payment->user->nama}}</td>
                             <td>@currency($payment->total_bayar)</td>
-                            <td>{{$start_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $payment->tanggal_pembayaran)
-                            ->format('Y-M-d H:i:s');}}</td>
+                            <td>{{$start_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s',
+                                $payment->tanggal_pembayaran)
+                                ->format('Y-M-d H:i:s');}}</td>
                             <td>{{$payment->status}}</td>
                             <td class="text-center">
                                 {{-- <form action="{{url('payment', $payment->id)}}" method="POST"> --}}
 
-                                    <a class="btn btn-info btn-sm" href="/pembayaran-pemilik-sistem/{{$payment->id}}"><i
-                                            class="fas fa-fw fa-info"></i></a></a>
+
+                                    <form method="POST" action="{{route('pembayaran-pemilik-sistem.store')}}">
+                                        @csrf
+                                        <input type="hidden" id="slug" name="slug" value="{{$payment->id}}" readonly>
+                                        <button class="btn btn-info btn-sm" type="submit"><i
+                                                class="fas fa-fw fa-info"></i></button>
+                                    </form>
+                                    {{-- <a class="btn btn-info btn-sm" href="/pembayaran-pemilik-sistem/{{$payment->id}}"><i
+                                            class="fas fa-fw fa-info"></i></a></a> --}}
                                     {{-- @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm"

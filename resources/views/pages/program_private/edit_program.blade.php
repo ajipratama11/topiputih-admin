@@ -33,7 +33,7 @@
                         <div class="mb-3">
                             <label class="form-label">Nama Pemilik Sistem</label>
                             <select name="user_id" class="custom-select" id="inputGroupSelect01" disabled>
-                                <option value="{{ $program->user->id }}" >{{ $program->user->nama }}</option>
+                                <option>{{ $program->user->nama }}</option>
                             </select>
                         </div>
                         <div class="mb-3">
@@ -129,12 +129,12 @@
                     </div>
                     <div class="col-lg-12 mt-4">
                         <div class="mb-3">
-                            <label for="exampleInputEmail1" class="form-label font-weight-bold">Deskripsi</label>
+                            <label for="exampleInputEmail1" class="form-label font-weight-bold">Informasi Perusahaan</label>
                             <textarea name="description"
                                 class="ckeditor form-control">{!!$program->description!!}</textarea>
                         </div>
                         <div class="mb-3">
-                            <label for="exampleInputEmail1" class="form-label font-weight-bold">Cakupan</label>
+                            <label for="exampleInputEmail1" class="form-label font-weight-bold">Informasi Target</label>
                             <textarea name="scope" class="ckeditor form-control">{!!$program->scope!!}</textarea>
                         </div>
                     </div>

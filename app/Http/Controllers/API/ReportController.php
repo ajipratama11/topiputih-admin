@@ -187,6 +187,7 @@ class ReportController extends Controller
         'program_name'=> $this->encodeing($report->program_name),
         'category'=> $this->encodeing($report->category),
         'detail'=> $this->encodeing($report->detail),
+        'note'=>$this->encodeing($report->note)
     ];
     }
 

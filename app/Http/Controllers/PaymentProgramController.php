@@ -45,8 +45,16 @@ class PaymentProgramController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
+    {   
+        $request ->validate([
+            'slug'=>'required'
+        ]);
+        
+        $payment = Report::findOrFail($request['slug']);
+   
+        return view('pages.payment_program.detail_payment',[
+            'payment' => $payment
+        ]);
     }
 
     /**

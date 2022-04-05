@@ -63,18 +63,29 @@
                             <td>{{$certificate->tanggal_sertifikat}}</td>
                             <td>{{$certificate->tipe_sertifikat}}</td>
                             <td class="text-center">
-                                <form action="{{url('sertifikat', $certificate->id)}}" method="POST">
-
-                                    <a class="btn btn-info btn-sm"
-                                        href="{{ route('sertifikat.show', $certificate->id)}}"><i
-                                            class="fas fa-fw fa-info"></i></a></a>
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm"
-                                        onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')"><i
-                                            class="fas fa-fw fa-trash-alt"></i></button>
-                                </form>
-                            </td>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <form method="POST" action="{{route('sertifikat.store')}}">
+                                            @csrf
+                                            <input type="hidden" id="slug" name="slug" value="{{$certificate->id}}"
+                                                readonly>
+                                            <button class="btn btn-info btn-sm" type="submit"><i
+                                                    class="fas fa-fw fa-info"></i></button>
+                                        </form>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        {{-- <a class="btn btn-info btn-sm"
+                                            href="{{ route('sertifikat.show', $certificate->id)}}"><i
+                                                class="fas fa-fw fa-info"></i></a></a> --}}
+                                        <form action="{{url('sertifikat', $certificate->id)}}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-sm"
+                                                onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')"><i
+                                                    class="fas fa-fw fa-trash-alt"></i></button>
+                                        </form>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
                         @endforeach

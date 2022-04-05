@@ -129,26 +129,10 @@ class ProgramPublicController extends Controller
      */
     public function show(Request $request )
     {
-        $request ->validate([
-            'slug'=>'required'
-        ]);
-        $program = Program::where('slug',$request['slug'] )
+        $program = Program::where('slug',$request->session()->get('slug-program') )
         ->first();
-        $articleName = 'artikel';
-        // return redirect('masuk')->with('error', 'Email atau password salah');
-        return view('pages.program.detail_program')->with('program', $program);
-
-        // $val = Cookie::get('username');
-
-        // $program = Program::where('slug',$id)
-        // ->first();
-        
-        // // $program = Program::findOrFail($id);
-        // // $idnya = $program->id;
-        // return view('pages.program.detail_program', [
-            
-        //     'program' => $program,
-        // ]);
+        $back = 'program-publik';
+        return view('pages.program.detail_program')->with('program', $program)->with('back',$back);
     }
 
     /**
@@ -157,10 +141,10 @@ class ProgramPublicController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request,$id)
     {
         // $program = Program::findOrFail($id);
-        $program = Program::where('slug',$id)
+        $program = Program::where('slug',$request->session()->get('slug-program'))
         ->first();
         $user = User::where('roles','pemilik-sistem')->get([
             'id','nama'
@@ -231,20 +215,21 @@ class ProgramPublicController extends Controller
         }
         $program->save();
 
-        if ($program) {
+        $request->session()->put('slug-program',$program->slug);
+        // if ($program) {
             return redirect()
-                ->route('program-publik.index')
+                ->route('program-publik.show','detail')
                 ->with([
                     'success' => 'New post has been created successfully'
                 ]);
-        } else {
-            return redirect()
-                ->back()
-                ->withInput()
-                ->with([
-                    'error' => 'Some problem occurred, please try again'
-                ]);
-        }
+        // } else {
+        //     return redirect()
+        //         ->back()
+        //         ->withInput()
+        //         ->with([
+        //             'error' => 'Some problem occurred, please try again'
+        //         ]);
+        // }
     }
 
     /**
@@ -272,14 +257,35 @@ class ProgramPublicController extends Controller
         ];
     }
 
-    public function kirim(Request $request){
+    public function program_publik(Request $request){
         $request ->validate([
             'slug'=>'required'
         ]);
-        $program = Program::where('slug',$request['slug'] )
-        ->first();
-        $articleName = 'artikel';
-        // return redirect('masuk')->with('error', 'Email atau password salah');
-        return view('pages.program.detail_program')->with('program', $program);
+        $request->session()->put('slug-program',$request['slug']);
+
+        return redirect()->route('program-publik.show','detail');
+
     }
+
+    // public function edit_program(Request $request){
+    //     $request ->validate([
+    //         'slug'=>'required'
+    //     ]);
+    //     $request->session()->put('slug-program',$request['slug']);
+    //     // $program = Program::where('slug',$request['slug'] )
+    //     // ->first();
+    //     // $user = User::where('roles','pemilik-sistem')->get([
+    //     //     'id','nama'
+    //     // ]);
+    //     // return view('pages.program.edit_program')->with('program', $program)->with('user',$user);
+    //     return redirect()->route('program-publik.show','detail');
+    // }
+
+    // public function detail_program(Request $request){
+    //     // $request->session()->get('slug');
+    //     $program = Program::where('slug',$request->session()->get('slug'))
+    //     ->first();
+
+    //     return view('pages.program.detail_program')->with('program', $program);
+    // }
 }

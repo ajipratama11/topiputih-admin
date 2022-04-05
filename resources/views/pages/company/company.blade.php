@@ -39,18 +39,26 @@
 
                             {{-- <td>{{$company->companyProgram->id}}</td> --}}
                             <td class="text-center">
-                                <form action="{{url('pemilik-sistem', $company->id)}}" method="POST">
-                                    <a class="btn btn-info btn-sm" href="/pemilik-sistem/{{$company->slug}}"><i
-                                        class="fas fa-fw fa-info"></i></a></a>
-                                    {{-- <a class="btn btn-info btn-sm" href="/company/{{$company->id}}"><i
-                                            class="fas fa-fw fa-info"></i></a></a> --}}
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm"
-                                        onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')"><i
-                                            class="fas fa-fw fa-trash-alt"></i></button>
-                                </form>
-                            </td>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <form method="POST" action="pemilik-sistem/detail">
+                                            @csrf
+                                            <input type="hidden" id="slug" name="slug" value="{{$company->slug}}"
+                                                readonly>
+                                            <button class="btn btn-info btn-sm" type="submit"><i
+                                                    class="fas fa-fw fa-info"></i></button>
+                                        </form>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <form action="{{url('pemilik-sistem', $company->id)}}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-sm"
+                                                onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')"><i
+                                                    class="fas fa-fw fa-trash-alt"></i></button>
+                                        </form>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
                         @endforeach

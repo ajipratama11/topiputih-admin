@@ -47,7 +47,29 @@ class BalanceCompanyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request ->validate([
+            'slug'=>'required'
+            ]);
+        
+        $id=User::where('slug',$request['slug'])->first('id');
+
+        $payment=  Program::select('users.id','users.nama','reports.user_id','programs.program_name','reports.reward','reports.status_reward','reports.updated_at')
+        ->rightJoin('reports', 'reports.program_id', '=', 'programs.id')
+        ->leftJoin('users', 'users.id', '=', 'programs.user_id')
+        ->where('reports.status_reward','Sudah Dibayarkan')
+        ->where('users.id',$id->id)
+        ->orderBy('date','desc')
+        ->get();
+
+        $balance = Payment::where('user_id',$id->id)
+        ->orderBy('tanggal_pembayaran','desc')
+        ->get();
+        
+        return view('pages.balance.detail_balance', [
+            'id'=> $id,
+            'balance' => $balance,
+            'payment' => $payment
+        ]);
     }
 
     /**

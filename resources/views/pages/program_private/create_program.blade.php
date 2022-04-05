@@ -113,11 +113,11 @@
                     </div>
                     <div class="col-lg-12">
                         <div class="mb-3">
-                            <label class="form-label font-weight-bold">Deskripsi</label>
+                            <label class="form-label font-weight-bold">Informasi Perusahaan</label>
                             <textarea name="description" class="ckeditor form-control"></textarea>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label font-weight-bold">Cakupan</label>
+                            <label class="form-label font-weight-bold">Informasi Target</label>
                             <textarea name="scope" class="ckeditor form-control"></textarea>
                         </div>
                     </div>

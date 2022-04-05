@@ -4,7 +4,7 @@
 <div class="container-fluid">
 
     <!-- Page Heading -->
-    <a href="/pembayaran-pemilik-sistem" class=" mb-4 text-gray-1000"><i class="fas fa-fw fa-arrow-left"></i>Kembali</a>
+    <a href="{{url()->previous()}}" class=" mb-4 text-gray-1000"><i class="fas fa-fw fa-arrow-left"></i>Kembali</a>
     <div class="d-sm-flex align-items-center justify-content-between mb-2 mt-3">
         <h1 class="h3 mb-0 text-gray-800">Pembayaran</h1>
     </div>
@@ -73,8 +73,8 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                <button type="submit" class="btn btn-primary">Simpan</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
+                {{-- <button type="submit" class="btn btn-primary">Kembali</button> --}}
             </div>
         </div>
     </div>
@@ -95,9 +95,9 @@
                 @csrf
                 @method('put')
                 <div class="modal-body">
-                    <span class="font-weight-bolder">Nominal </span>
-                    <input name="payment_amount" type="text" class="form-control mb-3"
-                        value="{{$payment->payment_amount}}">
+                    <span class="font-weight-bolder">Nominal{{$payment->id}}</span>
+                    <input name="total_bayar" type="text" class="form-control mb-3"
+                        value="{{$payment->total_bayar}}">
                     <span class="font-weight-bolder">Status</span>
                     <select name="status" class="custom-select" id="target">
                         <option value="Diterima" {{ $payment->status == 'Diterima' ? 'selected' :'' }}> Diterima
@@ -108,7 +108,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button> --}}
                     <button type="submit" class="btn btn-primary">Simpan</button>
                 </div>
             </form>

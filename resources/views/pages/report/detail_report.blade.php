@@ -16,7 +16,7 @@
             <div class="row">
                 <div class="col-lg-4">
                     <span class="font-weight-bolder"> Nama Program </span>
-                    <p class="font-weight-normal">{{ $report->program->program_name }}</p>
+                    {{-- <p class="font-weight-normal">{{ $report->program->program_name }}</p> --}}
                     <span class="font-weight-bolder"> Tanggal Laporan </span>
                     <p class="font-weight-normal"> {{$date = \Carbon\Carbon::createFromFormat('Y-m-d',
                         $report->date)->format('d-M-Y');}} </p>
@@ -115,10 +115,8 @@
                             class="fas fa-fw fa-edit"></i> Sesuaikan Kategori</a>
                 </div>
                 <div class="col-lg-4 mt-3">
-
                     <a data-toggle="modal" data-target="#change-status" class="btn btn-primary"><i
                             class="fas fa-fw fa-edit"></i> Ubah Status</a>
-
                 </div>
                 @endif
             </div>
@@ -184,8 +182,11 @@
                 <div class="modal-body">
                     <select name="category_id" class="custom-select">
                         @foreach ($category as $category)
-                        <option value={{$category->id}}>{{ $category->category}} - {{
+                        <option value={{$category->id}} {{ $category->id == $report->category_id ? 'selected' : ''
+                            }}>{{ $category->category}} - {{
                             $category->detail}}</option>
+                        {{-- <option value="{{ $name->id }}" {{ $name->id == $program->user->id ? 'selected' : ''
+                            }}>{{ $name->nama }}</option> --}}
                         @endforeach
                     </select>
                     <input name="note" type="hidden" class="form-control mb-3" value="{{$report->note}}">

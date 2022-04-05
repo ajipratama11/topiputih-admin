@@ -5,47 +5,48 @@
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Saldo Pemilik Sistem</h1>
+        <h1 class="h3 mb-0 text-gray-800">Transaksi Pemilik Sistem Belum Disetujui</h1>
     </div>
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Daftar Saldo</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Daftar Transaksi</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+               
+                <table class="table table-bordered display" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th class="col-1">Nama Pemilik Sistem</th>
-                            <th class="col-1">Jumlah Saldo</th>
-                            <th class="col-1">Jumlah Bayar</th>
-                            <th class="col-1">Sisa Saldo</th>
+                            <th class="col-1">Jumlah Transfer</th>
+                            <th class="col-1">Tanggal</th>
+                            {{-- <th class="col-1">Status</th> --}}
                             <th class="col-1">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($balance as $balance )
+                        @foreach ($payment as $payment )
 
                         <tr>
-                            <td>{{$balance->nama}}</td>
-                            {{-- <td>{{$balance->id}}</td> --}}
-                            <td>@currency($balance->get_balance($balance->id))</td>
-                            <td>@currency($balance->get_payment($balance->id))</td>
-                            {{-- <td> {{$start_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s',
-                                $balance->balance_date)
-                                ->format('d-M-Y H:i:s');}}</td> --}}
-                            <td>@currency($balance->payment_used($balance->id))</td>
+                            <td>{{$payment->user->nama}}</td>
+                            <td>@currency($payment->total_bayar)</td>
+                            <td>{{$start_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s',
+                                $payment->tanggal_pembayaran)
+                                ->format('Y-M-d H:i:s');}}</td>
+                            {{-- <td>{{$payment->status}}</td> --}}
                             <td class="text-center">
-                                {{-- <form action="{{url('balance', $balance->id)}}" method="POST"> --}}
-                                    <form method="POST" action="{{route('keuangan-pemilik-sistem.store')}}">
+                                {{-- <form action="{{url('payment', $payment->id)}}" method="POST"> --}}
+
+
+                                    <form method="POST" action="{{route('pembayaran-pemilik-sistem.store')}}">
                                         @csrf
-                                        <input type="hidden" id="slug" name="slug" value="{{$balance->slug}}" readonly>
+                                        <input type="hidden" id="slug" name="slug" value="{{$payment->id}}" readonly>
                                         <button class="btn btn-info btn-sm" type="submit"><i
                                                 class="fas fa-fw fa-info"></i></button>
                                     </form>
-                                    {{-- <a class="btn btn-info btn-sm" href="/keuangan-pemilik-sistem/{{$balance->id}}"><i
+                                    {{-- <a class="btn btn-info btn-sm" href="/pembayaran-pemilik-sistem/{{$payment->id}}"><i
                                             class="fas fa-fw fa-info"></i></a></a> --}}
                                     {{-- @csrf
                                     @method('DELETE')
@@ -64,4 +65,14 @@
     </div>
 
 </div>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('table.display').DataTable({
+            "order": []
+        });
+    });
+</script>
 @endsection

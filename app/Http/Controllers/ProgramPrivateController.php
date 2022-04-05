@@ -115,13 +115,15 @@ class ProgramPrivateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        $program = Program::where('slug',$id)
+        $program = Program::where('slug',$request->session()->get('slug-program'))
         ->first();
-        return view('pages.program_private.detail_program', [
-          'program' => $program
-        ]);
+        $back = 'program-privat';
+        return view('pages.program_private.detail_program')
+        ->with('program',$program)
+        ->with('back',$back);
+
     }
 
     /**
@@ -130,13 +132,17 @@ class ProgramPrivateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
-        $program = Program::where('slug',$id)
+        $program = Program::where('slug',$request->session()->get('slug-program'))
         ->first();
+
+        // $user = User::where('roles','pemilik-sistem')->get([
+        //     'id','nama'
+        // ]);
         return view('pages.program_private.edit_program',[
             'program' => $program
-          ] );
+          ]);
     }
 
     /**
@@ -197,10 +203,10 @@ class ProgramPrivateController extends Controller
         $program-> price_5 = $fields['price_5'];
         }
         $program->save();
-
+        $request->session()->put('slug-program',$program->slug);
         if ($program) {
             return redirect()
-                ->route('program-privat.index')
+                ->route('program-privat.show','detail')
                 ->with([
                     'success' => 'New post has been created successfully'
                 ]);
@@ -229,5 +235,26 @@ class ProgramPrivateController extends Controller
         return back()->with('success',' Penghapusan berhasil.');
     }
 
-    
+    public function program_privat(Request $request){
+        $request ->validate([
+            'slug'=>'required'
+        ]);
+        $request->session()->put('slug-program',$request['slug']);
+
+        return redirect()->route('program-privat.show','detail');
+    }
+
+    // public function edit_program(Request $request){
+    //     $request ->validate([
+    //         'slug'=>'required'
+    //     ]);
+    //     $request->session()->put('slug',$request['slug']);
+    //     // $program = Program::where('slug',$request['slug'] )
+    //     // ->first();
+    //     // $user = User::where('roles','pemilik-sistem')->get([
+    //     //     'id','nama'
+    //     // ]);
+    //     // return view('pages.program.edit_program')->with('program', $program)->with('user',$user);
+    //     return redirect()->route('detail-program');
+    // }
 }

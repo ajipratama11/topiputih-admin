@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Report;
+use App\Models\Payment;
 use Illuminate\Http\Request;
-use App\Models\CategoryReport;
 
-class ReportDelayController extends Controller
+class PaymentCompanyDelayController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +14,11 @@ class ReportDelayController extends Controller
      */
     public function index()
     {
-        return view('pages.report_delay.report_delay',[
-            'reports' => Report::orderBy('date','desc')->where('status_report','Diterima')->get()
+        $payment = Payment::orderBy('tanggal_pembayaran','desc')
+        ->where('status','Proses')
+        ->get();
+        return view('pages.payment_company_delay.payment',[
+            'payment' => $payment
         ]);
     }
 
@@ -38,15 +40,7 @@ class ReportDelayController extends Controller
      */
     public function store(Request $request)
     {
-        $request ->validate([
-            'slug'=>'required'
-            ]);
-            $report = Report::where('slug',$request['slug'])->first();
-            $category = CategoryReport::all();
-    
-            return view('pages.report.detail_report')
-            ->with('report',$report)
-            ->with('category',$category);
+        //
     }
 
     /**
@@ -57,13 +51,7 @@ class ReportDelayController extends Controller
      */
     public function show($id)
     {
-        $report = Report::where('slug',$id)->first();
-        $category = CategoryReport::all();
-
-        return view('pages.report.detail_report', [
-          'report' => $report,
-          'category' => $category
-        ]);
+        //
     }
 
     /**

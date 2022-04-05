@@ -41,7 +41,22 @@ class PaymentResearcherController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        $request ->validate([
+            'slug'=>'required'
+            ]);
+        
+            $id=User::where('slug',$request['slug'])->first('id');
+
+        $payment = Report::where('reports.user_id',$id->id)
+        // ->join('programs','programs.id','=','reports.program_id')
+        ->orderBy('reports.updated_at','desc')
+        ->where('status_report','Disetujui')
+        ->get();
+        
+        return view('pages.payment_researcher.detail_payment')->with('payment', $payment);
+          
+        
     }
 
     /**

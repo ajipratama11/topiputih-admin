@@ -72,8 +72,14 @@
                                     ->format('Y-M-d H:i:s');}}</td>
                                 <td>{{$balance->status}}</td>
                                 <td class="text-center">
-                                    <a class="btn btn-info btn-sm" href="/pembayaran-pemilik-sistem/{{$balance->id}}"><i
-                                            class="fas fa-fw fa-info"></i></a></a>
+                                    <form method="POST" action="{{route('pembayaran-pemilik-sistem.store')}}">
+                                        @csrf
+                                        <input type="hidden" id="slug" name="slug" value="{{$balance->id}}" readonly>
+                                        <button class="btn btn-info btn-sm" type="submit"><i
+                                                class="fas fa-fw fa-info"></i></button>
+                                    </form>
+                                    {{-- <a class="btn btn-info btn-sm" href="/pembayaran-pemilik-sistem/{{$balance->id}}"><i
+                                            class="fas fa-fw fa-info"></i></a></a> --}}
                                 </td>
                             </tr>
                             @endforeach

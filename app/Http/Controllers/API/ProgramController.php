@@ -54,8 +54,8 @@ class ProgramController extends Controller
         ->where([
             'status'=>'Aktif',
             'category' => 'publik',
-            // 'type' => 'Bug Bounty'
         ])
+        // ->where('')
         ->get(['programs.*','users.nama']);
 
         return $program;
@@ -428,6 +428,8 @@ class ProgramController extends Controller
         ->join('users', 'users.id', '=', 'invited_users.user_id')
         ->join('programs', 'programs.id', '=', 'invited_users.program_id')
         ->where('invited_users.user_id',$id)
+        ->where('date_start','<=',Carbon::now()->isoFormat('Y-MM-DD'))
+        ->where('date_end','>=',Carbon::now()->isoFormat('Y-MM-DD'))
         ->select('invited_users.*','programs.program_name','programs.program_image','programs.type')
         ->get();
 

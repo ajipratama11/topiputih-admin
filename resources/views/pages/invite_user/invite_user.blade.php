@@ -45,7 +45,7 @@
                                         </i>
                                     </a> --}}
                                     {{-- <input id="myText" type="text" value="0"> --}}
-                                    <a class="btn btn-secondary detail-btn" data-toggle="modal"
+                                    <a class="btn btn-success detail-btn" data-toggle="modal"
                                         data-target="#myModal">Detail</a>
                                     {{-- <a data-toggle="modal" id="smallButton" data-target="#smallModal"
                                         data-attr="{{ route('invite_user.show','')}}" title="show">
@@ -55,7 +55,7 @@
                                 {{-- <td><a id="info" class="btn btn-info">Show {{$name->id}}</a> --}}
                                 <td>
                                     @csrf
-                                    <button type="submit" class="btn btn-success ">Simpan</button>
+                                    <button type="submit" class="btn btn-primary ">Simpan</button>
                                 </td>
                             </tr>
                         </table>

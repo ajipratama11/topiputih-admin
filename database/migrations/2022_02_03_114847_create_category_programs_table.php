@@ -15,7 +15,7 @@ class CreateCategoryProgramsTable extends Migration
     {
         Schema::create('category_reports', function (Blueprint $table) {
             $table->id();
-            $table->string('category');
+            $table->string('kategori');
             $table->string('detail');
             $table->timestamps();
         });

@@ -35,7 +35,14 @@ class CertificateController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request ->validate([
+            'slug'=>'required'
+        ]);
+        $certificate = ResearcherCertificate::findOrFail($request['slug']);
+
+        return view('pages.researcher.image_certificate')
+        ->with('certificate', $certificate);
+        
     }
 
     /**

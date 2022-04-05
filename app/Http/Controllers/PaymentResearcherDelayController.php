@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Report;
+use App\Models\Program;
 use Illuminate\Http\Request;
-use App\Models\CategoryReport;
 
-class ReportDelayController extends Controller
+class PaymentResearcherDelayController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +14,16 @@ class ReportDelayController extends Controller
      */
     public function index()
     {
-        return view('pages.report_delay.report_delay',[
-            'reports' => Report::orderBy('date','desc')->where('status_report','Diterima')->get()
+        $payment=  Program::select('users.id','reports.id as rid','users.nama','reports.user_id','programs.program_name','reports.reward','reports.status_reward','reports.updated_at')
+        ->rightJoin('reports', 'reports.program_id', '=', 'programs.id')
+        ->leftJoin('users', 'users.id', '=', 'programs.user_id')
+        ->where('reports.status_report','Disetujui')
+        ->where('reports.status_reward','Belum Dibayarkan')
+        ->orderBy('date','desc')
+        ->get();
+
+        return view('pages.payment_researcher_delay.payment',[
+            'payment' => $payment
         ]);
     }
 
@@ -38,15 +45,7 @@ class ReportDelayController extends Controller
      */
     public function store(Request $request)
     {
-        $request ->validate([
-            'slug'=>'required'
-            ]);
-            $report = Report::where('slug',$request['slug'])->first();
-            $category = CategoryReport::all();
-    
-            return view('pages.report.detail_report')
-            ->with('report',$report)
-            ->with('category',$category);
+        //
     }
 
     /**
@@ -57,13 +56,7 @@ class ReportDelayController extends Controller
      */
     public function show($id)
     {
-        $report = Report::where('slug',$id)->first();
-        $category = CategoryReport::all();
-
-        return view('pages.report.detail_report', [
-          'report' => $report,
-          'category' => $category
-        ]);
+        //
     }
 
     /**

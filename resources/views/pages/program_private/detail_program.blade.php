@@ -4,7 +4,7 @@
 <div class="container-fluid">
 
     <!-- Page Heading -->
-    <a href="{{url()->previous()}}" class=" mb-4 text-gray-1000"><i class="fas fa-fw fa-arrow-left"></i>Kembali</a>
+    <a href="{{url($back)}}" class=" mb-4 text-gray-1000"><i class="fas fa-fw fa-arrow-left"></i>Kembali</a>
     <div class="d-sm-flex align-items-center justify-content-between mb-2 mt-3">
         <h1 class="h3 mb-0 text-gray-800">Program Privat</h1>
     </div>
@@ -68,7 +68,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        
+
                     </div>
                     @endif
                 </div>
@@ -78,12 +78,24 @@
             <div class="row mt-3">
                 <div class="col-lg-3">
                     <div class="text-center">
-                        <a href="{{ route('program-privat.edit',$program->slug)}}" class="btn btn-primary mr-5"><i
+                        {{-- <form method="POST" action="{{url('program-privat/edit-program')}}">
+                            @csrf
+                            <input type="hidden" id="slug" name="slug" value="{{$program->slug}}" readonly>
+                            <button type="submit" class="btn btn-primary mr-5"><i
+                                    class="fas fa-edit fa-sm text-white-50"></i> Ubah Data</i></a>
+                        </form> --}}
+                        <a href="{{ route('program-privat.edit','detail')}}" class="btn btn-primary mr-5"><i
                                 class="fas fa-edit fa-sm text-white-50"></i> Ubah Data</a>
                     </div>
                 </div>
                 <div class="col-lg-9">
-                    <a href="{{ route('undang-peneliti.edit',$program->slug)}}" class="btn btn-primary"><i
+                    {{-- <form method="POST" action="{{url('undang-peneliti-keamanan')}}">
+                        @csrf
+                        <input type="hidden" id="slug" name="slug" value="{{$program->slug}}" readonly>
+                        <button type="submit" class="btn btn-primary mr-5"><i
+                                class="fas fa-edit fa-sm text-white-50"></i> Ubah Data</i></a>
+                    </form> --}}
+                    <a href="{{ route('undang-peneliti.edit','program')}}" class="btn btn-primary"><i
                             class="fas fa-envelope fa-sm text-white-50"></i> Undang Peneliti Keamanan</a>
                 </div>
             </div>
@@ -91,11 +103,11 @@
                 <div class="col-lg-12">
                     <div class="card shadow mb-4">
                         <div class="card-body">
-                            <span class="font-weight-bold">Deskripsi Program</span>
+                            <span class="font-weight-bold">Informasi Perusahaan</span>
                             <p class="font-weight-normal">{!! $program->description !!}</p>
                         </div>
                         <div class="card-body">
-                            <span class="font-weight-bold">Cakupan Program</span>
+                            <span class="font-weight-bold">Informasi Target</span>
                             <p class="font-weight-normal">{!! $program->scope !!}</p>
                         </div>
                     </div>

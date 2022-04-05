@@ -32,7 +32,7 @@ class LoginController extends Controller
             // };
             
         };
-
+        
         return redirect('masuk')->with('error', 'Email atau password salah');
     }
 

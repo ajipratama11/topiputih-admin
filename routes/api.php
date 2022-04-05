@@ -98,15 +98,15 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/no_researcher',  [ProgramController::class, 'no_researcher']);
     Route::get('/get_invite/{id}',  [ProgramController::class, 'get_user_invited']);
    
-    Route::get('/get_program/{id}',  [ProgramController::class, 'get_user_program']);
+    
     Route::get('send_email/{email}',[SendEmailController::class,'index']);
 
     //point
     Route::get('/point', [PointController::class, 'index']);
     Route::get('/point_user/{id}', [PointController::class, 'point_user']);
-    Route::get('/get_rank/{id}', [PointController::class, 'get_rank']);
+    
     Route::get('/list_point', [PointController::class, 'list_point']);
-
+    Route::get('/get_rank/{id}', [PointController::class, 'get_rank']);
     //payment
     Route::post('/payment',[PaymentController::class, 'create']);
     Route::get('/payment/{user_id}', [PaymentController::class, 'show']);
@@ -118,3 +118,4 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 });
 
 
+Route::get('/get_program/{id}',  [ProgramController::class, 'get_user_program']);

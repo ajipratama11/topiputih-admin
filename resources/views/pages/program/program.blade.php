@@ -67,17 +67,24 @@
                                     </div>
                                 </div>
                                 @elseif ($program->category =="Privat")
-                                <form action="{{url('program-privat', $program->id)}}" method="POST">
+                                <div class="col-lg-6">
+                                    <form method="POST" action="program-privat/detail-program">
+                                        @csrf
+                                        <input type="hidden" id="slug" name="slug" value="{{$program->slug}}" readonly>
+                                        <button class="btn btn-info btn-sm" type="submit"><i
+                                                class="fas fa-fw fa-info"></i></button>
+                                    </form>
+                                </div>
+                                <div class="col-lg-6">
+                                    <form action="{{url('program-privat', $program->id)}}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm"
+                                            onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')"><i
+                                                class="fas fa-fw fa-trash-alt"></i></button>
 
-                                    <a class="btn btn-info btn-sm" href="/program-privat/{{$program->slug}}"><i
-                                            class="fas fa-fw fa-info"></i></a></a>
-
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm"
-                                        onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')"><i
-                                            class="fas fa-fw fa-trash-alt"></i></button>
-                                </form>
+                                    </form>
+                                </div>
                                 @endif
                             </td>
                         </tr>

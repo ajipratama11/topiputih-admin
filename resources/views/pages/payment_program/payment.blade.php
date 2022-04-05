@@ -29,39 +29,142 @@
                     </thead>
                     <tbody>
                         @foreach ($payment as $payment )
-
                         <tr>
                             <td>{{$payment->nama}}</td>
                             <td>{{$payment->program_name}}</td>
 
                             <td>{{$payment->user->nama}}</td>
-                            {{-- <td>{{$payment->reward}}</td> --}}
                             <td>@currency($payment->reward)</td>
                             <td>{{$payment->status_reward}}</td>
                             <td> {{$start_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $payment->updated_at)
                                 ->format('Y-M-d H:i:s');}}</td>
                             <td class="text-center">
-                                <a class="btn btn-info btn-sm" href="/pembayaran-peneliti-keamanan/{{$payment->rid}}"><i
-                                        class="fas fa-fw fa-info"></i></a></a>
-
+                                <form method="POST" action="{{route('pembayaran-peneliti-keamanan.store')}}">
+                                    @csrf
+                                    <input type="hidden" id="slug" name="slug" value="{{$payment->rid}}" readonly>
+                                    <button class="btn btn-info btn-sm" type="submit"><i
+                                            class="fas fa-fw fa-info"></i></button>
+                                </form>
                             </td>
                         </tr>
                         @endforeach
                     </tbody>
+                    {{-- <tfoot>
+                        <tr>
+                            <th>Start date</th>
+                            <th>Start date</th>
+                            <th>Start date</th>
+                            <th>Start date</th>
+                            <th>Start date</th>
+                        </tr>
+                    </tfoot> --}}
                 </table>
+                {{-- <table id="example" class="display" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Position</th>
+                            <th>Office</th>
+                            <th>Age</th>
+                            <th>Start date</th>
+                            <th>Salary</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Tiger Nixon</td>
+                            <td>System Architect</td>
+                            <td>Edinburgh</td>
+                            <td>61</td>
+                            <td>2011/04/25</td>
+                            <td>$320,800</td>
+                        </tr>
+                        <tr>
+                            <td>Garrett Winters</td>
+                            <td>Accountant</td>
+                            <td>Tokyo</td>
+                            <td>63</td>
+                            <td>2011/07/25</td>
+                            <td>$170,750</td>
+                        </tr>
+
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>Name</th>
+                            <th>Position</th>
+                            <th>Office</th>
+                            <th>Age</th>
+                            <th>Start date</th>
+                            <th>Salary</th>
+                        </tr>
+                    </tfoot>
+                </table> --}}
+
+              
             </div>
         </div>
     </div>
 
 </div>
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-<script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
         $('table.display').DataTable({
-            "order": []
+            "order": [],
+            // initComplete: function () {
+            // this.api().columns().every( function () {
+            //     var column = this;
+            //     var select = $('<select><option value=""></option></select>')
+            //         .appendTo( $(column.footer()).empty() )
+            //         .on( 'change', function () {
+            //             var val = $.fn.dataTable.util.escapeRegex(
+            //                 $(this).val()
+            //             );
+ 
+            //             column
+            //                 .search( val ? '^'+val+'$' : '', true, false )
+            //                 .draw();
+            //         } );
+ 
+            //     column.data().unique().sort().each( function ( d, j ) {
+            //         select.append( '<option value="'+d+'">'+d+'</option>' )
+            //     } );
+            // } );
+        // }
         });
     });
+
+
+//     $(document).ready(function() {
+//     $('#dataTable').DataTable( {
+//         "order": [],
+//         initComplete: function () {
+//             this.api().columns().every( function () {
+//                 var column = this;
+//                 var select = $('<select><option value=""></option></select>')
+//                     .appendTo( $(column.footer()).empty() )
+//                     .on( 'change', function () {
+//                         var val = $.fn.dataTable.util.escapeRegex(
+//                             $(this).val()
+//                         );
+ 
+//                         column
+//                             .search( val ? '^'+val+'$' : '', true, false )
+//                             .draw();
+//                     } );
+ 
+//                 column.data().unique().sort().each( function ( d, j ) {
+//                     select.append( '<option value="'+d+'">'+d+'</option>' )
+//                 } );
+//             } );
+//         }
+//     } );
+// } );
+
+
+
 </script>
 @endsection

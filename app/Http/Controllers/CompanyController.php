@@ -36,10 +36,10 @@ class CompanyController extends Controller
     }
 
   
-    public function show($id)
+    public function show(Request $request ,$id)
     {
         // $company = User::findOrFail($id);
-        $company = User::where('slug',$id)
+        $company = User::where('slug',$request->session()->get('slug'))
         ->first();
         return view('pages.company.detail_company', [
           'company' => $company,
@@ -73,4 +73,15 @@ class CompanyController extends Controller
 
         return back()->with('success',' Penghapusan berhasil.');
     }
+
+    public function pemilik_sistem(Request $request){
+        $request ->validate([
+            'slug'=>'required'
+        ]);
+        $request->session()->put('slug',$request['slug']);
+
+        return redirect()->route('pemilik-sistem.show','detail');
+    }
+
+    
 }

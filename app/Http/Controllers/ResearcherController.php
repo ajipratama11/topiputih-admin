@@ -60,10 +60,11 @@ class ResearcherController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
+        
         // $researcher = User::findOrFail($id);
-        $researcher = User::where('slug',$id)
+        $researcher = User::where('slug',$request->session()->get('slug'))
         ->first();
         return view('pages.researcher.detail_researcher', [
           'researcher' => $researcher,
@@ -116,5 +117,14 @@ class ResearcherController extends Controller
         $researcher->delete();
 
         return back()->with('success',' Penghapusan berhasil.');
+    }
+
+    public function peneliti_keamanan(Request $request){
+        $request ->validate([
+            'slug'=>'required'
+        ]);
+        $request->session()->put('slug',$request['slug']);
+
+        return redirect()->route('peneliti-keamanan.show','detail');
     }
 }

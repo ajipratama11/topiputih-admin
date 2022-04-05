@@ -97,9 +97,9 @@ class InviteUserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
-        $program = Program::where('slug',$id)->first();
+        $program = Program::where('slug',$request->session()->get('slug-program'))->first();
         
         $invited = InvitedUser::where('program_id',$program->id)->get();
 
@@ -171,5 +171,33 @@ class InviteUserController extends Controller
         return DataTables::of($foruser)
         ->make(true);
    
+    }
+
+    public function undang(Request $request)
+    {
+        $request ->validate([
+            'slug'=>'required'
+        ]);
+
+        $request->session()->put('slug-invite',$request['slug']);
+
+        return redirect()->route('undang-peneliti.edit','program');
+
+        // $program = Program::where('slug',$request['slug'])->first();
+        
+        // $invited = InvitedUser::where('program_id',$program->id)->get();
+
+        // $notin = InvitedUser::where('invited_users.program_id',$program->id)->select('invited_users.user_id');
+        // $user = User::where('roles','peneliti-keamanan') 
+        //         ->whereNotIn('users.id',$notin)
+        //         ->get(['id','nama']);
+
+        // // $choice = User::findOrFail($id);
+        // return view('pages.invite_user.invite_user',compact('user'),
+        // [
+        //     'program' => $program,
+        //     'users' => $invited,
+        //     // 'choice' => $choice
+        //     ]);
     }
 }

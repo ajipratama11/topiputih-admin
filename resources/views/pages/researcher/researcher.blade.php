@@ -41,22 +41,29 @@
                             <td>{{$researcher->cert_count_2($researcher->id)}} Sertifikat</td>
                             <td>{{$researcher->report_count($researcher->id)}} Laporan</td>
                             <td class="text-center">
-                                <form action="{{url('peneliti-keamanan', $researcher->id)}}" method="POST">
-                                    {{-- <a class="btn btn-info btn-sm" href="/researcher/{{$researcher->id}}/edit"><i
-                                            class="fas fa-fw fa-edit"></i></a> --}}
-                                    <a class="btn btn-info btn-sm"
-                                        href="{{ route('peneliti-keamanan.show', $researcher->slug)}}"><i
-                                            class="fas fa-fw fa-info"></i></a></a>
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm"
-                                        onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')"><i
-                                            class="fas fa-fw fa-trash-alt"></i></button>
-                                </form>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <form method="POST" action="peneliti-keamanan/detail">
+                                            @csrf
+                                            <input type="hidden" id="slug" name="slug" value="{{$researcher->slug}}"
+                                                readonly>
+                                            <button class="btn btn-info btn-sm" type="submit"><i
+                                                    class="fas fa-fw fa-info"></i></button>
+                                        </form>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <form action="{{url('peneliti-keamanan', $researcher->id)}}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-sm"
+                                                onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')"><i
+                                                    class="fas fa-fw fa-trash-alt"></i></button>
+                                        </form>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
                         @endforeach
-
                     </tbody>
                 </table>
             </div>

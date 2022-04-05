@@ -29,9 +29,14 @@ class ReportController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $report = Report::where('slug',$request['slug'])->first();
+        $category = CategoryReport::all();
+
+        return view('pages.report.detail_report')
+        ->with('report',$report)
+        ->with('category',$category);
     }
 
     /**
@@ -41,8 +46,13 @@ class ReportController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
+    {   
+         $request ->validate([
+        'slug'=>'required'
+        ]);
+        $request->session()->put('slug-report',$request['slug']);
+
+        return redirect()->route('laporan.show','detail');
     }
 
     /**
@@ -51,9 +61,9 @@ class ReportController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        $report = Report::where('slug',$id)->first();
+        $report = Report::where('slug',$request->session()->get('slug-report'))->first();
         $category = CategoryReport::all();
 
         return view('pages.report.detail_report', [
@@ -142,6 +152,7 @@ class ReportController extends Controller
         }
 
         $report->save();
+        // return redirect()->route('laporan/detail',['report'=>$report]);
         return back();
     }
 
@@ -190,6 +201,21 @@ class ReportController extends Controller
         }
 
         $report->save();
-        return back();
+        return redirect('laporan/detail')->with('slug',$program->slug);
+    }
+
+    public function laporan_detail(Request $request){
+        $request ->validate([
+            'slug'=>'required'
+            ]);
+
+        $request->session()->put('slug-report',$request['slug']);
+
+        $report = Report::where('slug',$request['slug'])->first();
+        $category = CategoryReport::all();
+
+        return view('pages.report.detail_report')
+        ->with('report',$report)
+        ->with('category',$category);
     }
 }

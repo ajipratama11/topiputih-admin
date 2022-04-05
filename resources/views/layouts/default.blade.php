@@ -132,10 +132,10 @@
                             href="/pembayaran-pemilik-sistem">Transaksi <br> Pemilik Sistem</a>
                         <a class="collapse-item {{ (request()->is('pembayaran-peneliti-keamanan*')) ? 'active' : '' }}"
                             href="/pembayaran-peneliti-keamanan">Transaksi <br> Peneliti Keamanan</a>
-                        {{-- <a class="collapse-item {{ (request()->is('pembayaran-peneliti-keamanan*')) ? 'active' : '' }}"
-                            href="/pembayaran-peneliti-keamanan">Pembayaran <br> Pemilik Sistem <br> Belum Disetujui</a>
-                        <a class="collapse-item {{ (request()->is('pembayaran-peneliti-keamanan*')) ? 'active' : '' }}"
-                            href="/pembayaran-peneliti-keamanan">Hadiah <br> Peneliti Keamanan <br> Belum Dibayarkan</a> --}}
+                        {{-- <a class="collapse-item {{ (request()->is('pembayaran-belum-disetujui*')) ? 'active' : '' }}"
+                            href="/pembayaran-belum-disetujui">Pembayaran <br> Pemilik Sistem <br> Belum Disetujui</a>
+                        <a class="collapse-item {{ (request()->is('hadiah-belum-dibayarkan*')) ? 'active' : '' }}"
+                            href="/hadiah-belum-dibayarkan">Hadiah <br> Peneliti Keamanan <br> Belum Dibayarkan</a> --}}
 
                     </div>
                 </div>

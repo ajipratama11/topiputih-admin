@@ -107,7 +107,7 @@ class User extends Authenticatable
     {
         return Payment::where('status','Diterima')
         ->where('user_id',$user_id)
-        ->sum('payments.payment_amount');
+        ->sum('payments.total_bayar');
     }
 
     public function get_payment($user_id)

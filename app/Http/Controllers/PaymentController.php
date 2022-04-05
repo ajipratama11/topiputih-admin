@@ -41,7 +41,14 @@ class PaymentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request ->validate([
+            'slug'=>'required'
+        ]);
+        $payment = Payment::findOrFail($request['slug']);
+   
+        return view('pages.payment.detail_payment', [
+          'payment' => $payment
+        ]);
     }
 
     /**

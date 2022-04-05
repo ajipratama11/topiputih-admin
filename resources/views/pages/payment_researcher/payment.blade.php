@@ -39,9 +39,14 @@
                                 ->format('d-M-Y H:i:s');}}</td> --}}
 
                             <td class="text-center">
-                                <a class="btn btn-info btn-sm" href="/keuangan-peneliti-keamanan/{{$balance->id}}"><i
-                                        class="fas fa-fw fa-info"></i></a></a>
-
+                                <form method="POST" action="{{route('keuangan-peneliti-keamanan.store')}}">
+                                    @csrf
+                                    <input type="hidden" id="slug" name="slug" value="{{$balance->slug}}" readonly>
+                                    <button class="btn btn-info btn-sm" type="submit"><i
+                                            class="fas fa-fw fa-info"></i></button>
+                                </form>
+                                {{-- <a class="btn btn-info btn-sm" href="/keuangan-peneliti-keamanan/{{$balance->id}}"><i
+                                        class="fas fa-fw fa-info"></i></a></a> --}}
                             </td>
                         </tr>
                         @endforeach
