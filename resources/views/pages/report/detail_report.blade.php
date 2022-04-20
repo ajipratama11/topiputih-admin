@@ -109,9 +109,12 @@
                 <div class="col-lg-12 mt-3">
                     <div class="row">
                         <div class="col-lg-5 ">
-                            <span class="font-weight-bolder"> Kategori : </span>
+                            <span class="font-weight-bolder"> Kategori dari Peneliti Kemanan : </span>
                             <p class="font-weight-normal">{{ $report->categoryReport->category}} - {{
                                 $report->categoryReport->detail}} </p>
+                            <span class="font-weight-bolder"> Kategori dari Admin: </span>
+                            <p class="font-weight-normal">{{ $report->categoryReportAdmin->category ?? ''}} - {{
+                                $report->categoryReportAdmin->detail ?? ''}} </p>
                         </div>
                         <div class="col-lg-4 ">
                             <span class="font-weight-bolder"> Status : {{ $report->status_report}} </span>
@@ -205,11 +208,8 @@
                 <div class="modal-body">
                     <select name="category_id" class="custom-select">
                         @foreach ($category as $category)
-                        <option value={{$category->id}} {{ $category->id == $report->category_id ? 'selected' : ''
-                            }}>{{ $category->category}} - {{
-                            $category->detail}}</option>
-                        {{-- <option value="{{ $name->id }}" {{ $name->id == $program->user->id ? 'selected' : ''
-                            }}>{{ $name->nama }}</option> --}}
+                        <option value={{$category->id}} {{ $category->id == $report->category_id_admin ? 'selected' : ''
+                            }}>{{ $category->category}} - {{$category->detail}}</option>
                         @endforeach
                     </select>
                     <input name="note" type="hidden" class="form-control mb-3" value="{{$report->note}}">

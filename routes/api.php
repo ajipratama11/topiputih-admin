@@ -49,6 +49,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/program_list/{id}', [ProgramController::class, 'show_list']);
     Route::get('/program_private', [ProgramController::class, 'index_vd']);
     Route::get('/get_reward/{id}', [ProgramController::class, 'get_reward']);
+    Route::post('/request_hapus/{id}', [ProgramController::class, 'request_hapus']);
 
     Route::post('/logout', [UserController::class, 'logout']);
     Route::get('/user',  [UserController::class, 'user']);

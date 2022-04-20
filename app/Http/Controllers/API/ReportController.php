@@ -142,8 +142,9 @@ class ReportController extends Controller
             }
         }
         
-        $input['slug']= Str::slug($input['summary']+$input['scope_report']);
+        $input['slug']= Str::slug($input['summary'],$input['scope_report']);
         $input['status_reward']= 'Proses';
+        $input['category_id_admin']= $input['category_id'];
         Report::create($input);
         return[
             'message' => 'Berhasil Tambah Data',
@@ -198,7 +199,7 @@ class ReportController extends Controller
         ->join('programs', 'programs.id', '=', 'reports.program_id')
         ->where('reports.user_id',$id)
         // ->where('status_report','')
-        ->select('reports.*','programs.program_name','programs.date_start','programs.date_end')
+        ->select('program_name','scope_report','date','status_report','reports.id','programs.program_name','programs.date_start','programs.date_end')
         ->get();
 
         return $report;

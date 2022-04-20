@@ -31,7 +31,7 @@
                     <div class="col-lg-6">
                         <div class="mb-3">
                             <label class="form-label">Nama Pemilik Sistem</label>
-                            <select name="user_id" class="custom-select" id="inputGroupSelect01" disabled >
+                            <select name="user_id" class="custom-select" id="inputGroupSelect01" disabled>
                                 <option>{{$program->user->nama}}</option>
                             </select>
                         </div>
@@ -66,8 +66,7 @@
                                     <option value="Aktif" {{ $program->status == 'Aktif' ? 'selected' : '' }}>Aktif
                                     </option>
                                     <option value="Tidak Aktif" {{ $program->status == 'Tidak Aktif' ? 'selected' :
-                                        ''
-                                        }}>Tidak Aktif
+                                        ''}}>Tidak Aktif
                                     </option>
                                 </select>
                             </div>
@@ -126,7 +125,8 @@
                     </div>
                     <div class="col-lg-12 mt-4">
                         <div class="mb-3">
-                            <label for="exampleInputEmail1" class="form-label font-weight-bold">Informasi Perusahaan</label>
+                            <label for="exampleInputEmail1" class="form-label font-weight-bold">Informasi
+                                Perusahaan</label>
                             <textarea name="description"
                                 class="ckeditor form-control">{!!$program->description!!}</textarea>
                         </div>

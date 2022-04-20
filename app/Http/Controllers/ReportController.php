@@ -103,7 +103,7 @@ class ReportController extends Controller
         
         $program = Program::where('id',$report->program_id)->first();
 
-        $report->category_id = $fields['category_id'];
+        $report->category_id_admin = $fields['category_id'];
         $report->note = $fields['note'];
         $report->status_report = $fields['status_report'];
         $report->status_causes = $fields['status_causes'];
@@ -114,7 +114,7 @@ class ReportController extends Controller
             $report->status_reward  == 'Ditolak';
         }
 
-        $cat = CategoryReport::where('id',$report->category_id)->first();
+        $cat = CategoryReport::where('id',$report->category_id_admin)->first();
 
         if($program->type == 'Bug Bounty'){
             if($cat->category == 'Sangat Rendah'){

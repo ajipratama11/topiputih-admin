@@ -96,7 +96,7 @@ class User extends Authenticatable
         
         // if(Program::where('user_id', $user_id)->exists()){
            
-            $program = Program::where('user_id', $user_id)->count();
+            $program = Program::where('user_id', $user_id)->where('status','aktif')->count();
             return $program;
         // }
         // return '0';

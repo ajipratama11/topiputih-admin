@@ -21,21 +21,24 @@ class CreateReportTable extends Migration
             $table->string('slug')->unique();
             $table->string('scope_report');
             $table->bigInteger('category_id')->unsigned();
+            $table->bigInteger('category_id_admin')->unsigned()->nullable();
             $table->text('description_report');
             $table->string('impact');
             $table->string('file')->nullable();
             $table->date('date')->nullable();
-            $table->string('status_report')->nullable();
+            // enum('status', ['Aktif', 'Tidak Aktif'])
+            $table->enum('status_report', ['Diterima', 'Ditinjau','Disetujui','Ditolak'])->nullable();
             $table->string('status_causes')->nullable();
             $table->decimal('point',8,2)->nullable();
             $table->integer('reward')->nullable();
-            $table->string('status_reward')->nullable();
+            $table->enum('status_reward',['Belum Dibayarkan','Sudah Dibayarkan'])->nullable();
             $table->string('note')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('program_id')->references('id')->on('programs')->onDelete('cascade');
             $table->foreign('category_id')->references('id')->on('category_reports')->onDelete('cascade');
+            $table->foreign('category_id_admin')->references('id')->on('category_reports')->onDelete('cascade');
         });
 
     }

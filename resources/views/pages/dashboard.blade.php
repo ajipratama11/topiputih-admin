@@ -141,7 +141,7 @@
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                    Program Berjalan</div>
+                                    Program Menunggu Diaktifkan</div>
                                 <div class="h5 mb-0 font-weight-bold text-gray-800">{{$count_program_active}}
                                 </div>
                                 {{-- <div class="h5 mb-0 font-weight-bold text-gray-800">{{$dec}}</div> --}}

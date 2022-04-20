@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Program;
 use Illuminate\Http\Request;
 
-class ProgramController extends Controller
+class DeleteProgramController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,11 +14,11 @@ class ProgramController extends Controller
      */
     public function index()
     {
-        $program = Program::where('category','public')->get();
-        dd($program);
-        return view('pages.program.program',[
-            'program' => $program
-        ]);        
+        $program = Program::where('status','Tidak Aktif')->get();
+        $program_hapus = Program::where('status','Request Hapus')->get();
+        return view('pages.delete_program.program',[
+            'program_hapus' =>$program_hapus
+        ]); 
     }
 
     /**
@@ -48,13 +48,12 @@ class ProgramController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        $program = Program::findOrFail($id);
-   
-        return view('pages.program.detail_program', [
-          'program' => $program
-        ]);
+        $program = Program::where('slug',$request->session()->get('slug-program') )
+        ->first();
+        $back = 'aktifkan-program';
+        return view('pages.delete_program.detail_program')->with('program', $program)->with('back',$back);
     }
 
     /**
@@ -77,7 +76,17 @@ class ProgramController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $program = Program::where('id',$id)->first();
+        $program-> status = 'Terhapus';
+        $program->save();
+
+         $request->session()->put('slug-program',$program->slug);
+        // if ($program) {
+            return redirect()
+                ->route('hapus-program.index')
+                ->with([
+                    'success' => 'New post has been created successfully'
+                ]);
     }
 
     /**
@@ -88,25 +97,16 @@ class ProgramController extends Controller
      */
     public function destroy($id)
     {
-        $program = Program::where('id',$id)->first();
-        $program-> status = 'Terhapus';
-        $program->save();
-
-        return back()->with('success',' Penghapusan berhasil.');
+        //
     }
 
-    public function accessSessionData(Request $request) {
-        if($request->session()->has('my_name'))
-           echo $request->session()->get('my_name');
-        else
-           echo 'No data in the session';
-     }
-     public function storeSessionData(Request $request) {
-        $request->session()->put('my_name','Virat Gandhi');
-        echo "Data has been added to session";
-     }
-     public function deleteSessionData(Request $request) {
-        $request->session()->forget('my_name');
-        echo "Data has been removed from session.";
-     }
+    public function detail_program(Request $request){
+        $request ->validate([
+            'slug'=>'required'
+        ]);
+        $request->session()->put('slug-program',$request['slug']);
+
+        return redirect()->route('hapus-program.show','detail');
+
+    }
 }

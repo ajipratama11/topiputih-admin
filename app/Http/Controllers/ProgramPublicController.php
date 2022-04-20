@@ -14,7 +14,8 @@ class ProgramPublicController extends Controller
     public function index()
     {
         return view('pages.program.program',[
-            'program' => Program::where('category','publik')->get()
+            'program' => Program::where('category','publik')
+            ->where('status','aktif')->get()
         ]);
     }
 
@@ -77,7 +78,7 @@ class ProgramPublicController extends Controller
         $input = $request->validate([
             'user_id'=>'required',
             'program_name' => 'required',
-            'program_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'program_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'company_name' => '',
             'price_1' => '',
             'price_2' => '',
@@ -240,9 +241,9 @@ class ProgramPublicController extends Controller
      */
     public function destroy($id)
     {
-        $program = Program::find($id);
-
-        $program->delete();
+        $program = Program::where('id',$id)->first();
+        $program-> status = 'Terhapus';
+        $program->save();
 
         return back()->with('success',' Penghapusan berhasil.');
     }

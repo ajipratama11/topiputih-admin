@@ -52,7 +52,7 @@ class UserController extends Controller
             $request->validate([
                 'nama' => ['required', 'string', 'max:255'],
                 'nama_pengguna' => ['required', 'string', 'max:255'],
-                'foto_profil' => ['required', 'string', 'max:255'],
+                'foto_pengguna' => ['required', 'string', 'max:255'],
                 'email' => ['required', 'string', 'max:255', 'unique:users'],
                 'nomor_telepon' => ['required', 'string', 'max:255'],
                 'password' => ['required', 'string', 'max:255'],
@@ -63,7 +63,7 @@ class UserController extends Controller
                 'nama' => $request->nama,
                 'slug' =>  Str::slug($request->nama),
                 'nama_pengguna' => $request->nama_pengguna,
-                'foto_profil' =>$request->foto_profil,
+                'foto_pengguna' =>$request->foto_pengguna,
                 'email' => $this->decodeing($request->email),
                 'nomor_telepon' => $request->nomor_telepon,
                 'password' => Hash::make($this->decodeing( $request->password)),

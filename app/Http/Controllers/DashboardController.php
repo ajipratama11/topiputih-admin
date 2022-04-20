@@ -28,8 +28,7 @@ class DashboardController extends Controller
         $count_report_waiting = Report::where('status_report','Diterima')->get()->count();
         $count_payment_waiting = Payment::where('status','Proses')->get()->count();
         $count_reward_waiting = Report::where('status_reward','Belum Dibayarkan')->get()->count();
-        $count_program_active = Program::where('date_start','<=',Carbon::now()->isoFormat('Y-MM-DD'))
-        ->where('date_end','>=',Carbon::now()->isoFormat('Y-MM-DD'))->get()->count();
+        $count_program_active = Program::where('status','Tidak Aktif')->get()->count();
         
         return view('pages.dashboard',compact(
         'count_company','count_researcher',

@@ -127,6 +127,16 @@ class ProgramController extends Controller
         ];
     }
 
+    public function request_hapus($id){
+
+
+        $program = Program::where('id',$id)->first();
+        $program-> status = 'Request Hapus';
+        $program->save();
+
+        return 'Berhasil Request';
+    }
+
     public function cek_program($id,$user_id){
         $notin = InvitedUser::where('invited_users.program_id',$id)->select('invited_users.user_id');
 
@@ -187,7 +197,11 @@ class ProgramController extends Controller
 
     public function show_list($id)
     {
-        return Program::where('user_id',$id)->get();
+        return Program::where('user_id',$id)
+        ->where('status','Aktif')
+        ->orWhere('status','Tidak Aktif')
+        ->orWhere('status','Request Hapus')
+        ->get();
     }
 
     
@@ -208,7 +222,7 @@ class ProgramController extends Controller
             'date_end' => 'required',
             'description' => 'required',
             'scope' => 'required',
-            'status' => 'required',
+            // 'status' => 'required',
             'category' => 'required',
             'type' => 'required',
         ]);
@@ -227,7 +241,7 @@ class ProgramController extends Controller
         $program-> date_end = $this->decodeing($fields['date_end']);
         $program-> description = $fields['description'];
         $program-> scope = $this->decodeing($fields['scope']);
-        $program-> status = $this->decodeing($fields['status']);
+        // $program-> status = $this->decodeing($fields['status']);
         $program-> category = $this->decodeing($fields['category']);
         $program-> type = $this->decodeing($fields['type']);
         
@@ -291,11 +305,11 @@ class ProgramController extends Controller
     public function delete($id)
     {
         
-        Program::destroy($id);
+        $program = Program::where('id',$id)->first();
+        $program-> status = 'Request Hapus';
+        $program->save();
 
-            return[
-                'message' => ' Berhasil Hapus',
-            ];
+        return 'Berhasil Request Hapus Program';
        
     }
 

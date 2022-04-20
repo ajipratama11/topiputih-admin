@@ -48,7 +48,7 @@
                             <tr>
                                 <td>{{$report->user->nama}}</td>
                                 <td>{{$report->program->program_name}}</td>
-                                <td>{{$report->categoryReport->category}} - {{$report->categoryReport->detail}}</td>
+                                <td>{{$report->categoryReportAdmin->category}} - {{$report->categoryReportAdmin->detail}}</td>
                                 <td>{{$report->status_report}}</td>
                                 <td>{{$date = \Carbon\Carbon::createFromFormat('Y-m-d',
                                     $report->date)->format('Y-M-d');}}

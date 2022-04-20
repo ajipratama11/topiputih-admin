@@ -43,7 +43,7 @@ class CompanyController extends Controller
         ->first();
         return view('pages.company.detail_company', [
           'company' => $company,
-          'program' => Program::where('user_id',$company->id)->get()
+          'program' => Program::where('user_id',$company->id)->where('status','aktif')->get()
         ]);
     }
 

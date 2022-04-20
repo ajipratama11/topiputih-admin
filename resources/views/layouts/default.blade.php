@@ -94,6 +94,10 @@
                             href="/program-privat">Program Privat</a>
                         <a class="collapse-item {{ (request()->is('program-berjalan*')) ? 'active' : '' }}"
                             href="/program-berjalan">Program Berjalan</a>
+                        <a class="collapse-item {{ (request()->is('aktifkan-program*')) ? 'active' : '' }}"
+                            href="/aktifkan-program">Aktifkan Program</a>
+                        <a class="collapse-item {{ (request()->is('hapus-program*')) ? 'active' : '' }}"
+                            href="/hapus-program">Hapus Program</a>
                     </div>
                 </div>
             </li>
@@ -132,7 +136,8 @@
                             href="/pembayaran-pemilik-sistem">Transaksi <br> Pemilik Sistem</a>
                         <a class="collapse-item {{ (request()->is('pembayaran-peneliti-keamanan*')) ? 'active' : '' }}"
                             href="/pembayaran-peneliti-keamanan">Transaksi <br> Peneliti Keamanan</a>
-                        {{-- <a class="collapse-item {{ (request()->is('pembayaran-belum-disetujui*')) ? 'active' : '' }}"
+                        {{-- <a
+                            class="collapse-item {{ (request()->is('pembayaran-belum-disetujui*')) ? 'active' : '' }}"
                             href="/pembayaran-belum-disetujui">Pembayaran <br> Pemilik Sistem <br> Belum Disetujui</a>
                         <a class="collapse-item {{ (request()->is('hadiah-belum-dibayarkan*')) ? 'active' : '' }}"
                             href="/hadiah-belum-dibayarkan">Hadiah <br> Peneliti Keamanan <br> Belum Dibayarkan</a> --}}

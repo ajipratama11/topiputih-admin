@@ -18,6 +18,7 @@ class Report extends Model
         'description_report',
         'impact',
         'category_id',
+        'category_id_admin',
         'file',
         'date',
         'status_report',
@@ -41,5 +42,10 @@ class Report extends Model
     public function categoryReport()
     {
         return $this->belongsTo(CategoryReport::class,'category_id');
+    }
+
+    public function categoryReportAdmin()
+    {
+        return $this->belongsTo(CategoryReport::class,'category_id_admin');
     }
 }

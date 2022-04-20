@@ -19,7 +19,7 @@ class ProgramPrivateController extends Controller
     public function index()
     {
         return view('pages.program_private.program',[
-            'program' => Program::where('category','privat')->get()
+            'program' => Program::where('category','privat')->where('status','aktif')->get()
         ]);
     }
 
@@ -228,9 +228,9 @@ class ProgramPrivateController extends Controller
      */
     public function destroy($id)
     {
-        $program = Program::find($id);
-
-        $program->delete();
+        $program = Program::where('id',$id)->first();
+        $program-> status = 'Terhapus';
+        $program->save();
 
         return back()->with('success',' Penghapusan berhasil.');
     }
